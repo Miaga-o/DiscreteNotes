@@ -943,7 +943,7 @@ $R$ is transitive.
 
 
 
-
+//UNFINISHED
 == 8.4 Modular Arithmetic with Applications to Cryptography
 Cryptography refers to study of learning techniqiues to mask messages. 
 *Encryption* transforms *plaintext* into *ciphertext*, which is largely unreadable without using *decryption*.
@@ -955,18 +955,18 @@ Methods of encryption are known as *ciphers*.
     C = (M + 3) mod 26
   $
   - _Each letter in the Latin alphabet may be associated with a number according to their position._
-- Ciphers that shift are easy to crack
+- Simple ciphers like the Caesar cipher can be very unsecure, espeically with larger plaintext where patterns are accentuated.
 
 
 
 
-//UNFINISHED
+
 === Properties of Congruence Modulo *$n$*
 #theorem([8.4.1], [
   Let $a$, $b$, and $n$ be any integers for $n > 1$.
   These statements are all equivalent to each other:
   - $n divides (a-b)$.
-  - $a equiv b mod n)$.
+  - $a equiv b (mod n)$.
   - $a = b + k n$ for some integer $k$.
   - $a$ and $b$ have the same nonnegative remainder when divided by $n$.
   - $a mod n = b mod n$.
@@ -979,15 +979,18 @@ $
   by extension, $n$ possible remainders.
 
 #definition([
-  foo
+  Given integers $a$ and $n$ for $n> 1$, *the residue of $a mod n$*---or *the residue of $a$* for short---is $a mod n$. Furthermore, the sequence 
+  $0, 1, 2, dots,  n-1$ is the *complete set of residues modulo $n$*. By equating $a mod n$ to its residue, we are 
+  *reducing a number modulo $n$*.
 ])
 
 #theorem([8.4.2], [
   Given an integer $n$ for $n > 1$, congruence mondulo $n$ is an equivalence relation on $ZZ$.
   The distinct equivlaence classes of the set are
   $
-    []
+    [a] = {m in Z | m equiv a (mod n)}
   $
+  for each $a = 0,1,2, dots, n-1$.
 ])
 
 
@@ -1002,12 +1005,60 @@ before reducing via modulo $n$ is the exact same as performing modulo $n$ on the
 #theorem([8.4.3], [
   Given integers $a$, $b$, $c$, $d$, and $n$ for $n > 1$, suppose that
   $
-    a equiv c mod n
+    a equiv c mod n "and" b equiv d (mod n)
+  $
+  The following equivalencies must hold:
+  - $(a + b) equiv (c + d) (mod n)$.
+  - $(a - b) equiv (c - d) (mod n)$.
+  - $a b equiv c d (mod n)$.
+  - $a^m equiv c^m (mod n) forall "integer" m$.
+])
+
+#example([Modular Arithmetic Basics], [
+  Modular arithmetic's main application is reducing large computations.
+  - $55 + 26 equiv (3 + 2)(mod 4)$
+  $
+    81 &equiv 5 (mod 4) \
+    81 - 5 &= 76 \
+    &= 4 dot 19\
+    therefore 5 divides (81&-5)
+  $
+
+  - $55 - 26 equiv (3 - 2)(mod 4)$
+  $
+    29 &equiv 1 (mod 4) \
+    29 - 1 &= 28 \
+    &= 4 dot 9\
+    therefore 5 divides (29&-1)
+  $
+
+  - $55 dot 26 equiv (3 dot 2)(mod 4)$
+  $
+    1430 &equiv 6 (mod 4) \
+    1430 - 6 &= 1424 \
+    &= 4 dot 356 \
+    therefore 5 divides (1430 &- 6)
+  $
+
+  - $55^2 equiv (3^2)(mod 4)$
+  $
+    3025 &equiv 9 (mod 4) \
+    3025 - 9 &= 3016 \
+    &= 4 dot 754 \
+    therefore 5 divides (3025 &- 9)
   $
 ])
 
 #corollary([8.4.4], [
-  Given integers $a$, $b$, and $n$ for $n . 1$,
+  Given integers $a$, $b$, and $n$ for $n > 1$,
+  $
+    a b &equiv [(a mod n) (b mod n)] (mod n) \
+    a b mod n &= [(a mod n) (b mod n)] mod n \
+  $
+  Additionally, for any positive integer $m$:
+  $
+    a^m equiv [(a mod n)^m] (mod n)
+  $
 ])
 
 - When modular arithmetic is applied to large numbers, _such as in RSA cryptography_,
@@ -1017,11 +1068,46 @@ before reducing via modulo $n$ is the exact same as performing modulo $n$ on the
     x^(a+b) &= x^a x^b "for all real numbers" x, a "and" b "for" x >= 0.
   $
 
-#example([Computing a demonic modulo $n$], [
+#example([Computing a demonic modulo $n$ with powers of 2], [
   Solve $144^4 mod 713$.
+  $
+    144^4 mod 713 &= (144^2)^2 mod 713 \
+    &= (144^2 mod 713)^2 mod 713 \
+    &= (20736 mod 713)^2 mod 713 \
+    &= 59^2 mod 713 \
+    &= 3481 mod 713 \
+    &= 629
+  $
 ])
 
+#example([Computing a demonic modulo $n$ without powers of2], [
+  Solve $12^43 mod 713$.
+  - _Recalling the second property, 43 can be split into multiple exponents to simplify the problem._
+  $
+    43 &= 2^5 + 2^3 + 2^1 + 2^0 \
+    &= 32 + 8 + 2 + 1 \
+    12^43 &= 12^(32+8+2+1) = 12^32 dot 12^8 dot 12^2 dot 12
+  $
 
+  - The exponents may be computed before pluggin them back into the exponent.
+  $
+    12 mod 713 &= 12 \
+    12^2 mod 713 &= 144 \
+    12^4 mod 713 &= 144^2 mod 713\
+    &= 59 \
+    12^8 mod 713 &= 59^2 mod 713 \
+    &= 629 \
+    12^32 mod 713 &= 629^2 mod 713 \
+    &= 485
+  $
+  - It follows that by *Corollary 8.4.4.*,
+  $
+    12^43 mod 713 &= [(12^32 mod 713) dot (12^8 mod 713) dot (12^2 mod 713) dot (12^1 mod 713)] mod 713 \
+    &= (485 dot 629 dot 59 dot 144 dot 12) mod 713 "by substitution" \
+    &= 527152320 mod 713 \
+    &= 48
+  $
+])
 
 
 
@@ -1032,12 +1118,38 @@ before reducing via modulo $n$ is the exact same as performing modulo $n$ on the
 ])
 
 #theorem([8.4.5], [
-  For all nonzero integers $a$ and $B$, if $d = gcd(a,b)$,
+  For all nonzero integers $a$ and $b$, if $d = gcd(a,b)$,
   then there exist integers $s$ and $t$ such that $a s + b t = d$.
 ])
 
 #example([Expressing a GCD as a Linear Combination], [
+  Express $gcd(330,156)$ as the linear combination of $330$ and $156$ using the Euclidean algorithm. \
+  - Continuously applying the quotient-remainder theorem:
+  $
+    330 &= 156 dot 2 + 18 \
+    156 &= 18 dot 8 + 12 \
+    18 &= 12 dot 1 + 6 \
+    12 &= 6 dot 2 + 0
+  $
 
+  - This implies that $gcd(330,156)=6$.
+  - Now, for each step of the original algorithm, we can equate the remainder to everything else:
+  $
+    18 &= 330 - 156 dot 2 \
+    12 &= 156 - 18 dot 8 \
+    6 &= 18 - 12 dot 1
+  $
+
+  - Now, we can backtrack through each step through continuous substitutions, eventually reaching the linear combination form of the greatest common denominator.
+  $
+    gcd(330,156) &= 6 \
+    &= 18 - 12 dot 1 \
+    &= 18 - (156 - 18 dot 8) dot 1 "by substitution"\
+    &= 18 dot 9 - 156 \
+    &= (330 - 156 dot 2) dot 9 - 156 "by substitution" \
+    &= 330 dot 9 - 156 dot (-19)
+  $
+  Logically, the linear combination of $330$ and $156$ reduces to 6.
 ])
 
 
