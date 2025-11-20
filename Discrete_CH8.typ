@@ -375,13 +375,7 @@ columns with the headers $A_1, A_2, dots, A_n$.
 
 
 #pagebreak()
-== 8.2 Properties of Relations
-
-
-
-
-
-=== Reflexivity, Symmetry, and Transitivity
+== 8.2 Reflexivity, Symmetry, and Transitivity
 #definition([
   Let $R$ be a relation on set $A$.
 
