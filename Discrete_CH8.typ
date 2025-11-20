@@ -9,15 +9,6 @@
 #import "@preview/cetz:0.4.2"
 #import "@preview/fletcher:0.5.8" as fletcher: diagram, node, edge, shapes
 
-#figure([
-  #title([Discrete Mathematics Notes Part 3])
-    #text(
-    size: 16pt,
-    [Miagao]
-  )])
-#outline()
-#pagebreak()
-
 //Functions and variables
 #let theorem(num, body) = {
   box(
@@ -76,6 +67,24 @@
 
 #let varnothing = $text(font: "Fira Sans", nothing)$ //LaTeX ahh 
 
+#let author = text(size: 16pt, [Miagao])
+
+
+
+
+
+
+
+
+
+
+
+#figure([
+  #title([Chapter 8 Discrete Mathematics Notes])
+  #author 
+])
+#outline()
+#pagebreak()
 
 
 
