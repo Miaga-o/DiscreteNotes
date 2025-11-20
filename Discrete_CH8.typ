@@ -7,7 +7,7 @@
 #show heading.where(level: 3): set text(size: 16pt)
 
 #import "@preview/cetz:0.4.2"
-#import "@preview/fletcher:0.5.8" as fletcher: diagram, node, edge
+#import "@preview/fletcher:0.5.8" as fletcher: diagram, node, edge, shapes
 
 #figure([
   #title([Discrete Mathematics Notes Part 3])
@@ -200,6 +200,32 @@ $
   $
   Inverses for finite relations are easy to express explicitly 
   because all values of $R$ can be listed before being reversed.
+
+  #figure(
+      diagram(
+        node-fill: none,
+        node-stroke: 1.4pt,
+        edge-stroke: 1.5pt,
+        node((-3.5, -0.5), text(fill: blue, [*$A$*]), stroke: 0pt),
+        edge((0.5, -0.5), "-|>", $R$, bend: 20deg, layer: 100),
+        node((-3.5, 0.5), [$2$], fill: blue.lighten(65%), stroke: blue),
+        edge((0.5, 0.5)),
+        edge((0.5, 1.3)),
+        edge((0.5, 2.1)),
+        node((-3.5, 1.3), [$3$], fill: blue.lighten(65%), stroke: blue),
+        edge((0.5, 1.3)),
+        node((-3.5, 2.1), text[$4$], fill: blue.lighten(65%), stroke: blue),
+        edge((0.5, 2.1)),
+        node((-3.5, 3.3), stroke: 0pt),
+        edge((0.5, 3.3), "<|-", bend: -20deg, $R^(-1)$),
+
+        
+        node((0.5, -0.5), text(fill: red, [*$B$*]), stroke: 0pt),
+        node((0.5, 0.5), [$2$], fill: red.lighten(65%), stroke: red),
+        node((0.5, 1.3), [$4$], fill: red.lighten(65%), stroke: red),
+        node((0.5, 2.1), [$8$], fill: red.lighten(65%), stroke: red),
+      )
+    )
 ])
 
 #example([Infinite Relation Inverse],[
@@ -282,41 +308,41 @@ $
 
   - A directed graph can be created as follows: 
   #figure(
-      diagram(
-        node-fill: none,
-        node-stroke: 1pt,
-        edge-stroke: 0.8pt,
-        node((-1, 0), [*8*], radius: 0.75em),
-        edge((-1, 0), "-|>", bend: 160deg, loop-angle: 135deg),
-        edge((1, 0), "-|>", bend: 20deg),
-        edge((0, 2), "-|>", bend: 20deg),
+    diagram(
+      node-fill: none,
+      node-stroke: 1pt,
+      edge-stroke: 0.8pt,
+      node((-1, 0), [*8*], radius: 0.75em),
+      edge((-1, 0), "-|>", bend: 160deg, loop-angle: 135deg),
+      edge((1, 0), "-|>", bend: 20deg),
+      edge((0, 2), "-|>", bend: 20deg),
 
-        node((1,0), [*4*], radius: 0.75em),
-        edge((1, 0), "-|>", bend: 160deg, loop-angle: 45deg),
-        edge((-1, 0), "-|>", bend: 20deg),
-        edge((0, 2), "-|>", bend: 20deg),
+      node((1,0), [*4*], radius: 0.75em),
+      edge((1, 0), "-|>", bend: 160deg, loop-angle: 45deg),
+      edge((-1, 0), "-|>", bend: 20deg),
+      edge((0, 2), "-|>", bend: 20deg),
 
-        node((-1, 1), [*7*], radius: 0.75em),
-        edge((-1, 1), "-|>", bend: 160deg, loop-angle: 225deg),
-        edge((1, 1), "-|>", bend: 20deg),
-        edge((0, -1), "-|>", bend: 20deg),
+      node((-1, 1), [*7*], radius: 0.75em),
+      edge((-1, 1), "-|>", bend: 160deg, loop-angle: 225deg),
+      edge((1, 1), "-|>", bend: 20deg),
+      edge((0, -1), "-|>", bend: 20deg),
 
-        node((1, 1), [*5*], radius: 0.75em),
-        edge((1,1), "-|>", bend: 160deg, loop-angle: 315deg),
-        edge((0, -1), "-|>", bend: 20deg),
-        edge((-1, 1), "-|>", bend: 20deg),
+      node((1, 1), [*5*], radius: 0.75em),
+      edge((1,1), "-|>", bend: 160deg, loop-angle: 315deg),
+      edge((0, -1), "-|>", bend: 20deg),
+      edge((-1, 1), "-|>", bend: 20deg),
 
-        node((0, -1), [*3*], radius: 0.75em),
-        edge((0, -1), "-|>", bend: 160deg, loop-angle: 90deg),
-        edge((1, 1), "-|>", bend: 20deg),
-        edge((-1, 1), "-|>", bend: 20deg),
+      node((0, -1), [*3*], radius: 0.75em),
+      edge((0, -1), "-|>", bend: 160deg, loop-angle: 90deg),
+      edge((1, 1), "-|>", bend: 20deg),
+      edge((-1, 1), "-|>", bend: 20deg),
 
-        node((0, 2), [*6*], radius: 0.75em),
-        edge((0, 2), "-|>", bend: 160deg, loop-angle: 270deg),
-        edge((-1, 0), "-|>", bend: 20deg),
-        edge((1, 0), "-|>", bend: 20deg),
-      )
+      node((0, 2), [*6*], radius: 0.75em),
+      edge((0, 2), "-|>", bend: 160deg, loop-angle: 270deg),
+      edge((-1, 0), "-|>", bend: 20deg),
+      edge((1, 0), "-|>", bend: 20deg),
     )
+  )
 
   Notice how every vertex in the directed graph connects to itself. 
   This means that every element in $A$ is related to itself by $R$.
@@ -545,7 +571,6 @@ columns with the headers $A_1, A_2, dots, A_n$.
       $(r+s)$ is an integer because $ZZ$ is closed under addition. \
       Therefore, by definition of divisibility, $3 divides (m-p)$.
     - Thus, $T$ is transitive.
-
 ])
 
 
@@ -738,6 +763,7 @@ $
     "for every" x in A, x in [a] <=> x op(R) a
   $
 - The notation $[a]_R$ may be used to specify an equivalence class of $a$ for a particular relation $R$.
+- An important property of equivalence classes is that they can take on *different names*.
 
 #example([Equivalence Classes of a Relation Given as a Set of Ordered Pairs], [
   Let $A={0,1,2,3,4}$ and define relation $R$ on $A$ as follows:
@@ -843,6 +869,8 @@ $
       [1] &= {x in ZZ | x = 3k + 1 "for some integer" k}\
       [2] &= {x in ZZ | x = 3k + 2 "for some integer" k}
     $
+    This is an instance of a relation where equivalence classes can take on different names.
+    Since the relation in based on remainders, $[0]$ is the same equivalence class as $[3]$ or $[6]$.
 ])
 
 #definition([
@@ -956,6 +984,8 @@ Methods of encryption are known as *ciphers*.
   $
   - _Each letter in the Latin alphabet may be associated with a number according to their position._
 - Simple ciphers like the Caesar cipher can be very unsecure, espeically with larger plaintext where patterns are accentuated.
+- Meanwhile, public-key cryptography systems, including the *RSA cipher*, use properties of congruence modulo $n$,
+  making them very difficult to decrypt.
 
 
 
@@ -1062,13 +1092,13 @@ before reducing via modulo $n$ is the exact same as performing modulo $n$ on the
 ])
 
 - When modular arithmetic is applied to large numbers, _such as in RSA cryptography_,
-  computations use two particular properties of exponents
+  computations use two particular properties of exponents:
   $
     x^(2a) &= (x^2)^a "for all real numbers" x "and" a "for" x >= 0. \
     x^(a+b) &= x^a x^b "for all real numbers" x, a "and" b "for" x >= 0.
   $
 
-#example([Computing a demonic modulo $n$ with powers of 2], [
+#example([Modulo $n$ with powers of $2$], [
   Solve $144^4 mod 713$.
   $
     144^4 mod 713 &= (144^2)^2 mod 713 \
@@ -1080,7 +1110,7 @@ before reducing via modulo $n$ is the exact same as performing modulo $n$ on the
   $
 ])
 
-#example([Computing a demonic modulo $n$ without powers of2], [
+#example([Modulo $n$ without powers of $2$], [
   Solve $12^43 mod 713$.
   - _Recalling the second property, 43 can be split into multiple exponents to simplify the problem._
   $
@@ -1089,7 +1119,7 @@ before reducing via modulo $n$ is the exact same as performing modulo $n$ on the
     12^43 &= 12^(32+8+2+1) = 12^32 dot 12^8 dot 12^2 dot 12
   $
 
-  - The exponents may be computed before pluggin them back into the exponent.
+  - The exponents may be computed before plugging them back into the exponent.
   $
     12 mod 713 &= 12 \
     12^2 mod 713 &= 144 \
@@ -1112,6 +1142,17 @@ before reducing via modulo $n$ is the exact same as performing modulo $n$ on the
 
 
 === Extending the Euclidean Algortihm
+- Recall the process for the euclidean algorithm
+```python
+'''
+For a >= b >= 0, calculate the greatest common divisor between a and b.
+Continuously apply the quotient remainder theorem until a remainder of 0 is reached.
+'''
+def euclidean(a: int, b: int) -> int:
+  if b == 0:
+    return a
+  return euclidean(b, a % b)
+```
 #definition([
   An integer $d$ is a *linear combination of integers* $a$ and $b$ if, and only if,
   there exist integers $s$ and $t$ such that $a s + b t = d$.
@@ -1119,12 +1160,12 @@ before reducing via modulo $n$ is the exact same as performing modulo $n$ on the
 
 #theorem([8.4.5], [
   For all nonzero integers $a$ and $b$, if $d = gcd(a,b)$,
-  then there exist integers $s$ and $t$ such that $a s + b t = d$.
+  then there exist integers $s$ and $t$ such that \ $a s + b t = d$.
 ])
 
 #example([Expressing a GCD as a Linear Combination], [
   Express $gcd(330,156)$ as the linear combination of $330$ and $156$ using the Euclidean algorithm. \
-  - Continuously applying the quotient-remainder theorem:
+  - Using Euclidean's algorithm:
   $
     330 &= 156 dot 2 + 18 \
     156 &= 18 dot 8 + 12 \
@@ -1133,7 +1174,7 @@ before reducing via modulo $n$ is the exact same as performing modulo $n$ on the
   $
 
   - This implies that $gcd(330,156)=6$.
-  - Now, for each step of the original algorithm, we can equate the remainder to everything else:
+  - _Defining each remainder in terms of everything else:_
   $
     18 &= 330 - 156 dot 2 \
     12 &= 156 - 18 dot 8 \
@@ -1147,7 +1188,7 @@ before reducing via modulo $n$ is the exact same as performing modulo $n$ on the
     &= 18 - (156 - 18 dot 8) dot 1 "by substitution"\
     &= 18 dot 9 - 156 \
     &= (330 - 156 dot 2) dot 9 - 156 "by substitution" \
-    &= 330 dot 9 - 156 dot (-19)
+    &= underbrace(330 dot 9 - 156 dot (-19), "Linear Combination")
   $
   Logically, the linear combination of $330$ and $156$ reduces to 6.
 ])
@@ -1163,21 +1204,57 @@ before reducing via modulo $n$ is the exact same as performing modulo $n$ on the
 ])
 
 #definition([
-  Integers $a$ and $b$ are *relatively prime*, if and only if, $gcd(a,b) = 1$.
+  Integers $a$ and $b$ are *relatively prime*, if and only if, $gcd(a,b) = 1$. \
+  Additionally, a sequence of integers $a_1, a_2, dots, a_n$ may be *pairwise relatively prime*
+  for all integers $i >= 1$ and $j <= n$ given that $i eq.not j$.
 
 ])
 
-#corollary([8.4], [
-  
+#corollary([8.4.6], [
+  Given relatively prime integers $a$ and $b$, there must exist integers $s$ and $t$ such that $a s + b t = 1$.  
 ])
 
 #example([Expressing $1$ as a Linear Combination of Relatively Prime Integers], [
   Show that $660$ and $43$ are relatively prime. 
-  Additionally, find a corresponding linear combination equal to $1$.
+  Additionally, find a corresponding linear combination equal to $1$. \
+  - Again, we will use use Euclidean's algorithm:
+  $
+    660 &= 43 dot 15 + 15 \
+    43 &= 15 dot 2 + 13 \
+    15 &= 13 dot 1 + 2 \
+    13 &= 2 dot 6 + 1 \
+    2 &= 1 dot 2 + 0
+  $
+  - Thus, $gcd(660, 43) = 1$.
+  - *Therefore, $660$ and $43$ are relatively prime.*
+  - Because the greatest common divisor is $1$, then it follows that backtracking through the algorithm
+    should yield a Linear Combination equal to $1$. 
+  - _Defining each remainder in terms of everything else:_
+    $
+      15 &= 660 - 43 dot 15 \
+      13 &= 43 - 15 dot 2 \
+      2 &= 15 - 13 dot 1 \
+      1 &= 13 - 2 dot 6
+    $
+  - Like the last example, we can now use continous substitutions to find the Linear Combination:
+  $
+    gcd(660) &= 1 \
+    &= 13 - 2 dot 6 "by substitution" \
+    &= 13 - (15 - 13) dot 6 "by substitution" \
+    &= 13 - 15 dot 6 + 13 dot 6\
+    &= 13 dot 7 - 15 dot 6 \ 
+    &= (43 - 15 dot 2) dot 7 - 15 dot 6 "by substitution" \
+    &= 43 dot 7 - 15 dot 14 - 15 dot 6 \
+    &= 43 dot 7 - 15 dot 20 \
+    &= 43 dot 7 - (660 - 43 dot 15) dot 20 "by substitution" \
+    &= 43 dot 7 - 660 dot 20 + 43 dot 300 \
+    &= underbrace(43 dot 307 - 660 dot 20, "Linear Combination")
+  $
 ])
 
 #corollary([8.4.7], [
-  idk.
+  For all integers $a$ and $n$, if $gcd(a,n) = 1$, then there exists an integer $s$ such that
+  $a s equiv 1 (mod n)$, that is, an inverse for $a$ modulo $n$.
 ])
 
 
@@ -1185,3 +1262,4 @@ before reducing via modulo $n$ is the exact same as performing modulo $n$ on the
 
 
 === RSA Cryptography
+i dont know what is going on anymore #emoji.face.cry#emoji.face.cry#emoji.face.cry#emoji.face.cry#emoji.face.cry#emoji.face.cry#emoji.face.cry#emoji.face.cry#emoji.face.cry#emoji.face.cry
