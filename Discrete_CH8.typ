@@ -755,7 +755,7 @@ $
 === Equivalence Classes of an Equivalence Relation
 #definition([
   Suppose that $R$ is an equivalence relation on a set $A$. For each element $a$ in $A$,
-  the *equivalence class of $a$*, denoted *$[a]$* and called the *class of a* for short,
+  the *equivalence class of $a$*, denoted *$[a]$* and called the *class of $a$* for short,
   is the set of all elements $x in A$ such that $x op(R) a$.
   $
     [a] = {x in A | x op(R) a}
