@@ -1,6 +1,6 @@
 #set page("a4", numbering: "1 of 1")
-//#set text(font: "")
-//#show math.equation: set text(font: "Luciole Math", size: 10pt)
+#set text(font: "New Computer Modern Sans")
+#show math.equation: set text(font: "Luciole Math", size: 10pt)
 #show title: set text(size: 24pt)
 #show heading.where(level: 1): set text(size: 20pt)
 #show heading.where(level: 2): set text(size: 18pt)
@@ -65,7 +65,7 @@
   )
 }
 
-#let varnothing = $text(font: "Fira Sans", nothing)$ //LaTeX ahh 
+#let continue_example = figure([_Continued on next page_])
 
 #let author = text(size: 16pt, [Miagao])
 
@@ -362,7 +362,7 @@ $
 
 
 
-=== *$N$*-ary Relations and Relational Databases
+=== _N_-ary Relations and Relational Databases
 - Particular relations formed from Cartesian products of $n$ sets, known as $N$-ary relations, are the mathematical basis for relational database theory.
 #definition([
   Given the sets $A_1, A_2, dots, A_n$, the *$n$-ary relation* on \
@@ -435,7 +435,8 @@ columns with the headers $A_1, A_2, dots, A_n$.
     - $R$ is also symmetric because for each connection from one vertex to another, 
       there is a second connection from the second vertex to the first.
     - However, $R$ is not transitive because there is no complete 
-      directed triangle on the directed graph (no directed edge from 1 to 3).
+      directed triangle on the directed graph (no directed edge from 1 to 3)
+    #continue_example
 ])
 
 #pagebreak()
@@ -556,6 +557,7 @@ columns with the headers $A_1, A_2, dots, A_n$.
       $ZZ$ is closed under multiplication, so $-k$ is an integer. \
       Therefore, by definition of divisibility, $3 divides(n-m)$.
     - Thus, $T$ is symmetric.
+    #continue_example
 ])
 
 #example([_Properties of Congruence Modulo 3 continued_], [
@@ -761,6 +763,7 @@ $
     [a] = {x in A | x op(R) a}
   $
 ])
+#pagebreak()
 - Procedurely,
   $
     "for every" x in A, x in [a] <=> x op(R) a
@@ -840,7 +843,7 @@ $
   If $R$ is an equivalence relation on set $A$, and $a$ and $b$ are elements of $A$, 
   then
   $
-    [a] inter [b] = varnothing "or" [a] = [b]
+    [a] inter [b] = emptyset "or" [a] = [b]
   $
 ])
 
@@ -852,7 +855,7 @@ $
 
 
 
-=== Congruence Modulo *$n$*
+=== Congruence Modulo _n_
 #example([Equivalence Classes of Congruence Modulo 3], [
   Let $R$ be the congruence modulo 3 relation on $ZZ$, or
   $
@@ -896,17 +899,20 @@ $
     6 &equiv -8 (mod 4) \
     3 &equiv 3 (mod 7)
   $
+
   - The first congruency is true.
   $
     12-7 &= 5 \
     &= 5 dot 1 \
     therefore 5 divides (12&-7)
   $
+
   - The second congruency is false.
   $
     6-(-8) &= 14 \
     therefore 5 divides.not (6&-(-8))
   $
+
   - The third congruency is true.
   $
     3 - 3 &= 0 \
@@ -944,6 +950,7 @@ $
     (a,b) op(R) (c,d) <=> a d = b c
   $
   #set align(left)
+
   - Prove that $R$ is transitive.
   Suppose $(a,b)$, $(c,d)$, and $(e,f)$ are _particular but arbitrarily chosen_ elements of $A$ such that\
   $(a,b) op(R) (c, d)$ and $(c,d) op(R) (e,f)$.\
@@ -952,17 +959,20 @@ $
     (1) space space a d &= b c \
     (2) space space c f &= d e 
   $
+
   Because the second elements for all tuples in $A$ are nonzero, 
   both sides of $(1)$ and $(2)$ may be multiplied by $f$ and $b$, respectively.\
   $
     (1prime) space space a d f &= b c f\
     (2prime) space space b c f &= b d e 
   $
+
   Now, $(1prime)$ and $(2prime)$ are equal to the same thing. Thus,
   $
     a d f &= b d e \
     a f &= b e "because" d eq.not 0
   $
+
 Therefore, by definition of $R$, $(a,b) op(R) (e,f)$. \
 $R$ is transitive.
 ])
@@ -994,7 +1004,7 @@ Methods of encryption are known as *ciphers*.
 
 
 
-=== Properties of Congruence Modulo *$n$*
+=== Properties of Congruence Modulo _n_
 #theorem([8.4.1], [
   Let $a$, $b$, and $n$ be any integers for $n > 1$.
   These statements are all equivalent to each other:
@@ -1144,8 +1154,9 @@ before reducing via modulo $n$ is the exact same as performing modulo $n$ on the
 
 
 
+#pagebreak()
 === Extending the Euclidean Algortihm
-- Recall the process for the euclidean algorithm
+- Recall the process for the euclidean algorithm:
 ```python
 '''
 For a >= b >= 0, calculate the greatest common divisor between a and b.
@@ -1200,7 +1211,7 @@ def euclidean(a: int, b: int) -> int:
 
 
 
-=== Finding an Inverse Modulo *$n$*
+=== Finding an Inverse Modulo _n_
 #definition([
   Given any integer $a$ and positive integer $n$, if there exists an integer $s$ such that
   $a s equiv 1 (mod n)$, then $s$ is *an inverse for $a$ modulo $n$*.
@@ -1214,7 +1225,8 @@ def euclidean(a: int, b: int) -> int:
 ])
 
 #corollary([8.4.6], [
-  Given relatively prime integers $a$ and $b$, there must exist integers $s$ and $t$ such that $a s + b t = 1$.  
+  Given relatively prime integers $a$ and $b$, there must exist integers $s$ and $t$ such that \ 
+  $a s + b t = 1$.  
 ])
 
 #example([Expressing $1$ as a Linear Combination of Relatively Prime Integers], [
@@ -1239,6 +1251,10 @@ def euclidean(a: int, b: int) -> int:
       2 &= 15 - 13 dot 1 \
       1 &= 13 - 2 dot 6
     $
+    #continue_example
+])
+
+#example([_Expressing $1$ as a Linear Combination of Relatively Prime Integers Continued_], [
   - Like the last example, we can now use continous substitutions to find the Linear Combination:
   $
     gcd(660) &= 1 \
