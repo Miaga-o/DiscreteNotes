@@ -168,7 +168,7 @@ This may also apply to modulo relations other than 2. For example,
 if $T$ is defined from $ZZ$ to $ZZ$ as follows:
 
 #set align(center)
-_For all integers $m$ and $n$_
+_For all integers $m$ and $n$,_
 $
   m op(T) n <=> 3 divides (m-n)
 $
@@ -241,7 +241,7 @@ $
   Let $R$ be a relation from $RR$ to $RR$ defined as follows:
 
   #set align(center)
-  _For every ordered pair $(x,y) in RR times RR$_
+  _For every ordered pair $(x,y) in RR times RR$,_
   $
     x op(R) y <=> y = 2|x|
   $
@@ -663,7 +663,7 @@ columns with the headers $A_1, A_2, dots, A_n$.
   is defined on $A$ as follows:
 
   #set align(center)
-  _For every $x,y in A$_,
+  _For every $x,y in A$,_
   $
     x op(R) y <=> "There is a subset" A_i "of the partition such that both" x "and" y "are in" A_i.
   $
@@ -710,7 +710,7 @@ $
 === Definition of an Equivalence Relation
 #definition([
   Let $A$ bet a set and $R$ be a relation on $A$. $R$ is an *equivalence relation*,
-  if, and oly if, $R$ is reflexive, symmetric, and transitive.
+  if, and only if, $R$ is reflexive, symmetric, and transitive.
 ])
 
 #example([An Equivlanece Relation on a Set of Subsets], [
@@ -721,7 +721,7 @@ $
   - Define a relation $R$ on $X$ as follows:
 
   #set align(center)
-  _For every $A$ and $B$ in $X$_,
+  _For every $A$ and $B$ in $X$,_
   $
     A op(R) B <=> "The least element in" A "equals the least element in" B.
   $
@@ -814,7 +814,7 @@ $
   Let $A$ be any set and define a relation $R$ on $A$ as follows:
 
   #set align(center)
-  _For every $x,y in A$_
+  _For every $x,y in A$,_
   $
     x op(R) y <=> x=y
   $
@@ -939,7 +939,7 @@ $
   Additionally, let $R$ be a relation on $A$ as follows:
 
   #set align(center)
-  _For all pairs $(a,b)$ and $(c,d) in A$_,
+  _For all pairs $(a,b)$ and $(c,d) in A$,_
   $
     (a,b) op(R) (c,d) <=> a d = b c
   $
