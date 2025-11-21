@@ -1,15 +1,26 @@
+#import "@preview/cetz:0.4.2"
+#import "@preview/fletcher:0.5.8" as fletcher: diagram, node, edge, shapes
+#import "@preview/i-figured:0.2.4"
+
 #set page("a4", numbering: "1 of 1")
 #set text(font: "New Computer Modern Sans")
 #show math.equation: set text(font: "Luciole Math", size: 10pt)
 #show title: set text(size: 24pt)
+#show heading: i-figured.reset-counters
+#show figure: i-figured.show-figure.with(level: 2)
 #show heading.where(level: 1): set text(size: 20pt)
 #show heading.where(level: 2): set text(size: 18pt)
 #show heading.where(level: 3): set text(size: 16pt)
 
-#import "@preview/cetz:0.4.2"
-#import "@preview/fletcher:0.5.8" as fletcher: diagram, node, edge, shapes
-
 //Functions and variables
+#let custom_numbering(max_depth) = (..numbers) => { 
+  if numbers.pos().len() <= max_depth { //Automatic headings until heading 3
+    numbering("1.1", ..numbers)
+  }
+}
+#set heading(numbering: custom_numbering(2))
+#counter(heading).update(7)
+
 #let theorem(num, body) = {
   box(
     stroke: blue,
@@ -90,13 +101,13 @@
 
 
 //Notes
-= 8 Properties of Relations
+= Properties of Relations
 
 
 
 
 
-== 8.1 Relations on Sets
+== Relations on Sets
 - This section will review relations from Chapter 1.
 - Recall that an element of one set may be related to another by a relation $R$ as long as they satisfy its definition.
 #example([Less-than Relation], [
@@ -114,7 +125,7 @@
   - $12 op(L) -1$?
     - False, $12 > -1$.
 
-    Additionally, $L$ may be graphed as a subset of $RR times RR$, the Cartesian plane using its rule, $x < y$.
+    Additionally, $L$ may be graphed as a subset of $RR times RR$, the Cartesian plane using its rule, \ $x < y$.
     #figure(
       cetz.canvas({
         import cetz.draw: *
@@ -135,11 +146,13 @@
         line((-2,-2), (2,2), stroke: (paint: blue, dash: "dashed"), fill: black)
 
         content((-1,1), [#text(fill:blue, $x<y$)])
-      })
+      }),
+      supplement: [Graph],
+      caption: [_Anything ordered pair above the dotted line satsify $L$._]
     )
 ])
 
-#example([Congruence Modulo $2$ Relation],[
+#example([Congruence Modulo *2* Relation],[
   A relation $E$ from $ZZ$ to $ZZ$ is defined as follows: \
   
   #set align(center)
@@ -150,10 +163,14 @@
   #set align(left)
 
   - Prove that if $n$ is any odd integer, then $n op(E) 1$.
+  #continue_example
+])
+
+#example([_Congruence Modulo *2* Relation continued_], [
   *Proof:* \
   Suppose $n$ is any odd integer.  \
   By definition of odd, $n = 2k+1$ for some integer $k$. \
-  By definition of $E$, $n op(E) 1$ if, and only if, $n-1$ is even. \
+  By definition of $E$, $n op(E) 1$ if, and only 1if, $n-1$ is even. \
   By substituion,
   $ 2k+1 op(E) 1 <=> 2k+1-1 " is even" $
   As said earlier, $k$ is an integer, so by extension, $2k$ is even by definition of even. \
@@ -178,7 +195,7 @@ then $m$ and $n$ are *congruent modulo 3* by the relation $T$.
 
 
 
-#pagebreak()
+
 === Inverse Relations
 #definition([
   Let $R$ be relation from $A$ to $B$. The inverse relation $R^(-1)$ may be defined as follows:
@@ -190,11 +207,10 @@ $
   forall x in A " and " y in B, space \
   (y,x) in B times A <=> (x,y) in R
 $
-- The arrow diagram for an inverse relation may be found by reversing the direction of the arrows.
+- On finite sets, an easy way to determine the inverse relation is to reverese the direction of the arrows in the original relation's arrow diagram.
 
 #example([Finite Relation Inverse],[
-  Given $A={2,3,4}$ and $B={2,6,8}$, \
-  let $R$ be the _divides_ relation from $A$ to $B$ defined as follows:
+  Given $A={2,3,4}$ and $B={2,6,8}$, let $R$ be the _divides_ relation from $A$ to $B$ defined as follows:
 
   #set align(center)
   _For every ordered pair $(x,y) in A times B$,_
@@ -203,39 +219,47 @@ $
   $
   #set align(left)
   - What are the ordered pairs of $R$ and $R^(-1)$?
+  #continue_example
+])
+
+#example([_Finite Relation Inverse continued_], [
+  By listing out each ordered pair of $R$, $R^(-1)$ may be easily found by reversing the order of each tuple.
   $
     R &= {(2,2), (2,6), (2,8), (3,6), (4,8)} \ 
     R^(-1) &= {(2,2), (6,2), (8,2), (6,3), (8,4)} 
   $
-  Inverses for finite relations are easy to express explicitly 
-  because all values of $R$ can be listed before being reversed.
+  The same methodology applies to their arrow diagrams as well.
 
   #figure(
-      diagram(
-        node-fill: none,
-        node-stroke: 1.4pt,
-        edge-stroke: 1.5pt,
-        node((-3.5, -0.5), text(fill: blue, [*$A$*]), stroke: 0pt),
-        edge((0.5, -0.5), "-|>", $R$, bend: 20deg, layer: 100),
-        node((-3.5, 0.5), [$2$], fill: blue.lighten(65%), stroke: blue),
-        edge((0.5, 0.5)),
-        edge((0.5, 1.3)),
-        edge((0.5, 2.1)),
-        node((-3.5, 1.3), [$3$], fill: blue.lighten(65%), stroke: blue),
-        edge((0.5, 1.3)),
-        node((-3.5, 2.1), text[$4$], fill: blue.lighten(65%), stroke: blue),
-        edge((0.5, 2.1)),
-        node((-3.5, 3.3), stroke: 0pt),
-        edge((0.5, 3.3), "<|-", bend: -20deg, $R^(-1)$),
+    diagram(
+      node-fill: none,
+      node-stroke: 1.4pt,
+      edge-stroke: 1.5pt,
+      node((-3.5, -0.5), text(fill: blue, [*$A$*]), stroke: 0pt),
+      edge((0.5, -0.5), "-|>", $R$, bend: 20deg, layer: 100),
+      node((-3.5, 0.5), [$2$], fill: blue.lighten(65%), stroke: blue),
+      edge((0.5, 0.5)),
+      edge((0.5, 1.3)),
+      edge((0.5, 2.1)),
+      node((-3.5, 1.3), [$3$], fill: blue.lighten(65%), stroke: blue),
+      edge((0.5, 1.3)),
+      node((-3.5, 2.1), text[$4$], fill: blue.lighten(65%), stroke: blue),
+      edge((0.5, 2.1)),
+      node((-3.5, 3.3), stroke: 0pt),
+      edge((0.5, 3.3), "<|-", bend: -20deg, $R^(-1)$),
 
-        
-        node((0.5, -0.5), text(fill: red, [*$B$*]), stroke: 0pt),
-        node((0.5, 0.5), [$2$], fill: red.lighten(65%), stroke: red),
-        node((0.5, 1.3), [$4$], fill: red.lighten(65%), stroke: red),
-        node((0.5, 2.1), [$8$], fill: red.lighten(65%), stroke: red),
-      )
-    )
+      
+      node((0.5, -0.5), text(fill: red, [*$B$*]), stroke: 0pt),
+      node((0.5, 0.5), [$2$], fill: red.lighten(65%), stroke: red),
+      node((0.5, 1.3), [$6$], fill: red.lighten(65%), stroke: red),
+      node((0.5, 2.1), [$8$], fill: red.lighten(65%), stroke: red),
+    ),
+    supplement: [Diagram],
+    caption: [
+      _The arrow diagrams of $R$ and $R^(-1)$ are identical aside from the direction._]
+  )
 ])
+- However, for relations on infinite sets, the inverse for the relation's rule must be found.
 
 #example([Infinite Relation Inverse],[
   Let $R$ be a relation from $RR$ to $RR$ defined as follows:
@@ -249,30 +273,34 @@ $
 
   - If the graph of $R^(-1)$ are drawn on the Cartesian plane, will it be a function?
     - Using $R$'s definition, $R^(-1)$ may be expressed as a function of $y$.
-    $
-      R^(-1) = {(y,x) in RR | x=2|y|}
-    $
-    #figure(
-      cetz.canvas({
-        import cetz.draw: *
-        line((0,0), (0,-2), mark: (end: "stealth"))
-        line((0,0), (0,2), mark: (end: "stealth"))
-        content((), $y$, anchor: "west", padding: 4pt)
+  $
+    R^(-1) = {(y,x) in RR | x=2|y|}
+  $
+  #figure(
+    cetz.canvas({
+      import cetz.draw: *
+      line((0,0), (0,-2), mark: (end: "stealth"))
+      line((0,0), (0,2), mark: (end: "stealth"))
+      content((), $y$, anchor: "west", padding: 4pt)
 
-        line((0,0), (-2,0), mark: (end: "stealth"))
-        line((0,0), (2,0), mark: (end: "stealth"))
-        content((), $x$, anchor: "west", padding: 2pt)
+      line((0,0), (-2,0), mark: (end: "stealth"))
+      line((0,0), (2,0), mark: (end: "stealth"))
+      content((), $x$, anchor: "west", padding: 2pt)
 
-        line((0,0), (1,2), stroke: red)
-        line((0,0), (-1,2), stroke: red)
-        content((-1.5,1.3), [#text(fill:red, $y=2|x|$)])
+      line((0,0), (1,2), stroke: red)
+      line((0,0), (-1,2), stroke: red)
+      content((-1.5,1.3), [#text(fill:red, $y=2|x|$)])
 
-        line((0,0), (2,1), stroke: blue)
-        line((0,0), (2,-1), stroke: blue)
-        content((1.7,0.3), [#text(fill:blue, $x=2|y|$)])
-      })
-    )
+      line((0,0), (2,1), stroke: blue)
+      line((0,0), (2,-1), stroke: blue)
+      content((1.7,0.3), [#text(fill:blue, $x=2|y|$)])
+    }),
+    supplement: [Graph]
+  )
+    #continue_example
+])
 
+#example([_Infinite Relation Inverse continued_], [
     - Given this, the following tables may be procured:
     #set align(center)
     #grid(
@@ -282,23 +310,33 @@ $
         columns: 2,
         fill: (x, y) => if y == 0 {red},
         table.header([*$x$*], [*$y$*]),
-        [$0$], [$0$], [$1$], [$2$], [$-1$], [$2$], [$2$], [$4$], [$-2$], [$4$]
+        [$0$], [$0$], 
+        [$1$], [$2$], 
+        [$-1$], [$2$], 
+        [$2$], [$4$], 
+        [$-2$], [$4$]
       )],
       [#table(
         columns: 2,
         fill: (x, y) => if y == 0 {blue},
         table.header([*$y$*], [*$x$*]),
-        [$0$], [$0$], [$2$], [$1$], [$2$], [$-1$], [$4$], [$2$], [$4$], [$-2$]
+        [$0$], [$0$], 
+        [$2$], [$1$], 
+        [$2$], [$-1$], 
+        [$4$], [$2$], 
+        [$4$], [$-2$]
       )]
     )
     #set align(left)
-    - From the table above, it can be seen that $R^-1$ has two $x$-values for each $y > 0$. For instance, both $(2,1)$ and $(2,-1)$ are in $R^(-1)$, so it is not a function.
+    - From the table above, it can be seen that $R^(-1)$ has two $x$-values for each $y > 0$. For instance, both $(2,1)$ and $(2,-1)$ are in $R^(-1)$, so it is not a function.
 ])
+- While arrow diagrams can be a useful tool for finding inverse relations, their layouts do not clearly show arrow diagram properties, especially on one set.
+- However, they _are_ similar to directed graphs, and applying graph properties from previous chapters will make them more useful in those cases.
 
 
 
 
-
+#pagebreak()
 === Directed Graph of a Relation
 #definition([A *relation on a set* $A$ is a relation from $A$ to $A$.])
 - In this case, if a relation $R$ is defined on set $A$, then the relation's arrow diagram may also be expressed as a *directed graph*.
@@ -350,18 +388,22 @@ $
       edge((0, 2), "-|>", bend: 160deg, loop-angle: 270deg),
       edge((-1, 0), "-|>", bend: 20deg),
       edge((1, 0), "-|>", bend: 20deg),
-    )
+    ),
+    supplement: [Diagram],
+    caption: [The directed graph for $R$. It]
   )
 
   Notice how every vertex in the directed graph connects to itself. 
   This means that every element in $A$ is related to itself by $R$.
   By extension, all vertices are only connected to vertices with the same parity.
 ])
+- Many previously learned graph properties are present in the previous example's diagram, including loops, parallel edges, and connectedness.
+- As mentioned earlier, some of those properties imply properties of the relation.
 
 
 
 
-
+#pagebreak()
 === _N_-ary Relations and Relational Databases
 - Particular relations formed from Cartesian products of $n$ sets, known as $N$-ary relations, are the mathematical basis for relational database theory.
 #definition([
@@ -384,7 +426,7 @@ columns with the headers $A_1, A_2, dots, A_n$.
 
 
 #pagebreak()
-== 8.2 Reflexivity, Symmetry, and Transitivity
+== Reflexivity, Symmetry, and Transitivity
 #definition([
   Let $R$ be a relation on set $A$.
 
@@ -411,7 +453,6 @@ columns with the headers $A_1, A_2, dots, A_n$.
   $
 
   - Is $R$ reflexive, symmetric, and/or transitive?
-    - We can create a simple graph representing $R$.
     #figure(
       diagram(
         node-fill: none,
@@ -429,7 +470,9 @@ columns with the headers $A_1, A_2, dots, A_n$.
         edge((-1,1), "-|>", bend: -20deg),
         node((1, 3), [*2*], radius: 0.75em),
         edge((1,3), "-|>", bend: 160deg, loop-angle: 315deg)
-      )
+      ),
+      supplement: [Graph],
+      caption: [_The directed graph for $R$._]
     )
     - $R$ is reflexive because there is a loop an each vertex in the directed graph.
     - $R$ is also symmetric because for each connection from one vertex to another, 
@@ -439,7 +482,6 @@ columns with the headers $A_1, A_2, dots, A_n$.
     #continue_example
 ])
 
-#pagebreak()
 #example([_Properties of Relations on Finite Sets continued_], [
   - Is $S$ reflexive, symmetric, and/or transitive?
     - Similar to the first example, creating a directed graph makes this easier.
@@ -457,7 +499,9 @@ columns with the headers $A_1, A_2, dots, A_n$.
           node((-1, 3), [*3*], radius: 0.75em),
           node((1, 3), [*2*], radius: 0.75em),
           edge((-1,3), "-|>")
-        )
+        ),
+        supplement: [Graph],
+        caption: [_The directed graph for $S$._]
     )
 
     - $S$ is not reflexive because the only vertex with a loop is 0.
@@ -471,6 +515,7 @@ columns with the headers $A_1, A_2, dots, A_n$.
 
     #figure(
         diagram(
+    
           node-fill: none,
           node-stroke: 1pt,
           edge-stroke: 0.8pt,
@@ -480,9 +525,11 @@ columns with the headers $A_1, A_2, dots, A_n$.
           node((-1, 3), [*3*], radius: 0.75em),
           node((1, 3), [*2*], radius: 0.75em),
           edge((-1,3), "-|>")
-        )
+        ),
+        supplement: [Graph],
+        caption: [_The directed graph for $T$._]
     )
-    - $T$ is not reflexive because no vertices on the graph are connected to themselves via a loop.
+    - $T$ is not reflexive because no vertices are connected to themselves via a loop.
     - $T$ is not symmetric because when there are connections between vertices, it is only from one vertex to another.
     - $T$ is not transitive because there only exists two edges in the graph.
 ])
@@ -521,6 +568,7 @@ columns with the headers $A_1, A_2, dots, A_n$.
   - Is $R$ transitive?
     - Yes. Equality is transitive; $x = y$ and $y = z => x=z$. Thus, \ $x op(R) y  and y op(R) z=> x op(R) z$
 ])
+- Recall that two integers may be congruent modulo for integers other than $2$ as long as that integer divides their difference.
 
 #example([Properties of Congruence Modulo 3], [
   Let a relation $T$ be defined on $ZZ$ as follows:
@@ -591,6 +639,10 @@ columns with the headers $A_1, A_2, dots, A_n$.
   + $R subset.eq R^t$.
   + Given $S$, another transitive relation containing $R$,  $R^t subset.eq S$.
 ])
+- Generally, relations are not transitive because the property requires a particular pair to exist in the relation given a transitive connection between two elements on the set.
+- Thus, to find the next closest transitive relation, the transitive closure, tuples need to be added to ensure the transitivity of the relation.
+
+
 #example([Transitive Closure of a Relation], [
   Let $A = {0,1,2,3}$. \
   Let relation $R$ be defined on $A$ as follows:
@@ -599,59 +651,71 @@ columns with the headers $A_1, A_2, dots, A_n$.
   $
   - What is the transitive closure of $R$? \
     - Given the *second property* of transitive closures defined earlier:
-    $
-      {(0,1), (1,2), (2,3)} subset.eq R^t
-    $
-    - First, a directed graph for $R$ may be constructed.   
-    #figure(
-      diagram(
-        node-fill: none,
-        node-stroke: 1pt,
-        edge-stroke: 0.8pt,
-        node((-1, 1), [*0*], radius: 0.75em),
-        edge((1, 1), "-|>"),
-        node((1,1), [*1*], radius: 0.75em),
-        edge((1,3), "-|>"),
-        node((-1, 3), [*3*], radius: 0.75em),
-        node((1, 3), [*2*], radius: 0.75em),
-        edge((-1,3), "-|>")
-    )
+  $
+    {(0,1), (1,2), (2,3)} subset.eq R^t
+  $
+  #continue_example
+])
+
+#example([_Transitive Closure of a Relation continued_], [
+  - First, a directed graph for $R$ may be constructed.   
+  #figure(
+    diagram(
+      node-fill: none,
+      node-stroke: 1pt,
+      edge-stroke: 0.8pt,
+      node((-1, 1), [*0*], radius: 0.75em),
+      edge((1, 1), "-|>"),
+      node((1,1), [*1*], radius: 0.75em),
+      edge((1,3), "-|>"),
+      node((-1, 3), [*3*], radius: 0.75em),
+      node((1, 3), [*2*], radius: 0.75em),
+      edge((-1,3), "-|>")
+    ),
+    supplement: [Graph],
+    caption: [_The directed graph for $R$. From here, we can see transitive connections from vertices $0$ and $1$, respectively, to other vertices in the graph._]
   )
+  - Now we can look for potential edges that can be added to create $R^t$. 
+  - From vertex $0$, we know that we can add edges to vertex $2$ and $3$ because vertex $0$ has indirect connections to them.
+  - Additionally, we can add an edge from vertex $1$ to $3$ because it is transitively connected to it through vertex $2$.
+  - Thus, we can say that $R^t$ equals
+  $
+    R^t = {(0,1), (0,2), (0,3), (1,2), (1,3), (2,3)}
+  $
+  - This works because we know that the previous ordered pairs are at least in $R^t$. 
+    However, this relation is transitive, thus it equals $R^t$.
 
-    - Now we can look for potential edges that can be added to create $R^t$. 
-    - From vertex $0$, we know that we can add edges to vertex $2$ and $3$ because vertex $0$ has indirect connections to them.
-    - Additionally, we can add an edge from vertex $1$ to $3$ because it is transitively connected to it through vertex $2$.
-    - Thus, we can say that $R^t$ equals
-    $
-      R^t = {(0,1), (0,2), (0,3), (1,2), (1,3), (2,3)}
-    $
-    - This works because we know that the previous ordered pairs are at least in $R^t$. 
-      However, this relation is transitive, thus it equals $R^t$.
-
-    #figure(
-          diagram(
-            node-fill: none,
-            node-stroke: 1pt,
-            edge-stroke: 0.8pt,
-            node((-1, 1), [*0*], radius: 0.75em),
-            edge((1, 1), "-|>"),
-            edge((1, 3), "-|>"),
-            edge((-1, 3), "-|>"),
-            node((1,1), [*1*], radius: 0.75em),
-            edge((1,3), "-|>"),
-            edge((-1, 3), "-|>"),
-            node((-1, 3), [*3*], radius: 0.75em),
-            node((1, 3), [*2*], radius: 0.75em),
-            edge((-1,3), "-|>")
-          )
-    )
+  #figure(
+    diagram(
+      node-fill: none,
+      node-stroke: 1pt,
+      edge-stroke: 0.8pt,
+      node((-1, 1), [*0*], radius: 0.75em),
+      edge((1, 1), "-|>"),
+      edge((1, 3), "-|>"),
+      edge((-1, 3), "-|>"),
+      node((1,1), [*1*], radius: 0.75em),
+      edge((1,3), "-|>"),
+      edge((-1, 3), "-|>"),
+      node((-1, 3), [*3*], radius: 0.75em),
+      node((1, 3), [*2*], radius: 0.75em),
+      edge((-1,3), "-|>")
+    ),
+    supplement: [Graph],
+    caption: [_The directed graph for $R^t$._]
+  )
 ])
 
 
 
 
 
-== 8.3 Equivalence Relations
+
+
+
+
+#pagebreak()
+== Equivalence Relations
 
 
 
@@ -950,7 +1014,10 @@ $
     (a,b) op(R) (c,d) <=> a d = b c
   $
   #set align(left)
+  #continue_example
+])
 
+#example([_Rational Numbers as Equivalence Classes continued_], [
   - Prove that $R$ is transitive.
   Suppose $(a,b)$, $(c,d)$, and $(e,f)$ are _particular but arbitrarily chosen_ elements of $A$ such that\
   $(a,b) op(R) (c, d)$ and $(c,d) op(R) (e,f)$.\
@@ -975,6 +1042,12 @@ $
 
 Therefore, by definition of $R$, $(a,b) op(R) (e,f)$. \
 $R$ is transitive.
+
+- What are the equivalence classes of $R$?
+Every unique rational number may represent an equivalence class for $R$. Meanwhile, equivalent rational numbers are stored in each equivalence class because the rule for $R$ follows the same logic as the equality of rational numbers.
+$
+  [(1,2)] &= {(1,2), (-1,-2), (2,4), (-2,-4), dots (n, 2n) } "for each" n in ZZ - {0}
+$
 ])
 
 
@@ -984,8 +1057,8 @@ $R$ is transitive.
 
 
 
-//UNFINISHED
-== 8.4 Modular Arithmetic with Applications to Cryptography
+
+== Modular Arithmetic with Applications to Cryptography
 Cryptography refers to study of learning techniqiues to mask messages. 
 *Encryption* transforms *plaintext* into *ciphertext*, which is largely unreadable without using *decryption*.
 Methods of encryption are known as *ciphers*.
@@ -1111,7 +1184,7 @@ before reducing via modulo $n$ is the exact same as performing modulo $n$ on the
     x^(a+b) &= x^a x^b "for all real numbers" x, a "and" b "for" x >= 0.
   $
 
-#example([Modulo $n$ with powers of $2$], [
+#example([Modulo _*n*_ with powers of $2$], [
   Solve $144^4 mod 713$.
   $
     144^4 mod 713 &= (144^2)^2 mod 713 \
@@ -1123,7 +1196,7 @@ before reducing via modulo $n$ is the exact same as performing modulo $n$ on the
   $
 ])
 
-#example([Modulo $n$ without powers of $2$], [
+#example([Modulo _*n*_ without powers of $2$], [
   Solve $12^43 mod 713$.
   - _Recalling the second property, 43 can be split into multiple exponents to simplify the problem._
   $
@@ -1282,3 +1355,7 @@ def euclidean(a: int, b: int) -> int:
 
 === RSA Cryptography
 i dont know what is going on anymore #emoji.face.cry#emoji.face.cry#emoji.face.cry#emoji.face.cry#emoji.face.cry#emoji.face.cry#emoji.face.cry#emoji.face.cry#emoji.face.cry#emoji.face.cry
+
+$
+
+$
