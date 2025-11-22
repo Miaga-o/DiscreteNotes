@@ -1268,14 +1268,15 @@ def euclidean(a: int, b: int) -> int:
     6 &= 18 - 12 dot 1
   $
 
-  - Now, we can backtrack through each step through continuous substitutions, eventually reaching the linear combination form of the greatest common denominator.
+  - Now, we can backtrack through each step through continuous substitutions, making sure to keep multiples of $330$ and $156$ intact.
   $
     gcd(330,156) &= 6 \
     &= 18 - 12 dot 1 \
     &= 18 - (156 - 18 dot 8) dot 1 "by substitution"\
     &= 18 dot 9 - 156 \
     &= (330 - 156 dot 2) dot 9 - 156 "by substitution" \
-    &= underbrace(330 dot 9 - 156 dot (-19), "Linear Combination")
+    &= 330 dot 9 - 156 dot 18 - 156 \
+    &= underbrace(330 dot 9 + 156 dot (-19), "Linear Combination")
   $
   Logically, the linear combination of $330$ and $156$ reduces to 6.
 ])
@@ -1330,7 +1331,7 @@ def euclidean(a: int, b: int) -> int:
 #example([_Expressing $1$ as a Linear Combination of Relatively Prime Integers Continued_], [
   - Like the last example, we can now use continous substitutions to find the Linear Combination:
   $
-    gcd(660) &= 1 \
+    gcd(660,43) &= 1 \
     &= 13 - 2 dot 6 "by substitution" \
     &= 13 - (15 - 13) dot 6 "by substitution" \
     &= 13 - 15 dot 6 + 13 dot 6\
@@ -1340,7 +1341,7 @@ def euclidean(a: int, b: int) -> int:
     &= 43 dot 7 - 15 dot 20 \
     &= 43 dot 7 - (660 - 43 dot 15) dot 20 "by substitution" \
     &= 43 dot 7 - 660 dot 20 + 43 dot 300 \
-    &= underbrace(43 dot 307 - 660 dot 20, "Linear Combination")
+    &= underbrace(43 dot 307 + 660 dot (-20), "Linear Combination")
   $
 ])
 
@@ -1359,3 +1360,65 @@ i dont know what is going on anymore #emoji.face.cry#emoji.face.cry#emoji.face.c
 $
 
 $
+
+
+
+
+
+
+
+
+
+
+=== Euclid's Lemma
+#theorem([8.4.8], [
+  $forall$ integers $a$, $b$, and $c$,
+  $
+    gcd(a,b) = 1 "and" a divides b c => a divides b
+  $
+])
+
+
+
+
+
+
+
+
+#pagebreak()
+#set heading(numbering: none)
+= Extra Examples
+
+#example([The Extended Euclidean Algorithm], [
+  Use the extended Euclidean algorithm to find the GCD and the Linear Combination of $5590$ and $637$.
+  - _Finding the GCD:_
+  $
+    5590 &= 637 dot 8 + 494 \
+    637 &= 494 dot 1 + 143 \
+    494 &= 143 dot 3 + 65 \
+    143 &= 65 dot 2 + 13 \
+    65 &= 13 dot 5 + 0 \
+  $
+  - Thus, $gcd(5590, 637) = 13$.
+  - _Defining each remainder in terms of everything else:_
+  $
+    494 &= 5590 - 637 dot 8 \
+    143 &= 637 - 494 dot 1 \
+    65 &= 494 - 143 dot 3 \
+    13 &= 143 - 65 dot 2 \
+  $
+  - _Finding the Linear Combination:_
+  $
+    gcd(5590, 637) &= 13 \
+    &= 143 - 65 dot 2 "by substitution"\
+    &= 143 - (494 - 143 dot 3) dot 2 "by substitution"\
+    &= 143 - 494 dot 2 + 143 dot 6 \
+    &= 143 dot 7 - 494 dot 2 \
+    &= (637 - 494) dot 7 - 494 dot 2 "by substitution" \
+    &= 637 dot 7 - 494 dot 7 - 494 dot 2 \
+    &= 637 dot 7 - 494 dot 9 \
+    &= 637 dot 7 - (5590 - 637 dot 8) dot 9 "by substitution"\
+    &= 637 dot 7 - 5590 dot 9 + 637 dot 72 \
+    &= underbrace(637 dot 79 + 5590 dot (-9), "Linear Combination")
+  $
+])
