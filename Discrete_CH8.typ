@@ -805,7 +805,7 @@ $
     - This implies that the least element in $B$ equals the last element of $A$.
     - So, in this case, $B op(R) A$.
     - $R$ is symmetric.
-  - *Prove that $R$*
+  - *Prove that $R$ is transitive:*
     - Suppose that $A$, $B$, and $C$ are nonempty subsets of ${1,2,3}$ such that $A op(R) B$ and $B op(R) C$.
     - By definition of $R$, the least element of $A$ equals the least element in $B$, and the least element in $B$ equals the least element in $C$.
     - As a result, the least element of $A$ must equal the least element in $C$.
@@ -1057,7 +1057,7 @@ $
 
 
 
-
+#pagebreak()
 == Modular Arithmetic with Applications to Cryptography
 Cryptography refers to study of learning techniqiues to mask messages. 
 *Encryption* transforms *plaintext* into *ciphertext*, which is largely unreadable without using *decryption*.
@@ -1196,7 +1196,7 @@ before reducing via modulo $n$ is the exact same as performing modulo $n$ on the
   $
 ])
 
-#example([Modulo _*n*_ without powers of $2$], [
+#example([Modulo _*n*_ without powers of 2], [
   Solve $12^43 mod 713$.
   - _Recalling the second property, 43 can be split into multiple exponents to simplify the problem._
   $
@@ -1216,6 +1216,11 @@ before reducing via modulo $n$ is the exact same as performing modulo $n$ on the
     12^32 mod 713 &= 629^2 mod 713 \
     &= 485
   $
+  #continue_example
+])
+
+#example([_Modulo *n* without powers of 2 continued_], [
+
   - It follows that by *Corollary 8.4.4.*,
   $
     12^43 mod 713 &= [(12^32 mod 713) dot (12^8 mod 713) dot (12^2 mod 713) dot (12^1 mod 713)] mod 713 \
@@ -1227,7 +1232,7 @@ before reducing via modulo $n$ is the exact same as performing modulo $n$ on the
 
 
 
-#pagebreak()
+
 === Extending the Euclidean Algortihm
 - Recall the process for the euclidean algorithm:
 ```python
@@ -1267,7 +1272,10 @@ def euclidean(a: int, b: int) -> int:
     12 &= 156 - 18 dot 8 \
     6 &= 18 - 12 dot 1
   $
+  #continue_example
+])
 
+#example([_Expressing GCD as a Linear Combination continued_], [
   - Now, we can backtrack through each step through continuous substitutions, making sure to keep multiples of $330$ and $156$ intact.
   $
     gcd(330,156) &= 6 \
@@ -1303,7 +1311,7 @@ def euclidean(a: int, b: int) -> int:
   $a s + b t = 1$.  
 ])
 
-#example([Expressing $1$ as a Linear Combination of Relatively Prime Integers], [
+#example([Expressing 1 as a Linear Combination of Relatively Prime Integers], [
   Show that $660$ and $43$ are relatively prime. 
   Additionally, find a corresponding linear combination equal to $1$. \
   - Again, we will use use Euclidean's algorithm:
@@ -1316,6 +1324,10 @@ def euclidean(a: int, b: int) -> int:
   $
   - Thus, $gcd(660, 43) = 1$.
   - *Therefore, $660$ and $43$ are relatively prime.*
+  #continue_example
+])
+
+#example([_Expressing 1 as a Linear Combination of Relatively Prime Integers Continued_], [
   - Because the greatest common divisor is $1$, then it follows that backtracking through the algorithm
     should yield a Linear Combination equal to $1$. 
   - _Defining each remainder in terms of everything else:_
@@ -1325,10 +1337,7 @@ def euclidean(a: int, b: int) -> int:
       2 &= 15 - 13 dot 1 \
       1 &= 13 - 2 dot 6
     $
-    #continue_example
-])
 
-#example([_Expressing $1$ as a Linear Combination of Relatively Prime Integers Continued_], [
   - Like the last example, we can now use continous substitutions to find the Linear Combination:
   $
     gcd(660,43) &= 1 \
