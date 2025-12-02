@@ -122,7 +122,6 @@
 
 
 == Introduction to Probability
-- Calculated probabilities often do not match reality unless data sizes tend to infinity or large values.
 - A process is *random* when it leads to an outcome from some set of outcomes, and it is impossible to predict with certainty what it may be.
   - In a coin flip, the set of outcomes is heads and tails, but it cannot be predicted with certainty if it is heads or tails, even considering a calculated probability of $50%$.
 
@@ -140,10 +139,6 @@ $
 $
   P(E) = N(E) / N(S) 
 $ 
-
-#example([Probabilites for a Deck of Cards], [
-  
-])
 
 
 
@@ -165,8 +160,7 @@ $
   - By *Theorem 9.1.1.*, there are $999-100+1 = 900$ total three-digit integers.
   - Using the previous answer, we can now calculate the probability:
   $
-    180 / 900 &= 1 / 5 mtxt("by algebra") \
-    &= 0.2 mtxt("by converting to decimal")
+    180 / 900 &= 1 / 5 mtxt("by algebra") 
   $
 ])
 
@@ -187,6 +181,100 @@ $
 
   How many ways can the tournament be played?
   - Using a tree, we can outline all the possibilities up to 5 levels:
+  #figure([
+    #diagram(
+      node-fill: none,
+      node-stroke: 1pt,
+      edge-stroke: 0.8pt,
+      node((-4.5, 1), [*Start*], stroke: 0pt),
+      node((-5,1), radius: 0.75em),
+      edge((-4, 0)),
+      edge((-4, 2)),
+
+      node((-4, -1.5), [Game 1], stroke: 0pt),
+      node((-4,0), [*A*], radius: 0.75em),
+      edge((-3, -0.25)),
+      edge((-3, 0.25)),
+
+      node((-4,2), [*B*], radius: 0.75em),
+      edge((-3, 1.75)),
+      edge((-3, 2.25)),
+
+
+      node((-3, -1.5), [Game 2], stroke: 0pt),
+      node((-3, -0.25), [*A*], radius: 0.75em),
+      node((-2.65, -0.25), [*A* wins], stroke: 0pt),
+
+      node((-3, 0.25), [*B*], radius: 0.75em),
+      edge((-2, 0)),
+      edge((-2, 0.5)),
+
+      node((-3, 1.75), [*A*], radius: 0.75em),
+      edge((-2, 1.5)),
+      edge((-2, 2)),
+
+      node((-3, 2.25), [*B*], radius: 0.75em),
+      node((-2.65, 2.25), [*B* wins], stroke: 0pt),
+
+
+      node((-2, -1.5), [Game 3], stroke: 0pt),
+      node((-2, 0), [*A*], radius: 0.75em),
+      edge((-1, -0.25)),
+      edge((-1, 0.25)),
+
+      node((-2, 0.5), [*B*], radius: 0.75em),
+      node((-1.65, 0.5), [*B* wins], stroke: 0pt),
+
+      node((-2, 1.5), [*A*], radius: 0.75em),
+      node((-1.65, 1.5), [*A* wins], stroke: 0pt),
+
+      node((-2, 2), [*B*], radius: 0.75em),
+      edge((-1, 1.75)),
+      edge((-1, 2.25)),
+
+
+      node((-1, -1.5), [Game 4], stroke: 0pt),
+      node((-1, -0.25), [*A*], radius: 0.75em),
+      node((-0.65, -0.25), [*A* wins], stroke: 0pt),
+
+      node((-1, 0.25), [*B*], radius: 0.75em),
+      edge((0, 0)),
+      edge((0, 0.5)),
+
+      node((-1, 1.75), [*A*], radius: 0.75em),
+      edge((0, 1.5)),
+      edge((0, 2)),
+
+      node((-1, 2.25), [*B*], radius: 0.75em),
+      node((-0.65, 2.25), [*B* wins], stroke: 0pt),
+
+
+      node((0, -1.5), [Game 5], stroke: 0pt),
+      node((0, 0), [*A*], radius: 0.75em),
+      node((0.45, 0), [*A* wins], stroke: 0pt),
+
+      node((0, 0.5), [*B*], radius: 0.75em),
+      node((0.45, 0.5), [*B* wins], stroke: 0pt),
+
+      node((0, 1.5), [*A*], radius: 0.75em),
+      node((0.45, 1.5), [*B* wins], stroke: 0pt),
+
+      node((0, 2), [*B*], radius: 0.75em),
+      node((0.45, 2), [*B* wins], stroke: 0pt),
+    )],
+    supplement: [Diagram],
+    caption: [The possibility tree for the tournament.]
+  )
+  What are all the ways the tournament can be played?
+  - As outlined in the possibility tree, there are ten different ways the tournament can be played, with $A$ and $B$ each having five different events where they win.
+
+  If each outcome is assumed to be equally likely, what is the likelihood that a team wins after five games?
+  - There are 4 leaf nodes on the tree, each representing a win on the fifth game.
+  - Thus, the probability is as follows: 
+  $
+    4 / 10 &= 1 / 5 mtxt("by algebra")\ 
+    &= 40% mtxt("by converting to percent")
+  $
 ])
 
 
@@ -209,6 +297,9 @@ $
     for j in range(3):
       #Loop body
   ```
+  - The outer loop has four iterations.
+  - For each iteration in the outer loop, the inner loop has three iterations.
+  - By the multiplication rule, the nested loop has $4 dot 3 = 12$ iterations.
 ])
 
 
@@ -221,7 +312,7 @@ $
 
 - Note that for each successive step, there is one less way to perform it.
 - Thus, by the multiplication rule, there are $n dot (n-1) dot (n-2) dots.h.c 2 dot 1$ ways to perform the entire operation.
-  -
+  - Note that this matches the recursive definition for factorial.
 #theorem([9.2.6], [
   For any integer $n >= 1$, a set with $n$ elements has $n!$ permutations.
 ])
@@ -232,18 +323,25 @@ $
 
 === Permutations of Selected Elements
 - Again, consider the set ${a,b,c}$.
-- There are six different ways to select two different letters from the set and write them in a particular order.
-- Altogether, these sets are the $2$-permutations of ${a,b,c}$.
+- There are six different ways to select two different letters from the set and write them in a particular order:
+$
+  a b, a c, b a, b c, c a, c b
+$
+- Altogether, these orderings are the $2$-permutations of ${a,b,c}$.
 
 #definition([
   An *$r$-permutation* for a set of $n$ elements is an ordered selection of $r$ elements from the set. The number of $r$-permutations in a set of $n$ elements is denoted $P(n,r)$.
 ])
+
 #theorem([9.2.3], [
   If $n$ and $r$ are integers such that $1 <= r <= n$, the number of $r$-permutations of a set of $n$ elements is given by the formula:
   $
-    P(n,r) = 
+    P(n,r) = n(n-1)(n-2) dots.c (n-r+1) \
+    mtxt("or") \
+    P(n,r) = n! / (n - r)!
   $
 ])
+- Logically, given a set of length $n$, the number of $n$-permutations in the set is equal to the number of permutations, or just $n!$.
 
 
 
@@ -265,7 +363,7 @@ $
   $
 ])
 
-- Logically, this only applies to mutually disjoin finite sets because overlapping elements are not counted separately.
+- Logically, this only applies to mutually disjoint finite sets because overlapping elements are not counted separately.
 
 
 
@@ -281,7 +379,14 @@ $
 ])
 
 
-- From this example, a simpler formula for probability may be derived
+- Additionally, there is a related formula for the probability of an event's complement:
+
+#set align(center)
+If $S$ is a finite sample space, and $A$ is an event in $S$, then
+$
+  P(A^complement) = 1 - P(A)
+$
+#set align(left)
 
 
 
@@ -298,7 +403,7 @@ $
   $
     N(A union B) = N(A) + N(B) - N(A inter B) \
     mtxt("and") \
-    N(A union B union C) = N(A) + N(B) + N(C) - N(A inter B) - N(A inter C) - N(B inter C) N(A inter B inter C)
+    N(A union B union C) = N(A) + N(B) + N(C) - N(A inter B) - N(A inter C) - N(B inter C) + N(A inter B inter C)
   $
 ])
 
