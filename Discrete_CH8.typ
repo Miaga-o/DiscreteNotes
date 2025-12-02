@@ -4,13 +4,13 @@
 
 #set page("a4", numbering: "1 of 1")
 #set text(font: "New Computer Modern Sans")
-#show math.equation: set text(font: "Luciole Math", size: 10pt)
 #show title: set text(size: 24pt)
 #show heading: i-figured.reset-counters
 #show figure: i-figured.show-figure.with(level: 2)
 #show heading.where(level: 1): set text(size: 20pt)
 #show heading.where(level: 2): set text(size: 18pt)
 #show heading.where(level: 3): set text(size: 16pt)
+#show math.equation: set text(font: "Luciole Math", size: 10pt)
 
 //Functions and variables
 #let custom_numbering(max_depth) = (..numbers) => { 
@@ -75,6 +75,10 @@
     #body]
   )
 }
+
+#let mtxt(body) = text(font: "New Computer Modern Sans", [#body], size: 12pt)
+
+#let tmath(body) = text(font: "Luciole Math", [#body], size: 12pt)
 
 #let continue_example = figure([_Continued on next page_])
 
@@ -148,36 +152,36 @@
         content((-1,1), [#text(fill:blue, $x<y$)])
       }),
       supplement: [Graph],
-      caption: [_Anything ordered pair above the dotted line satsify $L$._]
+      caption: [_Anything ordered pair above the dotted line satisify $L$._]
     )
 ])
 
-#example([Congruence Modulo *2* Relation],[
+#example([Congruence Modulo #tmath(2) Relation],[
   A relation $E$ from $ZZ$ to $ZZ$ is defined as follows: \
   
   #set align(center)
   _For every $(m, n) in ZZ times ZZ$,_
   $
-    m op(E) n <=> m-n "is even"
+    m op(E) n <=> m-n #mtxt("is even")
   $
   #set align(left)
 
-  - Prove that if $n$ is any odd integer, then $n op(E) 1$.
+  Prove that if $n$ is any odd integer, then $n op(E) 1$.
   #continue_example
 ])
 
-#example([_Congruence Modulo *2* Relation continued_], [
+#example([_Congruence Modulo #tmath([2]) Relation continued_], [
   *Proof:* \
-  Suppose $n$ is any odd integer.  \
-  By definition of odd, $n = 2k+1$ for some integer $k$. \
-  By definition of $E$, $n op(E) 1$ if, and only 1if, $n-1$ is even. \
-  By substituion,
-  $ 2k+1 op(E) 1 <=> 2k+1-1 " is even" $
-  As said earlier, $k$ is an integer, so by extension, $2k$ is even by definition of even. \
+  - Suppose $n$ is any odd integer.
+  - By definition of odd, $n = 2k+1$ for some integer $k$.
+  - By definition of $E$, $n op(E) 1$ if, and only 1if, $n-1$ is even.
+  - By substitution,
+  $ 2k+1 op(E) 1 <=> 2k+1-1 #mtxt("is even") $
+  - As said earlier, $k$ is an integer, so by extension, $2k$ is even by definition of even.
   - Therefore, $n op(E) 1$.
 
   - Notably, integers $m$ and $n$ are only related by  $E$ if, and only if,
-  $ m op("mod" 2) = n op("mod") 2 $
+  $ m mod 2 = n mod 2 $
   - This means that $m$ and $n$ are *congruent modulo $2$*.
 ])
 
@@ -207,7 +211,7 @@ $
   forall x in A " and " y in B, space \
   (y,x) in B times A <=> (x,y) in R
 $
-- On finite sets, an easy way to determine the inverse relation is to reverese the direction of the arrows in the original relation's arrow diagram.
+- On finite sets, an easy way to determine the inverse relation is to reverse the direction of the arrows in the original relation's arrow diagram.
 
 #example([Finite Relation Inverse],[
   Given $A={2,3,4}$ and $B={2,6,8}$, let $R$ be the _divides_ relation from $A$ to $B$ defined as follows:
@@ -218,17 +222,17 @@ $
     x op(R) y <=> x divides y
   $
   #set align(left)
-  - What are the ordered pairs of $R$ and $R^(-1)$?
+  What are the ordered pairs of $R$ and $R^(-1)$?
   #continue_example
 ])
 
 #example([_Finite Relation Inverse continued_], [
-  By listing out each ordered pair of $R$, $R^(-1)$ may be easily found by reversing the order of each tuple.
+  - By listing out each ordered pair of $R$, $R^(-1)$ may be easily found by reversing the order of each tuple.
   $
     R &= {(2,2), (2,6), (2,8), (3,6), (4,8)} \ 
     R^(-1) &= {(2,2), (6,2), (8,2), (6,3), (8,4)} 
   $
-  The same methodology applies to their arrow diagrams as well.
+  - The same methodology applies to their arrow diagrams as well.
 
   #figure(
     diagram(
@@ -271,11 +275,12 @@ $
   $
   #set align(left)
 
-  - If the graph of $R^(-1)$ are drawn on the Cartesian plane, will it be a function?
-    - Using $R$'s definition, $R^(-1)$ may be expressed as a function of $y$.
+  If the graph of $R^(-1)$ are drawn on the Cartesian plane, will it be a function?
+  - Using $R$'s definition, $R^(-1)$ may be expressed as a function of $y$.
   $
     R^(-1) = {(y,x) in RR | x=2|y|}
   $
+
   #figure(
     cetz.canvas({
       import cetz.draw: *
@@ -390,7 +395,7 @@ $
       edge((1, 0), "-|>", bend: 20deg),
     ),
     supplement: [Diagram],
-    caption: [The directed graph for $R$. It]
+    caption: [The directed graph for $R$.]
   )
 
   Notice how every vertex in the directed graph connects to itself. 
@@ -452,7 +457,7 @@ columns with the headers $A_1, A_2, dots, A_n$.
     T &= {(0,1), (2,3)}
   $
 
-  - Is $R$ reflexive, symmetric, and/or transitive?
+  Is $R$ reflexive, symmetric, and/or transitive?
     #figure(
       diagram(
         node-fill: none,
@@ -474,64 +479,64 @@ columns with the headers $A_1, A_2, dots, A_n$.
       supplement: [Graph],
       caption: [_The directed graph for $R$._]
     )
-    - $R$ is reflexive because there is a loop an each vertex in the directed graph.
-    - $R$ is also symmetric because for each connection from one vertex to another, 
-      there is a second connection from the second vertex to the first.
-    - However, $R$ is not transitive because there is no complete 
-      directed triangle on the directed graph (no directed edge from 1 to 3)
+  - $R$ is reflexive because there is a loop an each vertex in the directed graph.
+  - $R$ is also symmetric because for each connection from one vertex to another, 
+    there is a second connection from the second vertex to the first.
+  - However, $R$ is not transitive because there is no complete 
+    directed triangle on the directed graph (no directed edge from 1 to 3)
     #continue_example
 ])
 
 #example([_Properties of Relations on Finite Sets continued_], [
-  - Is $S$ reflexive, symmetric, and/or transitive?
-    - Similar to the first example, creating a directed graph makes this easier.
+  Is $S$ reflexive, symmetric, and/or transitive?
+  - Similar to the first example, creating a directed graph makes this easier.
   
-    #figure(
-        diagram(
-          node-fill: none,
-          node-stroke: 1pt,
-          edge-stroke: 0.8pt,
-          node((-1, 1), [*0*], radius: 0.75em),
-          edge((-1, 1), "-|>", bend: 160deg, loop-angle: 135deg),
-          edge((-1, 3), "-|>"),
-          edge((1,3), "-|>"),
-          node((1,1), [*1*], radius: 0.75em),
-          node((-1, 3), [*3*], radius: 0.75em),
-          node((1, 3), [*2*], radius: 0.75em),
-          edge((-1,3), "-|>")
-        ),
-        supplement: [Graph],
-        caption: [_The directed graph for $S$._]
-    )
+  #figure(
+      diagram(
+        node-fill: none,
+        node-stroke: 1pt,
+        edge-stroke: 0.8pt,
+        node((-1, 1), [*0*], radius: 0.75em),
+        edge((-1, 1), "-|>", bend: 160deg, loop-angle: 135deg),
+        edge((-1, 3), "-|>"),
+        edge((1,3), "-|>"),
+        node((1,1), [*1*], radius: 0.75em),
+        node((-1, 3), [*3*], radius: 0.75em),
+        node((1, 3), [*2*], radius: 0.75em),
+        edge((-1,3), "-|>")
+      ),
+      supplement: [Graph],
+      caption: [_The directed graph for $S$._]
+  )
 
-    - $S$ is not reflexive because the only vertex with a loop is 0.
-    - $S$ is not symmetric because when there are connections between vertices,
-      it is only from one vertex to another.
-    - $S$ is transitive because there is one case where a vertex is both directly 
-      and transitively connected to a vertex ($0 -> 2 ->3$ and $0 -> 3$)
+  - $S$ is not reflexive because the only vertex with a loop is 0.
+  - $S$ is not symmetric because when there are connections between vertices,
+    it is only from one vertex to another.
+  - $S$ is transitive because there is one case where a vertex is both directly 
+    and transitively connected to a vertex ($0 -> 2 ->3$ and $0 -> 3$)
+
+  Is $T$ reflexive, symmetric, and/or transitive?
+  - Again, we will create a directed graph to represent $T$.
+
+  #figure(
+      diagram(
   
-  - Is $T$ reflexive, symmetric, and/or transitive?
-    - Again, we will create a directed graph to represent $T$.
-
-    #figure(
-        diagram(
-    
-          node-fill: none,
-          node-stroke: 1pt,
-          edge-stroke: 0.8pt,
-          node((-1, 1), [*0*], radius: 0.75em),
-          edge((1, 1), "-|>"),
-          node((1,1), [*1*], radius: 0.75em),
-          node((-1, 3), [*3*], radius: 0.75em),
-          node((1, 3), [*2*], radius: 0.75em),
-          edge((-1,3), "-|>")
-        ),
-        supplement: [Graph],
-        caption: [_The directed graph for $T$._]
-    )
-    - $T$ is not reflexive because no vertices are connected to themselves via a loop.
-    - $T$ is not symmetric because when there are connections between vertices, it is only from one vertex to another.
-    - $T$ is not transitive because there only exists two edges in the graph.
+        node-fill: none,
+        node-stroke: 1pt,
+        edge-stroke: 0.8pt,
+        node((-1, 1), [*0*], radius: 0.75em),
+        edge((1, 1), "-|>"),
+        node((1,1), [*1*], radius: 0.75em),
+        node((-1, 3), [*3*], radius: 0.75em),
+        node((1, 3), [*2*], radius: 0.75em),
+        edge((-1,3), "-|>")
+      ),
+      supplement: [Graph],
+      caption: [_The directed graph for $T$._]
+  )
+  - $T$ is not reflexive because no vertices are connected to themselves via a loop.
+  - $T$ is not symmetric because when there are connections between vertices, it is only from one vertex to another.
+  - $T$ is not transitive because there only exists two edges in the graph.
 ])
   
 
@@ -549,7 +554,7 @@ columns with the headers $A_1, A_2, dots, A_n$.
     forall x, y in RR, x = y => y = x
   $
 - While these examples are intuitive, generalizing 
-  from the generic particular is often neccessary to prove properties.
+  from the generic particular is often necessary to prove properties.
 
 #example([Equality Relation], [
   Let $R$ be a relation defined on $RR$ as follows:
@@ -561,16 +566,16 @@ columns with the headers $A_1, A_2, dots, A_n$.
   $
   #set align(left)
 
-  - Is $R$ reflexive?
-    - Yes. $x$ is equal to itself, meaning that $x op(R) x$.
-  - Is $R$ symmetric?
-    - Yes. Equality is symmetric; $x = y => y=x$. Thus,\ $x op(R) y => y op(R) x$.
-  - Is $R$ transitive?
-    - Yes. Equality is transitive; $x = y$ and $y = z => x=z$. Thus, \ $x op(R) y  and y op(R) z=> x op(R) z$
+  Is $R$ reflexive?
+  - Yes. $x$ is equal to itself, meaning that $x op(R) x$.
+  Is $R$ symmetric?
+  - Yes. Equality is symmetric; $x = y => y=x$. Thus, $x op(R) y => y op(R) x$.
+  Is $R$ transitive?
+  - Yes. Equality is transitive; $x = y$ and $y = z => x=z$. Thus, $x op(R) y  and y op(R) z=> x op(R) z$.
 ])
 - Recall that two integers may be congruent modulo for integers other than $2$ as long as that integer divides their difference.
 
-#example([Properties of Congruence Modulo 3], [
+#example([Properties of Congruence Modulo #tmath(2)], [
   Let a relation $T$ be defined on $ZZ$ as follows:
 
   #set align(center)
@@ -580,50 +585,50 @@ columns with the headers $A_1, A_2, dots, A_n$.
   $
   #set align(left)
 
-  - Is $T$ reflexive?
-    - *Proof:* \
-      Suppose $m$ is a _particular but arbitrarily chosen_ integer such that $m op(T) m$.
-      By definition of $T$,
-        $
-          3 divides (m-m) = 3 divides 0
-        $
-      By definition of divisiblity, $3$ divides $0$ because $0 = 0 dot 3$.
-    - Thus, $T$ is reflexive.
+  Is $T$ reflexive?
+  - *Proof:* \
+  - Suppose $m$ is a _particular but arbitrarily chosen_ integer such that $m op(T) m$.
+  - By definition of $T$,
+  $
+    3 divides (m-m) = 3 divides 0
+  $
+  - By definition of divisibility, $3$ divides $0$ because $0 = 0 dot 3$.
+  - Thus, $T$ is reflexive.
 
-  - Is $T$ symmetric?
-    - *Proof:* \
-      Suppose $m$ and $n$ are _particular but arbitrarily chosen_ integers such that $m op(T) n$. \
-      By definition of $T$,
-        $
-          3 divides (m-n)
-        $
-      By definition of divisibility, $m-n = 3k$ for some integer $k$.
-        $
-          m - n &= 3k "for some integer" k \
-          n - m &= 3(-k) "for some integer" k "by algebra"
-        $
-      $ZZ$ is closed under multiplication, so $-k$ is an integer. \
-      Therefore, by definition of divisibility, $3 divides(n-m)$.
-    - Thus, $T$ is symmetric.
-    #continue_example
+  Is $T$ symmetric?
+  - *Proof:* 
+  - Suppose $m$ and $n$ are _particular but arbitrarily chosen_ integers such that $m op(T) n$.
+  - By definition of $T$,
+  $
+    3 divides (m-n)
+  $
+  - By definition of divisibility, $m-n = 3k$ for some integer $k$.
+  $
+    m - n &= 3k mtxt("for some integer") k \
+    n - m &= 3(-k) mtxt("for some integer") k mtxt("by algebra")
+  $
+  - $ZZ$ is closed under multiplication, so $-k$ is an integer.
+  - Therefore, by definition of divisibility, $3 divides(n-m)$.
+  - Thus, $T$ is symmetric.
+  #continue_example
 ])
 
-#example([_Properties of Congruence Modulo 3 continued_], [
-  - Is $T$ transitive?
-    - *Proof:* \
-      Suppose $m$, $n$, and $p$ are _particular but arbitrarily chosen_ integers such that $m op(T) n$ and $n op(T) p$. \
-      By definition of $T$,
-        $
-          3 divides (m-n) "and" 3 divides (n-p)
-        $
-      By definition of divisibility, $m-n = 3r$ and $n-p = 3s$ for some integers $r$ and $s$.
-        $
-         (m-n) + (n-p) &= 3r + 3s "by adding both together" \
-         m-p &= 3(r+s) "by algebra" \
-        $
-      $(r+s)$ is an integer because $ZZ$ is closed under addition. \
-      Therefore, by definition of divisibility, $3 divides (m-p)$.
-    - Thus, $T$ is transitive.
+#example([_Properties of Congruence Modulo #tmath(2) continued_], [
+  Is $T$ transitive?
+  - *Proof:*
+  - Suppose $m$, $n$, and $p$ are _particular but arbitrarily chosen_ integers such that $m op(T) n$ and $n op(T) p$.
+  - By definition of $T$,
+  $
+    3 divides (m-n) "and" 3 divides (n-p)
+  $
+  - By definition of divisibility, $m-n = 3r$ and $n-p = 3s$ for some integers $r$ and $s$.
+  $
+    (m-n) + (n-p) &= 3r + 3s mtxt("by adding both together") \
+    m-p &= 3(r+s) mtxt("by algebra") \
+  $
+  - $(r+s)$ is an integer because $ZZ$ is closed under addition.
+  - Therefore, by definition of divisibility, $3 divides (m-p)$.
+  - Thus, $T$ is transitive.
 ])
 
 
@@ -649,8 +654,8 @@ columns with the headers $A_1, A_2, dots, A_n$.
   $
     R={(0,1), (1,2), (2,3)}
   $
-  - What is the transitive closure of $R$? \
-    - Given the *second property* of transitive closures defined earlier:
+  What is the transitive closure of $R$? \
+  - Given the *second property* of transitive closures defined earlier:
   $
     {(0,1), (1,2), (2,3)} subset.eq R^t
   $
@@ -731,37 +736,37 @@ columns with the headers $A_1, A_2, dots, A_n$.
   #set align(center)
   _For every $x,y in A$,_
   $
-    x op(R) y <=> "There is a subset" A_i "of the partition such that both" x "and" y "are in" A_i.
+    x op(R) y <=> mtxt("There is a subset") A_i mtxt("of the partition such that both") x mtxt("and") y mtxt("are in") A_i.
   $
 ])
 #example([Relation Induced by the Partition],[
-Let $A={0,1,2,3,4}$. A partition of $A$ is as follows:
-$
-  {0,3,4},{1},{2}
-$
-- What is the relation $R$ induced by this partition?
+  Let $A={0,1,2,3,4}$. A partition of $A$ is as follows:
+  $
+    {0,3,4},{1},{2}
+  $
+  What is the relation $R$ induced by this partition?
   - _We can evaluate the ordered pairs in $R$ by analyzing the contents of each set in the partition._
   - According to the contents of the first set:
-    $
-      0 op(R) 0 \
-      0 op(R) 3 \
-      0 op(R) 4 \
-      3 op(R) 0 \
-      3 op(R) 3 \
-      3 op(R) 4 \
-      4 op(R) 0 \
-      4 op(R) 3 \
-      4 op(R) 4
-    $
-  - Additionally, acording to the contents of the other sets:
-    $
-      1 op(R) 1 \
-      2 op(R) 2
-    $
+  $
+    0 op(R) 0 \
+    0 op(R) 3 \
+    0 op(R) 4 \
+    3 op(R) 0 \
+    3 op(R) 3 \
+    3 op(R) 4 \
+    4 op(R) 0 \
+    4 op(R) 3 \
+    4 op(R) 4
+  $
+  - Additionally, according to the contents of the other sets:
+  $
+    1 op(R) 1 \
+    2 op(R) 2
+  $
   - Therefore,
-$
-  R = {(0,0), (0,3), (0,4), (3,0), (3,3), (3,4), (4,0), (4,3), (4,4), (1,1), (1,2)}
-$
+  $
+    R = {(0,0), (0,3), (0,4), (3,0), (3,3), (3,4), (4,0), (4,3), (4,4), (1,1), (1,2)}
+  $
 ])
 
 #theorem([8.3.1], [
@@ -775,42 +780,42 @@ $
 
 === Definition of an Equivalence Relation
 #definition([
-  Let $A$ bet a set and $R$ be a relation on $A$. $R$ is an *equivalence relation*,
+  Let $A$ be a set and $R$ be a relation on $A$. $R$ is an *equivalence relation*,
   if, and only if, $R$ is reflexive, symmetric, and transitive.
 ])
 
-#example([An Equivlanece Relation on a Set of Subsets], [
+#example([An Equivalence Relation on a Set of Subsets], [
   Let $X$ be the set of all nonempty subsets of ${1,2,3}$. Then,
   $
     X = {{1}, {2}, {3}, {1,2}, {1,3}, {2,3}, {1,2,3}}
   $
-  - Define a relation $R$ on $X$ as follows:
+  Define a relation $R$ on $X$ as follows:
 
   #set align(center)
   _For every $A$ and $B$ in $X$,_
   $
-    A op(R) B <=> "The least element in" A "equals the least element in" B.
+    A op(R) B <=> mtxt("The least element in") A mtxt("equals the least element in") B.
   $
 #set align(left)
 
-  - _Prove that $R$ has all three properties._
-  - *Prove that $R$ is reflexive:*
-    - Suppose that $A$ is a nonempty subset of ${1,2,3}$. \
-    - Logically, the least element of $A$ should always equal the least element of $A$. \
-    - Therefore, $A op(R) A$. \
-    - $R$ is reflexive.
-  - *Prove that $R$ is symmetric:*
-    - Suppose that $A$ and $B$ are nonempty subsets of ${1,2,3}$ such that $A op(R) B$.
-    - If $A op(R) B$, then the least element of $A$ equals the least element in $B$.
-    - This implies that the least element in $B$ equals the last element of $A$.
-    - So, in this case, $B op(R) A$.
-    - $R$ is symmetric.
-  - *Prove that $R$ is transitive:*
-    - Suppose that $A$, $B$, and $C$ are nonempty subsets of ${1,2,3}$ such that $A op(R) B$ and $B op(R) C$.
-    - By definition of $R$, the least element of $A$ equals the least element in $B$, and the least element in $B$ equals the least element in $C$.
-    - As a result, the least element of $A$ must equal the least element in $C$.
-    - Hence, $A op(R) C$.
-    - $R$ is transitive.
+  _Prove that $R$ has all three properties._
+  *Prove that $R$ is reflexive:*
+  - Suppose that $A$ is a nonempty subset of ${1,2,3}$. \
+  - Logically, the least element of $A$ should always equal the least element of $A$. \
+  - Therefore, $A op(R) A$. \
+  - $R$ is reflexive.
+  *Prove that $R$ is symmetric:*
+  - Suppose that $A$ and $B$ are nonempty subsets of ${1,2,3}$ such that $A op(R) B$.
+  - If $A op(R) B$, then the least element of $A$ equals the least element in $B$.
+  - This implies that the least element in $B$ equals the last element of $A$.
+  - So, in this case, $B op(R) A$.
+  - $R$ is symmetric.
+  *Prove that $R$ is transitive:*
+  - Suppose that $A$, $B$, and $C$ are nonempty subsets of ${1,2,3}$ such that $A op(R) B$ and $B op(R) C$.
+  - By definition of $R$, the least element of $A$ equals the least element in $B$, and the least element in $B$ equals the least element in $C$.
+  - As a result, the least element of $A$ must equal the least element in $C$.
+  - Hence, $A op(R) C$.
+  - $R$ is transitive.
   Because $R$ is reflexive, symmetric, and transitive, it is an equivalence relation.
 ])
 
@@ -828,12 +833,13 @@ $
   $
 ])
 #pagebreak()
-- Procedurely,
+- Procedurally,
   $
     "for every" x in A, x in [a] <=> x op(R) a
   $
 - The notation $[a]_R$ may be used to specify an equivalence class of $a$ for a particular relation $R$.
-- An important property of equivalence classes is that they can take on *different names*.
+- Additionally, for any equivalence class $[a]$, $a$ is the *representative* for the class.
+  - However, equivalence classes may be equal even if they have different representatives.
 
 #example([Equivalence Classes of a Relation Given as a Set of Ordered Pairs], [
   Let $A={0,1,2,3,4}$ and define relation $R$ on $A$ as follows:
@@ -863,7 +869,7 @@ $
         edge((0, 0.5), "-|>", bend: 150deg, loop-angle: 270deg)
     )
   )
-  - What are the distinct equivalence classes of $R$?
+  What are the distinct equivalence classes of $R$?
   $
     [0] &= {x in A | x op(R) 0} = {0,4}\
     [1] &= {x in A | x op(R) 1} = {1,3}\
@@ -871,7 +877,8 @@ $
     [3] &= {x in A | x op(R) 3} = {1,3}\
     [4] &= {x in A | x op(R) 4} = {0,4}\
   $
-  Removing duplicate sets, the distinct equivalence classes are as follows:
+
+  - Removing duplicate sets, the distinct equivalence classes are as follows:
   $
     {0,4}, {1,3}, {2}
   $
@@ -887,13 +894,14 @@ $
   $
   #set align(left)
   $R$ is also an equivalence relation.
-  - What are the distinct equivalence classes of $R$?
+
+  What are the distinct equivalence classes of $R$?
   $
     [a] &= {x in A | x op(R) a} \
     [a] &= {x in A | x = a} "by definition of" R\
     [a] &= {a}
   $
-  Given this definition, the classes for all elements in $A$ are all distinct equivalence classes of $R$.
+  - Given this definition, the classes for all elements in $A$ are all distinct equivalence classes of $R$.
 ])
 
 #lemma([8.3.2], [
@@ -907,7 +915,7 @@ $
   If $R$ is an equivalence relation on set $A$, and $a$ and $b$ are elements of $A$, 
   then
   $
-    [a] inter [b] = emptyset "or" [a] = [b]
+    [a] inter [b] = emptyset mtxt("or") [a] = [b]
   $
 ])
 
@@ -919,33 +927,28 @@ $
 
 
 
-=== Congruence Modulo _n_
-#example([Equivalence Classes of Congruence Modulo 3], [
-  Let $R$ be the congruence modulo 3 relation on $ZZ$, or
+=== Congruence Modulo _*n*_
+#example([Equivalence Classes of Congruence Modulo #tmath(3)], [
+  Let $R$ be the congruence modulo $3$ relation on $ZZ$, or
   $
     m op(R) n <=> 3 divides (m-n)
   $
-  - What are the equivalence classes of $R$?
-    - For each integer $a$,
-      $
-        [a] &= {x in ZZ | x op(R) a} \
-        [a] &= {x in ZZ | 3 divides (x-a)} "by definition of" R\
-        [a] &= {x in ZZ | (x-a) = 3k "for some integer" k} "by definition of divisibility"\ 
-        [a] &= {x in ZZ | x = 3k + a} \
-      $
-    - It should follow that there are three equivalence classes of $R$.
-    $
-      [0] &= {x in ZZ | x = 3k "for some integer" k}\
-      [1] &= {x in ZZ | x = 3k + 1 "for some integer" k}\
-      [2] &= {x in ZZ | x = 3k + 2 "for some integer" k}
-    $
-    This is an instance of a relation where equivalence classes can take on different names.
-    Since the relation in based on remainders, $[0]$ is the same equivalence class as $[3]$ or $[6]$.
-])
-
-#definition([
-  Suppose $R$ is an equivalence relation on set A and S is an equivalence class for $R$.
-  A *representative* of the class $S$ is an element is any element a such that $[a] = S$.
+  What are the equivalence classes of $R$?
+  - For each integer $a$,
+  $
+    [a] &= {x in ZZ | x op(R) a} \
+    [a] &= {x in ZZ | 3 divides (x-a)} mtxt("by definition of") R\
+    [a] &= {x in ZZ | (x-a) = 3k mtxt("for some integer") k} mtxt("by definition of divisibility")\ 
+    [a] &= {x in ZZ | x = 3k + a} \
+  $
+  - It should follow that there are three equivalence classes of $R$.
+  $
+    [0] &= {x in ZZ | x = 3k "for some integer" k}\
+    [1] &= {x in ZZ | x = 3k + 1 "for some integer" k}\
+    [2] &= {x in ZZ | x = 3k + 2 "for some integer" k}
+  $
+  This is an instance of a relation where equivalence classes can take on different names.
+  Since the relation in based on remainders, $[0]$ is the same equivalence class as $[3]$ or $[6]$.
 ])
 
 #definition([
@@ -1018,33 +1021,35 @@ $
 ])
 
 #example([_Rational Numbers as Equivalence Classes continued_], [
-  - Prove that $R$ is transitive.
-  Suppose $(a,b)$, $(c,d)$, and $(e,f)$ are _particular but arbitrarily chosen_ elements of $A$ such that\
-  $(a,b) op(R) (c, d)$ and $(c,d) op(R) (e,f)$.\
-  By definition of $R$,
+  Prove that $R$ is transitive.
+  - Suppose $(a,b)$, $(c,d)$, and $(e,f)$ are _particular but arbitrarily chosen_ elements of $A$ such that 
+  $ 
+  (a,b) op(R) (c, d) mtxt("and") (c,d) op(R) (e,f)
+  $
+
+  - By definition of $R$,
   $
     (1) space space a d &= b c \
     (2) space space c f &= d e 
   $
 
-  Because the second elements for all tuples in $A$ are nonzero, 
-  both sides of $(1)$ and $(2)$ may be multiplied by $f$ and $b$, respectively.\
+  - Because the second elements for all tuples in $A$ are nonzero, both sides of $(1)$ and $(2)$ may be multiplied by $f$ and $b$, respectively.
   $
-    (1prime) space space a d f &= b c f\
+    (1prime) space space a d f &= b c f \
     (2prime) space space b c f &= b d e 
   $
 
-  Now, $(1prime)$ and $(2prime)$ are equal to the same thing. Thus,
+  - Now, $(1prime)$ and $(2prime)$ are equal to the same thing. Thus,
   $
     a d f &= b d e \
-    a f &= b e "because" d eq.not 0
+    a f &= b e mtxt("because") d eq.not 0
   $
 
-Therefore, by definition of $R$, $(a,b) op(R) (e,f)$. \
+  - Therefore, by definition of $R$, $(a,b) op(R) (e,f)$. \
 $R$ is transitive.
 
-- What are the equivalence classes of $R$?
-Every unique rational number may represent an equivalence class for $R$. Meanwhile, equivalent rational numbers are stored in each equivalence class because the rule for $R$ follows the same logic as the equality of rational numbers.
+What are the equivalence classes of $R$?
+- Every unique rational number may represent an equivalence class for $R$. Meanwhile, equivalent rational numbers are stored in each equivalence class because the rule for $R$ follows the same logic as the equality of rational numbers.
 $
   [(1,2)] &= {(1,2), (-1,-2), (2,4), (-2,-4), dots (n, 2n) } "for each" n in ZZ - {0}
 $
@@ -1059,7 +1064,7 @@ $
 
 #pagebreak()
 == Modular Arithmetic with Applications to Cryptography
-Cryptography refers to study of learning techniqiues to mask messages. 
+Cryptography refers to study of learning techniques to mask messages. 
 *Encryption* transforms *plaintext* into *ciphertext*, which is largely unreadable without using *decryption*.
 Methods of encryption are known as *ciphers*.
 - For example, the *Caesar cipher* encrypts messages 
@@ -1069,7 +1074,7 @@ Methods of encryption are known as *ciphers*.
     C = (M + 3) mod 26
   $
   - _Each letter in the Latin alphabet may be associated with a number according to their position._
-- Simple ciphers like the Caesar cipher can be very unsecure, espeically with larger plaintext where patterns are accentuated.
+- Simple ciphers like the Caesar cipher can be very unsecure, especially with larger plaintext where patterns are accentuated.
 - Meanwhile, public-key cryptography systems, including the *RSA cipher*, use properties of congruence modulo $n$,
   making them very difficult to decrypt.
 
@@ -1077,7 +1082,7 @@ Methods of encryption are known as *ciphers*.
 
 
 
-=== Properties of Congruence Modulo _n_
+=== Properties of Congruence Modulo _*n*_
 #theorem([8.4.1], [
   Let $a$, $b$, and $n$ be any integers for $n > 1$.
   These statements are all equivalent to each other:
@@ -1087,6 +1092,7 @@ Methods of encryption are known as *ciphers*.
   - $a$ and $b$ have the same nonnegative remainder when divided by $n$.
   - $a mod n = b mod n$.
 ])
+- Essentially, two numbers are congruent modulo $n$, if, and only if, they share the remainder $n$.
 - Recall the quotient-remainder theorem
 $
   a = n q + r "for" 0 <= r < n
@@ -1095,14 +1101,15 @@ $
   by extension, $n$ possible remainders.
 
 #definition([
-  Given integers $a$ and $n$ for $n> 1$, *the residue of $a mod n$*---or *the residue of $a$* for short---is $a mod n$. Furthermore, the sequence 
-  $0, 1, 2, dots,  n-1$ is the *complete set of residues modulo $n$*. By equating $a mod n$ to its residue, we are 
-  *reducing a number modulo $n$*.
+  Given integers $a$ and $n$ for $n> 1$, *the residue of $a mod n$* is the remainder $r$ as denoted by quotient-remainder theorem. 
+  Thus, the *complete set of residues modulo* $n$ is the sequence, $0, 1, 2, dots, n-1$.
 ])
+- Thus, by evaluating the modulo equation, we are finding the residue, which is known as *reducing a number modulo* $n$.
+- When $n$ is fixed, the shorthand phrase, *the residue of $a$*, is often used.
 
 #theorem([8.4.2], [
-  Given an integer $n$ for $n > 1$, congruence mondulo $n$ is an equivalence relation on $ZZ$.
-  The distinct equivlaence classes of the set are
+  Given an integer $n$ for $n > 1$, congruence modulo $n$ is an equivalence relation on $ZZ$.
+  The distinct equivalence classes of the set are
   $
     [a] = {m in Z | m equiv a (mod n)}
   $
@@ -1114,7 +1121,7 @@ $
 
 
 === Modular Arithmetic
-A core principle of congruence modilo $n$ is that performing operations closed under $ZZ$
+A core principle of congruence modulo $n$ is that performing operations closed under $ZZ$
 before reducing via modulo $n$ is the exact same as performing modulo $n$ on the operands.
 
 
@@ -1127,7 +1134,7 @@ before reducing via modulo $n$ is the exact same as performing modulo $n$ on the
   - $(a + b) equiv (c + d) (mod n)$.
   - $(a - b) equiv (c - d) (mod n)$.
   - $a b equiv c d (mod n)$.
-  - $a^m equiv c^m (mod n) forall "integer" m$.
+  - $a^m equiv c^m (mod n) forall mtxt("integer") m$.
 ])
 
 #example([Modular Arithmetic Basics], [
@@ -1155,7 +1162,10 @@ before reducing via modulo $n$ is the exact same as performing modulo $n$ on the
     &= 4 dot 356 \
     therefore 5 divides (1430 &- 6)
   $
+  #continue_example
+])
 
+#example([_Modular Arithmetic Basics continued_], [
   - $55^2 equiv (3^2)(mod 4)$
   $
     3025 &equiv 9 (mod 4) \
@@ -1180,12 +1190,12 @@ before reducing via modulo $n$ is the exact same as performing modulo $n$ on the
 - When modular arithmetic is applied to large numbers, _such as in RSA cryptography_,
   computations use two particular properties of exponents:
   $
-    x^(2a) &= (x^2)^a "for all real numbers" x "and" a "for" x >= 0. \
-    x^(a+b) &= x^a x^b "for all real numbers" x, a "and" b "for" x >= 0.
+    x^(2a) &= (x^2)^a mtxt("for all real numbers") x mtxt("and") a mtxt("for") x >= 0. \
+    x^(a+b) &= x^a x^b mtxt("for all real numbers") x, a mtxt("and") b mtxt("for") x >= 0.
   $
 
-#example([Modulo _*n*_ with powers of $2$], [
-  Solve $144^4 mod 713$.
+#example([Modulo #tmath([n]) with powers of #tmath(2)], [
+  Find the residue of $144^4 mod 713$.
   $
     144^4 mod 713 &= (144^2)^2 mod 713 \
     &= (144^2 mod 713)^2 mod 713 \
@@ -1196,16 +1206,20 @@ before reducing via modulo $n$ is the exact same as performing modulo $n$ on the
   $
 ])
 
-#example([Modulo _*n*_ without powers of 2], [
-  Solve $12^43 mod 713$.
+#example([Modulo #tmath([n]) without powers of #tmath(2)], [
+  Find the residue of $12^43 mod 713$.
   - _Recalling the second property, 43 can be split into multiple exponents to simplify the problem._
   $
     43 &= 2^5 + 2^3 + 2^1 + 2^0 \
     &= 32 + 8 + 2 + 1 \
     12^43 &= 12^(32+8+2+1) = 12^32 dot 12^8 dot 12^2 dot 12
   $
+  #continue_example
+])
 
-  - The exponents may be computed before plugging them back into the exponent.
+#example([_Modulo *n* without powers of 2 continued_], [
+  - By *Corollary 8.4.4.*, we can split products modulo $n$ into the product of the operands modulo $n$, modulo $n$.
+  - We can start by evaluating them separately.
   $
     12 mod 713 &= 12 \
     12^2 mod 713 &= 144 \
@@ -1216,24 +1230,22 @@ before reducing via modulo $n$ is the exact same as performing modulo $n$ on the
     12^32 mod 713 &= 629^2 mod 713 \
     &= 485
   $
-  #continue_example
-])
 
-#example([_Modulo *n* without powers of 2 continued_], [
-
-  - It follows that by *Corollary 8.4.4.*,
+  - Thus,
   $
     12^43 mod 713 &= [(12^32 mod 713) dot (12^8 mod 713) dot (12^2 mod 713) dot (12^1 mod 713)] mod 713 \
-    &= (485 dot 629 dot 59 dot 144 dot 12) mod 713 "by substitution" \
+    &= (485 dot 629 dot 59 dot 144 dot 12) mod 713 mtxt("by substitution") \
     &= 527152320 mod 713 \
     &= 48
   $
+  _Note that finding the residue is difficult regardless of what you do, as the exponents are still large after being split._
 ])
 
 
 
 
-=== Extending the Euclidean Algortihm
+
+=== Extending the Euclidean Algorithm
 - Recall the process for the euclidean algorithm:
 ```python
 '''
@@ -1272,10 +1284,7 @@ def euclidean(a: int, b: int) -> int:
     12 &= 156 - 18 dot 8 \
     6 &= 18 - 12 dot 1
   $
-  #continue_example
-])
 
-#example([_Expressing GCD as a Linear Combination continued_], [
   - Now, we can backtrack through each step through continuous substitutions, making sure to keep multiples of $330$ and $156$ intact.
   $
     gcd(330,156) &= 6 \
@@ -1293,9 +1302,34 @@ def euclidean(a: int, b: int) -> int:
 
 
 
-=== Finding an Inverse Modulo _n_
+=== Finding an Inverse Modulo _*n*_
+- Consider the following congruence:
+$
+  2x equiv 3 (mod 5)
+$
+- Here, we have to evaluate a value of $x$ that satisfies the congruence.
+- Notice that for $x=3$, $2$ is related to $1$ by modulo $5$.
+$
+  6 equiv 1 (mod 5)
+$
+
+- Thus, we can see the number $3$ as an *inverse for $2 mod 5$*. 
+  Now, we can try multiplying both sides by the inverse to see if it will help solve for $x$.
+$
+  3 dot 2x &equiv 3 dot 3 (mod 5) \
+  6x &equiv 9 (mod 5) \
+  6x &equiv 4 (mod 5) mtxt("by quotient-remainder theorem")
+$
+#pagebreak()
+- Now, because $6 equiv 1(mod 5)$, we can say that $6x equiv 1 dot x (mod 5)$.
+- Additionally, because we've established that modular congruence is symmetric and transitive:
+$
+  6x equiv 4 (mod 5) equiv 4 equiv x (mod 5) equiv x => x equiv (4 mod 5)
+$
+- Thus, a valid solution to the congruency is $x=4$.
+
 #definition([
-  Given any integer $a$ and positive integer $n$, if there exists an integer $s$ such that
+  Given any integer $a$ and positive integer $n$, if there exists an integer $s$ such that \
   $a s equiv 1 (mod n)$, then $s$ is *an inverse for $a$ modulo $n$*.
 ])
 
@@ -1311,7 +1345,7 @@ def euclidean(a: int, b: int) -> int:
   $a s + b t = 1$.  
 ])
 
-#example([Expressing 1 as a Linear Combination of Relatively Prime Integers], [
+#example([Expressing #tmath(1) as a Linear Combination of Relatively Prime Integers], [
   Show that $660$ and $43$ are relatively prime. 
   Additionally, find a corresponding linear combination equal to $1$. \
   - Again, we will use use Euclidean's algorithm:
@@ -1324,10 +1358,7 @@ def euclidean(a: int, b: int) -> int:
   $
   - Thus, $gcd(660, 43) = 1$.
   - *Therefore, $660$ and $43$ are relatively prime.*
-  #continue_example
-])
 
-#example([_Expressing 1 as a Linear Combination of Relatively Prime Integers Continued_], [
   - Because the greatest common divisor is $1$, then it follows that backtracking through the algorithm
     should yield a Linear Combination equal to $1$. 
   - _Defining each remainder in terms of everything else:_
@@ -1337,20 +1368,23 @@ def euclidean(a: int, b: int) -> int:
       2 &= 15 - 13 dot 1 \
       1 &= 13 - 2 dot 6
     $
+#continue_example
+])
 
-  - Like the last example, we can now use continous substitutions to find the Linear Combination:
+#example([_Expressing #tmath(1) as a Linear Combination of Relatively Prime Integers continued_], [
+  - Like the last example, we can now use continuous substitutions to find the Linear Combination:
   $
     gcd(660,43) &= 1 \
-    &= 13 - 2 dot 6 "by substitution" \
-    &= 13 - (15 - 13) dot 6 "by substitution" \
+    &= 13 - 2 dot 6 mtxt("by substitution") \
+    &= 13 - (15 - 13) dot 6 mtxt("by substitution") \
     &= 13 - 15 dot 6 + 13 dot 6\
     &= 13 dot 7 - 15 dot 6 \ 
-    &= (43 - 15 dot 2) dot 7 - 15 dot 6 "by substitution" \
+    &= (43 - 15 dot 2) dot 7 - 15 dot 6 mtxt("by substitution") \
     &= 43 dot 7 - 15 dot 14 - 15 dot 6 \
     &= 43 dot 7 - 15 dot 20 \
-    &= 43 dot 7 - (660 - 43 dot 15) dot 20 "by substitution" \
+    &= 43 dot 7 - (660 - 43 dot 15) dot 20 mtxt("by substitution") \
     &= 43 dot 7 - 660 dot 20 + 43 dot 300 \
-    &= underbrace(43 dot 307 + 660 dot (-20), "Linear Combination")
+    &= underbrace(43 dot 307 + 660 dot (-20), mtxt("Linear Combination"))
   $
 ])
 
@@ -1364,16 +1398,72 @@ def euclidean(a: int, b: int) -> int:
 
 
 === RSA Cryptography
-i dont know what is going on anymore #emoji.face.cry#emoji.face.cry#emoji.face.cry#emoji.face.cry#emoji.face.cry#emoji.face.cry#emoji.face.cry#emoji.face.cry#emoji.face.cry#emoji.face.cry
+- *RSA ciphers* encrypt messages using a product of two distinct prime numbers $p q$ and some integer $e$ relatively prime to the number of distinct prime factors of $p q$.
+  - This ensures that the *public key* and the *private key* are distinct.
+- Thus, for very large values of $p$ and $q$, it is difficult to ascertain them from just the product.
+- Thus, all messages can be easily encrypted by the accessible *public key*, then decrypted by the cipher using the *private key*.
 
+#example([Simple RSA Cipher], [
+  First, we can choose the values of $p$ and $q$.
+  - To minimize key overlapping, we can choose $p = 5$ and $q = 11$.
+  - Thus, $p q = 55$.
+Now, we can choose an integer $e$, and we want it to be relatively prime to the number of distinct prime factors of $p q$
+to ensure that the private key's modular inverse is unique.
+- Euler's totient function gives the number of distinct prime numbers up to a given integer, 
+  and it can be used to find the total factors of $p q$:
+  $
+    Phi(p q) &= Phi(p) Phi(q) \
+    &= (p-1) (q-1)
+  $
+- Now, since $(p-1)(q-1) = 40$, we can let $e = 3$, which is relatively prime to $40$.
+  #continue_example
+])
+
+#example([_Simple RSA Cipher continued_], [
+With these two values, we have a *public key*:
+$
+  (p q, e) = (55, 3)
 $
 
+Thus, for each letter in a message, the following formula may be used to encrypt plaintext $M$ into ciphertext $C$:
+$
+  C = M^e mod p q
+$
+- Each letter in the alphabet we be associated with their $n$th place in the alphabet.
+
+- For instance, to send the message, "HI", it could be encrypted as:
+#grid(
+  columns: (1fr, 1fr),
+  [$
+  C_1 &= mtxt("H")^e mod p q \
+  &= 8^3 mod 55 \ 
+  &= 512 mod 55 \
+  &= 17
+$],
+[$
+   C_2 &= mtxt("I")^e mod p q \
+   &= 9^3 mod 55 \
+   &= 729 mod 55 \
+   &= 14
+ $]
+)
+#set align(center)
+#box(stroke: black, inset: 3pt, [$17$ $14$])
+#set align(left)
+
+To create a *private/decryption key*, we need an additional integer that is the positive inverse to $e mod (p-1)(q-1)$.
+We can refer to this integer as $d$, and is the last part of the private key:
+$
+  (p q, d)
 $
 
+This private key may be used in the following decryption formula:
+$
+  M = C^d mod p q
+$
 
-
-
-
+Keep in mind that real RSA cryptography would use values far larger than this.
+])
 
 
 
@@ -1386,6 +1476,408 @@ $
     gcd(a,b) = 1 "and" a divides b c => a divides b
   $
 ])
+
+
+
+
+
+
+
+
+
+#pagebreak()
+== Partial Order Relations
+
+
+
+
+
+=== Antisymmetry
+- As opposed to symmetric relations showing two-way connections between connected elements in an arrow diagram, antisymmetric
+
+#definition([
+  Let $R$ be a relation on a set $A$. $R$ is *antisymmetric*, if and only if, for every $a$ and $b in A$, if $a op(R) b$ and $b op(R) a$, then $a = b$.
+])
+- Thus, to disprove that a relation is antisymmetric,
+$
+  exists a mtxt("and") b mtxt("such that") a op(R) b mtxt("and") b op(R) a mtxt("but") a eq.not b
+$
+
+#example([Testing Antisymmetry for Finite Relations], [
+  Let $R_1$ and $R_2$ be relations on ${0,1,2}$ defined as follows:
+  $
+    R_1 &= {(0,2), (1,2), (2,0)} \
+    R_2 &= {(0,0), (0,1), (0,2), (1,1), (1,2)}
+  $
+  Are any of the relations antisymmetric?
+  - $R_1$ is not antisymmetric. 
+    When drawing out its directed graph, there are two parallel edges between vertex $0$ and $2$.
+  #figure(
+    diagram(
+      node-fill: none,
+      node-stroke: 1pt,
+      edge-stroke: 0.8pt,
+      node((0, 0), [*2*], radius: 0.75em),
+      edge((-1,1), "-|>", bend: 20deg),
+    
+
+      node((1,1), [*1*], radius: 0.75em),
+      edge((0,0), "-|>"),
+    
+
+      node((-1, 1), [*0*], radius: 0.75em),
+      edge((0,0), "-|>", bend: 20deg)
+      
+    ),
+    supplement: [Diagram],
+    caption: [The directed graph for $R_1$.]
+  )
+
+  - $R_2$ is antisymmetric. All connections between different vertices are only through one edge.
+  #figure(
+    diagram(
+      node-fill: none,
+      node-stroke: 1pt,
+      edge-stroke: 0.8pt,
+      node((0, 0), [*2*], radius: 0.75em),
+
+      node((1,1), [*1*], radius: 0.75em),
+      edge((1,1), "-|>", bend: 150deg, loop-angle: -45deg),
+      edge((0,0), "-|>"),
+
+      node((-1, 1), [*0*], radius: 0.75em),
+      edge((-1,1), "-|>", bend: 150deg, loop-angle: 225deg),
+      edge((0,0), "-|>"),
+      edge((1, 1), "-|>")
+    ),
+    supplement: [Diagram],
+    caption: [The directed graph for $R_2$.]
+  )
+])
+
+
+
+
+
+=== Antisymmetry with Partial Order Relations
+#definition([
+  Let $R$ be a relation defined on set $A$. $R$ is a *partial order relation*, if, and only if, $R$ is reflexive, antisymmetric, and transitive.
+])
+
+- The first fundamental partial order relation is the *less than or equal to* relation on $RR$.
+#set align(center)
+_For all integers $a$ and $b$_,
+$
+  a op(R) b <=> a <= b
+$
+#set align(left)
+
+- The second fundamental partial order relation is the *subset* relation on a set of sets.
+#set align(center)
+_For any sets $A$ and $B in C$_,
+$
+  A op(R) B <=> A subset.eq B
+$
+#set align(left)
+
+- Due to the commonality of the _less than or equal to_ relation, the symbol $prec.eq$ is used to denote it as a general partial order relation.
+  - Consequently, $x prec.eq y$ may be read as the same as "$x <= y$."
+  
+#example([Divides Relation], [
+  Let $divides$ be the divides relation on set of positive integers $A$. It is defined as follows:\
+  
+  #set align(center)
+  _For all positive integers $a$ and $b in A$_
+  $
+    a divides b <=> b = k a mtxt("for some integer") k
+  $
+  #set align(left)
+  
+  Prove that $divides$ is a partial order relation on $A$.
+
+  _Prove that $divides$ is reflexive:_
+  - Suppose there exists some positive integer $a in A$.
+  $
+    a = 1 dot a
+  $
+  - By definition of divisibility, $a divides a$.
+  - Thus, $divides$ is reflexive.
+
+  _Prove that $divides$ is antisymmetric:_
+  - Suppose there exists some positive integers $a$ and $b in A$ such that $a divides b$ and $b divides a$.
+  - By definition of divisibility, $a = k_1 b$ and $b = k_2 a$ for some integers $k_1$ and $k_2$.
+  $
+    a &= k_1 b \
+    a &= k_1 k_2 a mtxt("by substitution") \
+    1 &= k_1 k_2 mtxt("by algebra")
+  $
+  - Because $a$ and $b$ are both positive integers, it follows that $k_1$ and $k_2$ are also positive integers.
+  - The only product of two positive integers that equates to $1$ is $1 dot 1$.
+  - Therefore, $k_1 = k_2 = 1$.
+  - By substitution, $a = b$ and $b = a$.
+  - Thus, $divides$ is antisymmetric.
+
+  _Prove that $divides$ is transitive:_
+  - Suppose there exists some positive integers $a$, $b$, and $c in A$ such that $a divides b$ and $b divides c$.
+  - By definition of divisibility, $a = r b$ and $b = s c$ for some integers $r$ and $s$.
+  $
+    a &= r b \
+    a &= r s c
+  $
+  - Because $ZZ$ is closed under multiplication, $r s$ is an integer.
+  - By definition of divisibility, $a divides c$, so $divides$ is transitive.
+  Because $divides$ is reflexive, antisymmetric, and transitive, it is a partial order relation.
+])
+
+
+
+
+
+=== Lexicographic Order
+- In programming languages, strings are generally sorted *lexicographically*.
+#theorem([8.5.1], [
+  Let $A$ be a set with a partial order relation $R$, and let $S$ be a set of strings over $A$.
+  Define a relation $prec.eq$ on $S$ as follows:
+
+  #set align(center)
+  _For any strings $s$ and $t$ of positive integer lengths $m$ and $n$, respectively, 
+  let $s_m$ and $t_m$ be the characters at the $m$th position of $s$ and $t$, respectively. 
+  Thus, the following conditions hold:_ 
+  #set align(left)
+
+  + If $m <= n$ and the first $m$ characters are the same between $s$ and $t$, then $s prec.eq t$.
+  + If the first $m-1$ characters are the same between $s$ and $t$, $s_m op(R) t_m$, and $s_m eq.not t_m$, \ then $s prec.eq t$.
+  + Null string $lambda prec.eq s$.
+If no strings are related by $prec.eq$ other than the aforementioned conditions, then $prec.eq$ is a partial order relation on $S$.
+])
+- Essentially, $prec.eq$ defines a sorting order for the strings
+  depending on the comparative values of each character in the strings.
+- For instance, `"flag"` is related to `"flagged"` by $prec.eq$ according to the first condition, 
+  and `"flagged"` is related to `"flagger"` by $prec.eq$ by the second condition.
+  - Thus, the resulting order would be `{"flag", "flagged", "flagger"}`
+- Additionally, notice how the set $A$ has another partial relation $R$. 
+  This means that $prec.eq$ may only sort comparable elements, that is, 
+  when each character being related  to each other by $R$.
+
+#definition([
+  The partial order relation, $prec.eq$, outlined in *Theorem 8.5.1.*, is the *lexicographic order for $S$* 
+  that corresponds to the partial order $R$ on $A$.
+])
+
+
+
+
+
+=== Hasse Diagrams
+-  A *Hasse diagram* is a _simplified_ arrow diagram that may be associated with a partial order relation defined on a finite set.
+- It is oriented upward, that is, all arrows aside from loops will point upward.
+- Loops, transitive-implied edges, and direction indicators are all omitted.
+
+- Suppose we let set $A = {1,2,3,9,18}$, and define the following _divides_ relation on $A$:
+#set align(center)
+_For all $a$ and $b in A$,_
+$
+  a divides b <=> b = k a mtxt("for some integer") k
+$
+#set align(left)
+#pagebreak()
+- This results in the following directed graph:
+#figure(
+    diagram(
+      node-fill: none,
+      node-stroke: 1pt,
+      edge-stroke: 0.8pt,
+      node((0,0), [*18*], radius: 0.75em),
+      edge((0,0), "-|>", bend: 150deg),
+
+      node((2,0.8), [*9*], radius: 0.75em),
+      edge((2,0.8), "-|>", bend: 150deg, loop-angle: 0deg),
+      edge((0,0), "-|>"),
+
+      node((1.2,1.4), [*3*], radius: 0.75em),
+      edge((1.2,1.4), "-|>", bend: 150deg, loop-angle: -45deg),
+      edge((0,0), "-|>"),
+      edge((2,0.8), "-|>"),
+
+      node((-1.2,1.4), [*2*], radius: 0.75em),
+      edge((-1.2,1.4), "-|>", bend: 150deg, loop-angle: -135deg),
+      edge((0,0), "-|>"),
+
+      node((0,2), [*1*], radius: 0.75em),
+      edge((0,2), "-|>", bend: 150deg, loop-angle: -90deg),
+      edge((0,0), "-|>"),
+      edge((-1.2,1.4), "-|>"),
+      edge((1.2,1.4), "-|>"),
+      edge((2,0.8), "-|>", bend: 20deg),
+    ),
+    supplement: [Diagram],
+    caption: [The directed graph for the _divides_ relation.]
+  )
+- However, this graph is very messy, and we already _know_ that it is a partial order relation.
+- Thus, we can use the following Hasse diagram to visually express it more clearly:
+#figure(
+    diagram(
+      node-fill: none,
+      node-stroke: 1pt,
+      edge-stroke: 0.8pt,
+      node((0,0), [*18*], radius: 0.75em),
+
+      node((2,0.8), [*9*], radius: 0.75em),
+      edge((0,0)),
+
+      node((1.2,1.4), [*3*], radius: 0.75em),
+      edge((2,0.8)),
+
+      node((-1.2,1.4), [*2*], radius: 0.75em),
+      edge((0,0)),
+
+      node((0,2), [*1*], radius: 0.75em),
+      edge((-1.2,1.4)),
+      edge((1.2,1.4)),
+
+    ),
+    supplement: [Diagram],
+    caption: [The Hasse diagram for the _divides_ relation.]
+  )
+- By recalling the properties of partial order relations, we can still construct the original direct graph from this alone.
+  - Because the relation is reflexive, we can imagine a loop on every single loop.
+  - Because it is oriented upwards, and the relation is antisymmetric, we know that relations between elements will be directed upwards.
+  - Because it is oriented upwards, and the relation is transitive, we can imagine extra directed arrows from elements at the bottom to elements higher up on the diagram.
+
+
+
+=== Partially and Totally Ordered Sets
+- Given two real numbers $x$ and $y$ such that $x <= y$ or $y <= x$, then $x$ and $y$ are known to be *comparable*.
+- Meanwhile, given two subsets $A = {1,2}$ and $B = {2,3}$ of ${1,2,3}$, 
+  $A subset.eq.not B$ and $B subset.eq.not A$, so $A$ and $B$ are known to be *noncomparable*.
+#definition([
+  Given $a$ and $b in A$ and $prec.eq$ on $A$, $a$ and $b$ are *comparable* if, and only if,
+  either $a prec.eq b$ or $b prec.eq a$. Otherwise, $a$ and $b$ are *noncomparable*.
+])
+- All elements in a *total order relation* are comparable.
+
+#definition([
+  If $R$ is a partial order relation on set $A$, and for any two elements $a$ and $b$,
+  $a op(R) b$ or $b op(R) a$, then $R$ is a *total order relation*.
+])
+- Sets also have special names with respect to particular partial order relations.
+  - A set is a *partially ordered set* or *poset* with respect to $prec.eq$ if, and only if,
+    $prec.eq$ is a partial order relation on it.
+  - A set is a *totally ordered set* with respect to $prec.eq$ if, and only if,
+    $prec.eq$ is a total order relation on it.
+
+- Even then, subsets of posets may still be totally ordered sets, known as chains.
+#definition([
+  Given $A$, a poset with respect to $prec.eq$, subset $B$ of $A$ is a *chain* if, and only if,
+  each pair in $B$ is comparable. \
+  The *length of a chain* is the number of elements in the chain minus one.
+])
+
+#example([A Chain of Subsets], [
+  Let set $P({a,b,c})$ be a partially ordered relation with respect to the subset relation.
+  Find a chain of length $3 in P({a,b,c})$.
+  - By definition of the subset relation:
+  $
+    emptyset subset.eq {a} subset.eq {a,b} subset.eq {a,b,c}
+  $
+  Thus, the set ${emptyset, {a}, {a,b}, {a,b,c}}$ is the chain of length $3 in P({a,b,c})$.
+])
+
+- Additionally, partially ordered sets may have extrema. However, there are four rather than two,
+  as it is dependent on the comparability between elements in a set.
+
+#definition([
+  Let set $A$ be partially ordered with respect to $prec.eq$.
+  + $a in A$ is a *maximal element* of $A <=>$ for each $b in A$,
+    either $b prec.eq a$ or $b$ and $a$ are not comparable.
+  + $a in A$ is a *greatest element* of $A <=>$ for each $b in A$, $b prec.eq a$.
+  + $a in A$ is a *minimal element* of $A <=>$ for each $b in A$,
+    either $a prec.eq b$ or $a$ and $b$ are not comparable.
+  + $a in A$ is a *least element* of $A <=>$ for each $b in A$, $a prec.eq b$.
+])
+- Following a Hasse diagram, the greatest element should be at the very top,
+  while the least element is at the very bottom.
+- Because maximal and minimal elements are only relative to comparable elements,
+  this should only hold true for their respective *chains*.
+
+#example([Maximal, Minimal, Greatest, and Least Elements], [
+  Given set $A = {a,b,c,d,e,f,g,h,i}$ and the partial order relation 
+  defined by the Hasse diagram below, find the maximal, minimal, greatest,
+  and least elements of $A$. \
+  
+  #figure(
+    diagram(
+      node-fill: none,
+      node-stroke: 1pt,
+      edge-stroke: 0.8pt,
+      node((0,0), [*g*], radius: 0.75em),
+
+      node((-1,1), [*a*], radius: 0.75em),
+      edge((0,0)),
+
+      node((0,1), [*f*], radius: 0.75em),
+      edge((0,0)),
+
+      node((1,1), [*h*], radius: 0.75em),
+      edge((0,0)),
+
+      node((-1,2), [*b*], radius: 0.75em),
+      edge((-1,1)),
+
+      node((0,2), [*e*], radius: 0.75em),
+      edge((0,1)),
+      edge((1,1)),
+
+      node((1,2), [*i*], radius: 0.75em),
+      edge((1,1)),
+
+      node((-1.5,3), [*c*], radius: 0.75em),
+      edge((-1,2)),
+
+      node((-0.5,3), [*d*], radius: 0.75em),
+      edge((-1,2)),
+      edge((0,2))
+    ),
+    supplement: [Diagram],
+    caption: [The Hasse diagram for $A$.]
+  )
+
+  - $g$ is the only maximal element.
+  - $g$ is also the only greatest element.
+  - $c$, $d$, and $i$ are the minimal elements.
+  - There is no least element.
+])
+
+
+
+
+
+=== Topological Sorting
+- The basis of topological sorting is that inputs considered _lesser_ than another must
+  be inputted before it.
+#definition([
+  Given $prec.eq$ and $prec.eq'$ on set $A$, $prec.eq'$ is *compatible* with $prec.eq$
+  if, and only if, for every $a$ and $b in A$, \ $a prec.eq b => a prec.eq' b$.
+])
+
+#definition([
+  Given partial order relations $prec.eq$ and $prec.eq'$ on set $A$, $prec.eq'$ is a
+  *topological sorting* for $prec.eq$, if, and only if, $prec.eq'$ is a total order 
+  compatible with $prec.eq$.
+])
+- Formally, the algorithm for constructing a toplogical sorting is as follows:
+  + Pick any minimal element $a in A$, _given that $A eq.not emptyset$_.
+  + $A' colon.eq A - {a}$.
+  + Repeat the following steps while $A' eq.not emptyset$:
+    - Pick any minimal element $b in A'$.
+    - Define $a prec.eq' b$.
+    - Set $A' colon.eq A' - {b}$ and $a colon.eq b$.
+
+#example([Topological Sorting Steps], [
+
+])
+
+
 
 
 
