@@ -10,15 +10,16 @@
 #show heading.where(level: 1): set text(size: 20pt)
 #show heading.where(level: 2): set text(size: 18pt)
 #show heading.where(level: 3): set text(size: 16pt)
-#show math.equation: set text(font: "Luciole Math", size: 10pt)
+#show math.equation: set text(font: "New Computer Modern Sans Math")
+#show sym.emptyset: set text(font: "Fira Sans")
 
 //Functions and variables
-#let custom_numbering(max_depth) = (..numbers) => { 
-  if numbers.pos().len() <= max_depth { //Automatic headings until heading 3
+#let custom_numbering = (..numbers) => { 
+  if numbers.pos().len() < 3 { //Automatic headings until heading 3
     numbering("1.1", ..numbers)
   }
 }
-#set heading(numbering: custom_numbering(2))
+#set heading(numbering: custom_numbering)
 #counter(heading).update(7)
 
 #let theorem(num, body) = {
@@ -75,10 +76,6 @@
     #body]
   )
 }
-
-#let mtxt(body) = text(font: "New Computer Modern Sans", [#body], size: 12pt)
-
-#let tmath(body) = text(font: "Luciole Math", [#body], size: 12pt)
 
 #let continue_example = figure([_Continued on next page_])
 
@@ -152,17 +149,17 @@
         content((-1,1), [#text(fill:blue, $x<y$)])
       }),
       supplement: [Graph],
-      caption: [_Anything ordered pair above the dotted line satisify $L$._]
+      caption: [_Anything ordered pair above the dotted line satisfy $L$._]
     )
 ])
 
-#example([Congruence Modulo #tmath(2) Relation],[
+#example([Congruence Modulo $2$ Relation],[
   A relation $E$ from $ZZ$ to $ZZ$ is defined as follows: \
   
   #set align(center)
   _For every $(m, n) in ZZ times ZZ$,_
   $
-    m op(E) n <=> m-n #mtxt("is even")
+    m op(E) n <=> m-n "is even"
   $
   #set align(left)
 
@@ -170,13 +167,13 @@
   #continue_example
 ])
 
-#example([_Congruence Modulo #tmath([2]) Relation continued_], [
+#example([_Congruence Modulo $2$ Relation continued_], [
   *Proof:* \
   - Suppose $n$ is any odd integer.
   - By definition of odd, $n = 2k+1$ for some integer $k$.
   - By definition of $E$, $n op(E) 1$ if, and only 1if, $n-1$ is even.
   - By substitution,
-  $ 2k+1 op(E) 1 <=> 2k+1-1 #mtxt("is even") $
+  $ 2k+1 op(E) 1 <=> 2k+1-1 "is even" $
   - As said earlier, $k$ is an integer, so by extension, $2k$ is even by definition of even.
   - Therefore, $n op(E) 1$.
 
@@ -239,23 +236,30 @@ $
       node-fill: none,
       node-stroke: 1.4pt,
       edge-stroke: 1.5pt,
-      node((-3.5, -0.5), text(fill: blue, [*$A$*]), stroke: 0pt),
+      node((-3.5, -0.5), text(fill: blue, [$A$]), stroke: 0pt),
       edge((0.5, -0.5), "-|>", $R$, bend: 20deg, layer: 100),
+
       node((-3.5, 0.5), [$2$], fill: blue.lighten(65%), stroke: blue),
       edge((0.5, 0.5)),
       edge((0.5, 1.3)),
       edge((0.5, 2.1)),
+
       node((-3.5, 1.3), [$3$], fill: blue.lighten(65%), stroke: blue),
       edge((0.5, 1.3)),
+
       node((-3.5, 2.1), text[$4$], fill: blue.lighten(65%), stroke: blue),
       edge((0.5, 2.1)),
+
       node((-3.5, 3.3), stroke: 0pt),
       edge((0.5, 3.3), "<|-", bend: -20deg, $R^(-1)$),
 
       
-      node((0.5, -0.5), text(fill: red, [*$B$*]), stroke: 0pt),
+      node((0.5, -0.5), text(fill: red, [$B$]), stroke: 0pt),
+
       node((0.5, 0.5), [$2$], fill: red.lighten(65%), stroke: red),
+
       node((0.5, 1.3), [$6$], fill: red.lighten(65%), stroke: red),
+
       node((0.5, 2.1), [$8$], fill: red.lighten(65%), stroke: red),
     ),
     supplement: [Diagram],
@@ -280,7 +284,10 @@ $
   $
     R^(-1) = {(y,x) in RR | x=2|y|}
   $
+  #continue_example
+])
 
+#example([_Infinite Relation Inverse continued_], [
   #figure(
     cetz.canvas({
       import cetz.draw: *
@@ -300,12 +307,9 @@ $
       line((0,0), (2,-1), stroke: blue)
       content((1.7,0.3), [#text(fill:blue, $x=2|y|$)])
     }),
-    supplement: [Graph]
+    supplement: [Graph],
+    caption: [_$R$ and $R^(-1)$ on the cartesian plane._]
   )
-    #continue_example
-])
-
-#example([_Infinite Relation Inverse continued_], [
     - Given this, the following tables may be procured:
     #set align(center)
     #grid(
@@ -341,7 +345,7 @@ $
 
 
 
-#pagebreak()
+
 === Directed Graph of a Relation
 #definition([A *relation on a set* $A$ is a relation from $A$ to $A$.])
 - In this case, if a relation $R$ is defined on set $A$, then the relation's arrow diagram may also be expressed as a *directed graph*.
@@ -395,7 +399,7 @@ $
       edge((1, 0), "-|>", bend: 20deg),
     ),
     supplement: [Diagram],
-    caption: [The directed graph for $R$.]
+    caption: [_The directed graph for $R$._]
   )
 
   Notice how every vertex in the directed graph connects to itself. 
@@ -408,9 +412,10 @@ $
 
 
 
-#pagebreak()
-=== _N_-ary Relations and Relational Databases
+
+=== $N$-ary Relations and Relational Databases
 - Particular relations formed from Cartesian products of $n$ sets, known as $N$-ary relations, are the mathematical basis for relational database theory.
+- In databases, they may be thought of as tables with $n$ columns and the headers $A_1, A_2, dots, A_n$.
 #definition([
   Given the sets $A_1, A_2, dots, A_n$, the *$n$-ary relation* on \
   $A_1 times A_2 times dots.h.c times A_n$ is a subset of $A_1 times A_2 times dots.h.c times A_n$. 
@@ -419,8 +424,6 @@ $
   - $3$-ary is *tertiary*.
   - $4$-ary is *quaternary*.
 ])
-In a database, these $n$-ary relations can be thought of as tables with $n$ 
-columns with the headers $A_1, A_2, dots, A_n$.
 
 
 
@@ -575,7 +578,7 @@ columns with the headers $A_1, A_2, dots, A_n$.
 ])
 - Recall that two integers may be congruent modulo for integers other than $2$ as long as that integer divides their difference.
 
-#example([Properties of Congruence Modulo #tmath(2)], [
+#example([Properties of Congruence Modulo $2$], [
   Let a relation $T$ be defined on $ZZ$ as follows:
 
   #set align(center)
@@ -604,8 +607,8 @@ columns with the headers $A_1, A_2, dots, A_n$.
   $
   - By definition of divisibility, $m-n = 3k$ for some integer $k$.
   $
-    m - n &= 3k mtxt("for some integer") k \
-    n - m &= 3(-k) mtxt("for some integer") k mtxt("by algebra")
+    m - n &= 3k "for some integer" k \
+    n - m &= 3(-k) "for some integer" k "by algebra"
   $
   - $ZZ$ is closed under multiplication, so $-k$ is an integer.
   - Therefore, by definition of divisibility, $3 divides(n-m)$.
@@ -613,7 +616,7 @@ columns with the headers $A_1, A_2, dots, A_n$.
   #continue_example
 ])
 
-#example([_Properties of Congruence Modulo #tmath(2) continued_], [
+#example([_Properties of Congruence Modulo $2$ continued_], [
   Is $T$ transitive?
   - *Proof:*
   - Suppose $m$, $n$, and $p$ are _particular but arbitrarily chosen_ integers such that $m op(T) n$ and $n op(T) p$.
@@ -623,8 +626,8 @@ columns with the headers $A_1, A_2, dots, A_n$.
   $
   - By definition of divisibility, $m-n = 3r$ and $n-p = 3s$ for some integers $r$ and $s$.
   $
-    (m-n) + (n-p) &= 3r + 3s mtxt("by adding both together") \
-    m-p &= 3(r+s) mtxt("by algebra") \
+    (m-n) + (n-p) &= 3r + 3s "by adding both together" \
+    m-p &= 3(r+s) "by algebra" \
   $
   - $(r+s)$ is an integer because $ZZ$ is closed under addition.
   - Therefore, by definition of divisibility, $3 divides (m-p)$.
@@ -736,7 +739,7 @@ columns with the headers $A_1, A_2, dots, A_n$.
   #set align(center)
   _For every $x,y in A$,_
   $
-    x op(R) y <=> mtxt("There is a subset") A_i mtxt("of the partition such that both") x mtxt("and") y mtxt("are in") A_i.
+    x op(R) y <=> "There is a subset" A_i "of the partition such that both" x "and" y "are in" A_i.
   $
 ])
 #example([Relation Induced by the Partition],[
@@ -794,7 +797,7 @@ columns with the headers $A_1, A_2, dots, A_n$.
   #set align(center)
   _For every $A$ and $B$ in $X$,_
   $
-    A op(R) B <=> mtxt("The least element in") A mtxt("equals the least element in") B.
+    A op(R) B <=> "The least element in" A "equals the least element in" B.
   $
 #set align(left)
 
@@ -893,7 +896,6 @@ columns with the headers $A_1, A_2, dots, A_n$.
     x op(R) y <=> x=y
   $
   #set align(left)
-  $R$ is also an equivalence relation.
 
   What are the distinct equivalence classes of $R$?
   $
@@ -915,7 +917,7 @@ columns with the headers $A_1, A_2, dots, A_n$.
   If $R$ is an equivalence relation on set $A$, and $a$ and $b$ are elements of $A$, 
   then
   $
-    [a] inter [b] = emptyset mtxt("or") [a] = [b]
+    [a] inter [b] = emptyset "or" [a] = [b]
   $
 ])
 
@@ -927,8 +929,8 @@ columns with the headers $A_1, A_2, dots, A_n$.
 
 
 
-=== Congruence Modulo _*n*_
-#example([Equivalence Classes of Congruence Modulo #tmath(3)], [
+=== Congruence Modulo $n$
+#example([Equivalence Classes of Congruence Modulo $3$], [
   Let $R$ be the congruence modulo $3$ relation on $ZZ$, or
   $
     m op(R) n <=> 3 divides (m-n)
@@ -937,8 +939,8 @@ columns with the headers $A_1, A_2, dots, A_n$.
   - For each integer $a$,
   $
     [a] &= {x in ZZ | x op(R) a} \
-    [a] &= {x in ZZ | 3 divides (x-a)} mtxt("by definition of") R\
-    [a] &= {x in ZZ | (x-a) = 3k mtxt("for some integer") k} mtxt("by definition of divisibility")\ 
+    [a] &= {x in ZZ | 3 divides (x-a)} "by definition of" R\
+    [a] &= {x in ZZ | (x-a) = 3k "for some integer" k} "by definition of divisibility"\ 
     [a] &= {x in ZZ | x = 3k + a} \
   $
   - It should follow that there are three equivalence classes of $R$.
@@ -996,9 +998,9 @@ columns with the headers $A_1, A_2, dots, A_n$.
 - When expressed as fractions, the same rational number can be expressed using
   different numerators and denominators
     $
-      6 / 7 = 12 / 14
+      6 / 7 = 66 / 77
     $
-  - Yet, they could represent the different tuples $(6,7)$ and $(12,14)$.
+  - Yet, they could represent the different tuples $(6,7)$ and $(66,77)$.
 - Algebraically, it follows that
   $
     a / b = c / d <=> a d = b c
@@ -1024,7 +1026,7 @@ columns with the headers $A_1, A_2, dots, A_n$.
   Prove that $R$ is transitive.
   - Suppose $(a,b)$, $(c,d)$, and $(e,f)$ are _particular but arbitrarily chosen_ elements of $A$ such that 
   $ 
-  (a,b) op(R) (c, d) mtxt("and") (c,d) op(R) (e,f)
+  (a,b) op(R) (c, d) "and" (c,d) op(R) (e,f)
   $
 
   - By definition of $R$,
@@ -1042,7 +1044,7 @@ columns with the headers $A_1, A_2, dots, A_n$.
   - Now, $(1prime)$ and $(2prime)$ are equal to the same thing. Thus,
   $
     a d f &= b d e \
-    a f &= b e mtxt("because") d eq.not 0
+    a f &= b e "because" d eq.not 0
   $
 
   - Therefore, by definition of $R$, $(a,b) op(R) (e,f)$. \
@@ -1082,7 +1084,7 @@ Methods of encryption are known as *ciphers*.
 
 
 
-=== Properties of Congruence Modulo _*n*_
+=== Properties of Congruence Modulo $n$
 #theorem([8.4.1], [
   Let $a$, $b$, and $n$ be any integers for $n > 1$.
   These statements are all equivalent to each other:
@@ -1134,7 +1136,7 @@ before reducing via modulo $n$ is the exact same as performing modulo $n$ on the
   - $(a + b) equiv (c + d) (mod n)$.
   - $(a - b) equiv (c - d) (mod n)$.
   - $a b equiv c d (mod n)$.
-  - $a^m equiv c^m (mod n) forall mtxt("integer") m$.
+  - $a^m equiv c^m (mod n) forall "integer" m$.
 ])
 
 #example([Modular Arithmetic Basics], [
@@ -1190,11 +1192,11 @@ before reducing via modulo $n$ is the exact same as performing modulo $n$ on the
 - When modular arithmetic is applied to large numbers, _such as in RSA cryptography_,
   computations use two particular properties of exponents:
   $
-    x^(2a) &= (x^2)^a mtxt("for all real numbers") x mtxt("and") a mtxt("for") x >= 0. \
-    x^(a+b) &= x^a x^b mtxt("for all real numbers") x, a mtxt("and") b mtxt("for") x >= 0.
+    x^(2a) &= (x^2)^a "for all real numbers" x "and" a "for" x >= 0. \
+    x^(a+b) &= x^a x^b "for all real numbers" x, a "and" b "for" x >= 0.
   $
 
-#example([Modulo #tmath([n]) with powers of #tmath(2)], [
+#example([Modulo $n$ with powers of $2$)], [
   Find the residue of $144^4 mod 713$.
   $
     144^4 mod 713 &= (144^2)^2 mod 713 \
@@ -1206,7 +1208,7 @@ before reducing via modulo $n$ is the exact same as performing modulo $n$ on the
   $
 ])
 
-#example([Modulo #tmath([n]) without powers of #tmath(2)], [
+#example([Modulo $n$ without powers of $2$], [
   Find the residue of $12^43 mod 713$.
   - _Recalling the second property, 43 can be split into multiple exponents to simplify the problem._
   $
@@ -1234,7 +1236,7 @@ before reducing via modulo $n$ is the exact same as performing modulo $n$ on the
   - Thus,
   $
     12^43 mod 713 &= [(12^32 mod 713) dot (12^8 mod 713) dot (12^2 mod 713) dot (12^1 mod 713)] mod 713 \
-    &= (485 dot 629 dot 59 dot 144 dot 12) mod 713 mtxt("by substitution") \
+    &= (485 dot 629 dot 59 dot 144 dot 12) mod 713 "by substitution" \
     &= 527152320 mod 713 \
     &= 48
   $
@@ -1302,23 +1304,23 @@ def euclidean(a: int, b: int) -> int:
 
 
 
-=== Finding an Inverse Modulo _*n*_
+=== Finding an Inverse Modulo $n$
 - Consider the following congruence:
 $
   2x equiv 3 (mod 5)
 $
 - Here, we have to evaluate a value of $x$ that satisfies the congruence.
-- Notice that for $x=3$, $2$ is related to $1$ by modulo $5$.
+- Notice that for $x=3$, $2$ there is a relation to $1$ by modulo $5$.
 $
   6 equiv 1 (mod 5)
 $
 
-- Thus, we can see the number $3$ as an *inverse for $2 mod 5$*. 
+- Thus, we can see the number $3$ as an *inverse for $6 equiv 2 mod 5$*. 
   Now, we can try multiplying both sides by the inverse to see if it will help solve for $x$.
 $
   3 dot 2x &equiv 3 dot 3 (mod 5) \
   6x &equiv 9 (mod 5) \
-  6x &equiv 4 (mod 5) mtxt("by quotient-remainder theorem")
+  6x &equiv 4 (mod 5) "by quotient-remainder theorem"
 $
 #pagebreak()
 - Now, because $6 equiv 1(mod 5)$, we can say that $6x equiv 1 dot x (mod 5)$.
@@ -1345,7 +1347,7 @@ $
   $a s + b t = 1$.  
 ])
 
-#example([Expressing #tmath(1) as a Linear Combination of Relatively Prime Integers], [
+#example([Expressing $1$ as a Linear Combination of Relatively Prime Integers], [
   Show that $660$ and $43$ are relatively prime. 
   Additionally, find a corresponding linear combination equal to $1$. \
   - Again, we will use use Euclidean's algorithm:
@@ -1371,20 +1373,20 @@ $
 #continue_example
 ])
 
-#example([_Expressing #tmath(1) as a Linear Combination of Relatively Prime Integers continued_], [
+#example([_Expressing $1$ as a Linear Combination of Relatively Prime Integers continued_], [
   - Like the last example, we can now use continuous substitutions to find the Linear Combination:
   $
     gcd(660,43) &= 1 \
-    &= 13 - 2 dot 6 mtxt("by substitution") \
-    &= 13 - (15 - 13) dot 6 mtxt("by substitution") \
+    &= 13 - 2 dot 6 "by substitution" \
+    &= 13 - (15 - 13) dot 6 "by substitution" \
     &= 13 - 15 dot 6 + 13 dot 6\
     &= 13 dot 7 - 15 dot 6 \ 
-    &= (43 - 15 dot 2) dot 7 - 15 dot 6 mtxt("by substitution") \
+    &= (43 - 15 dot 2) dot 7 - 15 dot 6 "by substitution" \
     &= 43 dot 7 - 15 dot 14 - 15 dot 6 \
     &= 43 dot 7 - 15 dot 20 \
-    &= 43 dot 7 - (660 - 43 dot 15) dot 20 mtxt("by substitution") \
+    &= 43 dot 7 - (660 - 43 dot 15) dot 20 "by substitution" \
     &= 43 dot 7 - 660 dot 20 + 43 dot 300 \
-    &= underbrace(43 dot 307 + 660 dot (-20), mtxt("Linear Combination"))
+    &= underbrace(43 dot 307 + 660 dot (-20), "Linear Combination")
   $
 ])
 
@@ -1435,13 +1437,13 @@ $
 #grid(
   columns: (1fr, 1fr),
   [$
-  C_1 &= mtxt("H")^e mod p q \
+  C_1 &= "H"^e mod p q \
   &= 8^3 mod 55 \ 
   &= 512 mod 55 \
   &= 17
 $],
 [$
-   C_2 &= mtxt("I")^e mod p q \
+   C_2 &= "I"^e mod p q \
    &= 9^3 mod 55 \
    &= 729 mod 55 \
    &= 14
@@ -1500,7 +1502,7 @@ Keep in mind that real RSA cryptography would use values far larger than this.
 ])
 - Thus, to disprove that a relation is antisymmetric,
 $
-  exists a mtxt("and") b mtxt("such that") a op(R) b mtxt("and") b op(R) a mtxt("but") a eq.not b
+  exists a "and" b "such that" a op(R) b "and" b op(R) a "but" a eq.not b
 $
 
 #example([Testing Antisymmetry for Finite Relations], [
@@ -1530,7 +1532,7 @@ $
       
     ),
     supplement: [Diagram],
-    caption: [The directed graph for $R_1$.]
+    caption: [_The directed graph for $R_1$._]
   )
 
   - $R_2$ is antisymmetric. All connections between different vertices are only through one edge.
@@ -1551,7 +1553,7 @@ $
       edge((1, 1), "-|>")
     ),
     supplement: [Diagram],
-    caption: [The directed graph for $R_2$.]
+    caption: [_The directed graph for $R_2$._]
   )
 ])
 
@@ -1589,7 +1591,7 @@ $
   #set align(center)
   _For all positive integers $a$ and $b in A$_
   $
-    a divides b <=> b = k a mtxt("for some integer") k
+    a divides b <=> b = k a "for some integer" k
   $
   #set align(left)
   
@@ -1608,8 +1610,8 @@ $
   - By definition of divisibility, $a = k_1 b$ and $b = k_2 a$ for some integers $k_1$ and $k_2$.
   $
     a &= k_1 b \
-    a &= k_1 k_2 a mtxt("by substitution") \
-    1 &= k_1 k_2 mtxt("by algebra")
+    a &= k_1 k_2 a "by substitution" \
+    1 &= k_1 k_2 "by algebra"
   $
   - Because $a$ and $b$ are both positive integers, it follows that $k_1$ and $k_2$ are also positive integers.
   - The only product of two positive integers that equates to $1$ is $1 dot 1$.
@@ -1653,11 +1655,11 @@ If no strings are related by $prec.eq$ other than the aforementioned conditions,
 - Essentially, $prec.eq$ defines a sorting order for the strings
   depending on the comparative values of each character in the strings.
 - For instance, `"flag"` is related to `"flagged"` by $prec.eq$ according to the first condition, 
-  and `"flagged"` is related to `"flagger"` by $prec.eq$ by the second condition.
-  - Thus, the resulting order would be `{"flag", "flagged", "flagger"}`
+  and `"flagged"` is related to `"flagger"` by $prec.eq$ by the second condition. Additionally, a null string would be related to "flag" by $prec.eq$ by the third condition.
+  - Thus, the resulting order would be `{null, "flag", "flagged", "flagger"}`.
 - Additionally, notice how the set $A$ has another partial relation $R$. 
   This means that $prec.eq$ may only sort comparable elements, that is, 
-  when each character being related  to each other by $R$.
+  only elements related to each other by $R$.
 
 #definition([
   The partial order relation, $prec.eq$, outlined in *Theorem 8.5.1.*, is the *lexicographic order for $S$* 
@@ -1677,7 +1679,7 @@ If no strings are related by $prec.eq$ other than the aforementioned conditions,
 #set align(center)
 _For all $a$ and $b in A$,_
 $
-  a divides b <=> b = k a mtxt("for some integer") k
+  a divides b <=> b = k a "for some integer" k
 $
 #set align(left)
 #pagebreak()
@@ -1711,7 +1713,7 @@ $
       edge((2,0.8), "-|>", bend: 20deg),
     ),
     supplement: [Diagram],
-    caption: [The directed graph for the _divides_ relation.]
+    caption: [_The directed graph for the divides relation._]
   )
 - However, this graph is very messy, and we already _know_ that it is a partial order relation.
 - Thus, we can use the following Hasse diagram to visually express it more clearly:
@@ -1737,7 +1739,7 @@ $
 
     ),
     supplement: [Diagram],
-    caption: [The Hasse diagram for the _divides_ relation.]
+    caption: [_The Hasse diagram for the divides relation._]
   )
 - By recalling the properties of partial order relations, we can still construct the original direct graph from this alone.
   - Because the relation is reflexive, we can imagine a loop on every single loop.
@@ -1839,7 +1841,7 @@ $
       edge((0,2))
     ),
     supplement: [Diagram],
-    caption: [The Hasse diagram for $A$.]
+    caption: [_The Hasse diagram for $A$._]
   )
 
   - $g$ is the only maximal element.

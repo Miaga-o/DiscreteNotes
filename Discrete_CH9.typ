@@ -10,15 +10,16 @@
 #show heading.where(level: 1): set text(size: 20pt)
 #show heading.where(level: 2): set text(size: 18pt)
 #show heading.where(level: 3): set text(size: 16pt)
-#show math.equation: set text(font: "Luciole Math", size: 10pt)
+#show math.equation: set text(font: "New Computer Modern Sans Math")
+#show sym.emptyset: set text(font: "Fira Sans")
 
 //Functions and variables
-#let custom_numbering(max_depth) = (..numbers) => { 
-  if numbers.pos().len() <= max_depth { //Automatic headings until heading 3
+#let custom_numbering = (..numbers) => { 
+  if numbers.pos().len() < 3 { //Automatic headings until heading 3
     numbering("1.1", ..numbers)
   }
 }
-#set heading(numbering: custom_numbering(2))
+#set heading(numbering: custom_numbering)
 #counter(heading).update(8)
 
 #let theorem(num, body) = {
@@ -76,16 +77,6 @@
   )
 }
 
-#let mtxt(body) = text(font: "New Computer Modern Sans", [#body], size: 12pt)
-
-#let tmath(body) = text(font: "Luciole Math", [#body], size: 12pt)
-
-#let h1math(body) = text(font: "Luciole Math", [#body], size: 18pt)
-
-#let h2math(body) = text(font: "Luciole Math", [#body], size: 16pt)
-
-#let h3math(body) = text(font: "Luciole Math", [#body], size: 14pt)
-
 #let continue_example = figure([_Continued on next page_])
 
 #let author = text(size: 16pt, [Miagao])
@@ -132,7 +123,7 @@ An *event* is a subset of a sample space.
 
 - Formally, given $S$, a finite sample space where all outcomes are equally like, and $E$, an event in $S$, then *probability of $E$*, denoted $P(E)$ is:
 $
-  P(E) = (mtxt("the number of outcomes in") E) / (mtxt("the total number of outcomes in") S) 
+  P(E) = ("the number of outcomes in" E) / ("the total number of outcomes in" S) 
 $ 
 
 - Or, given $N(A)$, the number of elements in some set $A$:
@@ -160,7 +151,7 @@ $
   - By *Theorem 9.1.1.*, there are $999-100+1 = 900$ total three-digit integers.
   - Using the previous answer, we can now calculate the probability:
   $
-    180 / 900 &= 1 / 5 mtxt("by algebra") 
+    180 / 900 &= 1 / 5 "by algebra"
   $
 ])
 
@@ -172,7 +163,7 @@ $
 
 
 
-
+#pagebreak()
 == Possibility Trees and the Multiplication Rule
 - Tree structures are useful for keeping track of all the possibilities in situations where events happen in a particular order.
 
@@ -265,15 +256,14 @@ $
     supplement: [Diagram],
     caption: [The possibility tree for the tournament.]
   )
-  What are all the ways the tournament can be played?
   - As outlined in the possibility tree, there are ten different ways the tournament can be played, with $A$ and $B$ each having five different events where they win.
 
   If each outcome is assumed to be equally likely, what is the likelihood that a team wins after five games?
   - There are 4 leaf nodes on the tree, each representing a win on the fifth game.
   - Thus, the probability is as follows: 
   $
-    4 / 10 &= 1 / 5 mtxt("by algebra")\ 
-    &= 40% mtxt("by converting to percent")
+    4 / 10 &= 1 / 5 "by algebra" \ 
+    &= 40% "by converting to percent"
   $
 ])
 
@@ -285,7 +275,7 @@ $
 - Imagine a computer installation with four IO units $A$, $B$, $C$, and $D$, and three CPUs $X$, $Y$, and $Z$.
 - There should be twelve ways to pair the IO units with the CPUs.
 - Note that there are CPU options available for each IO unit, and there are four IO units.
-- Thus, $4 dot 3 = 12$ pairs.
+- Thus, there are $4 dot 3 = 12$ pairs.
 
 #theorem([9.2.1], [
   If an operation consists of $k$ steps, and if every $i$th step for each integer $1<=i<=k$ can be completed in $n_i$ ways, then the entire operation may be completed in $n_1 dot n_2 dots.h.c n_k$ ways. 
@@ -317,7 +307,27 @@ $
   For any integer $n >= 1$, a set with $n$ elements has $n!$ permutations.
 ])
 
+#example([Possible License Plates], [
+  Suppose there is a license plate format starting with three uppercase Latin alphabet letters and ending with four digits. \
 
+  How many license plates are possible?
+  - This problem can be split into two parts.
+    - There are $26$ letters in the Latin alphabet, thus there are $26^3 = 17576$ possible letter combinations.
+    - There are $10$ Arabic numerals, so there are $10^4 = 10000$.
+  - Hence, there are $17576 dot 10000 = 175,760,000$ possible license plates.
+
+  How many possible license plates start with an A and end with a $0$?
+  - Because there is only 1 possible option for the first and last character of the license plate, there are only $1 dot 26^2 dot 10^3 dot 1 = 676,000$ possible combinations.
+  #continue_example
+])
+
+#example([_Possible License Plates continued_], [
+  How many possible license plates have distinct letters and digits?
+  - Again, this problem can be split into two parts.
+    - For each successive letter, there is one less option because they are distinct. Thus, there are $26 dot 25 dot 24 = 15600$ possible letter combinations.
+    - Likewise, there is one less option for each successive digit. Thus, there are \ $10 dot 9 dot 8 dot 7 = 5040$ possible digit combinations.
+  - Hence, there are $15600 dot 5040 = 78,624,000$ possible combinations.
+])
 
 
 
@@ -337,7 +347,7 @@ $
   If $n$ and $r$ are integers such that $1 <= r <= n$, the number of $r$-permutations of a set of $n$ elements is given by the formula:
   $
     P(n,r) = n(n-1)(n-2) dots.c (n-r+1) \
-    mtxt("or") \
+    "or" \
     P(n,r) = n! / (n - r)!
   $
 ])
@@ -351,7 +361,7 @@ $
 
 
 
-
+#pagebreak()
 == Counting Elements of Disjoint Sets: The Addition Rule
 - We may count the number elements in unions, intersections, and differences between sets.
 - The number of elements in a union of mutually disjoint finite sets equals the sum of the number of elements in each of the operands.
@@ -364,6 +374,18 @@ $
 ])
 
 - Logically, this only applies to mutually disjoint finite sets because overlapping elements are not counted separately.
+
+#example([Possible Passwords of Different Lengths], [
+  Suppose a company has the following password restrictions:
+  + Password lengths must be from $8$ to $10$ characters in length.
+  + The $26$ letters of the Latin alphabet, lowercase or uppercase.
+  + The $10$ Arabic numerals.
+  + The $14$ symbols, !, @, \#, \$, %, ^, &, \*, \(, \), -, +, \{, and \}.
+
+  How many passwords are possible?
+  - There are $26 dot 2 + 10 + 14 = 76$ valid symbols and three valid lengths, $3$, $4$, and $5$.
+  - Thus, there are $76^8 + 76^9 +76^10 = 6,514,592,610,973,974,528$ possible passwords.
+])
 
 
 
@@ -388,6 +410,17 @@ $
 $
 #set align(left)
 
+#example([Possible Passwords with Repeated Characters], [
+Following the same restrictions as the previous example, how many passwords have at least one repeated symbol?
+- First, we must calculate the number of passwords without repeated characters.
+- Because the amount of possible characters decreases for each character, there are \ $76 dot 75 dot 74 dots.c 69 + 76 dot 75 dot 74 dots.c 68 + 76 dot 75 dot 74 dots.c 67= 3,516,245,169,066,000,000$ total combinations.
+- Because this event is a subset of the total number of passwords, we can subtract it to find the possible passwords with at least one repeated symbol:
+$
+  &6,514,592,610,973,974,528 - 3,516,245,169,066,000,000 \
+  &= 2,998,347,441,907,974,528 "passwords with repeated characters"
+$
+])
+
 
 
 
@@ -402,7 +435,7 @@ $
   If $A$, $b$, and $C$ are any finite sets, then
   $
     N(A union B) = N(A) + N(B) - N(A inter B) \
-    mtxt("and") \
+    "and" \
     N(A union B union C) = N(A) + N(B) + N(C) - N(A inter B) - N(A inter C) - N(B inter C) + N(A inter B inter C)
   $
 ])
@@ -415,9 +448,68 @@ $
 
 
 
-
+#pagebreak()
 == The Pigeonhole Principle
-- According to the *pigeonhole principle*, given $m < n$
+- According to the *pigeonhole principle*, given $m < n$, if $n$ pigeons fly into $m$ holes, then at least one hole will contain more than one pigeon.
+- In terms of functions, a function from one finite set to a smaller finite set cannot be one-to-one. That is, there must be at least two elements in the domain that have the same image in the co-domain.
+
+#example([Applications of the Pigeonhole Principle], [
+  In a group of six people, must there be at least two people who were born in the same month?
+  - No, there are twelve possible months, but only six people. 
+
+  What about in a group of thirteen people?
+  - Yes; equating the people to pigeons and the birth months to pigeonholes, it can be seen that a birth month must be shared between at least two people because there are more "pigeons" than "pigeonholes."
+])
+
+- Another important consequence of the pigeonhole principle is that the decimal expansion of any rational number either terminates or repeats.
+
+
+
+
+
+=== Generalized Pigeonhole Principle
+- A generalization of the pigeonhole principle states that if $n$ pigeons fly into $m$ pigeonholes, and for some positive integer $k$, $k m < n$, then at least one pigeonhole contains at least $k + 1$ pigeons.
+- Formally, for any function $f$ from a finite set $X$ with $n$ elements to a finite set $Y$ with $m$ elements, and for any positive integer $k$, if $k m < n$, there is some $y in Y$ such that $y$ is the image of at least $k + 1$ distinct elements of $X$.
+- Or, in the contrapositive form, for any function $f$ from a finite set $X$ with $n$ elements to a finite set $Y$ with $m$ elements, and for any positive integer $k$, if for each $y in Y$, $f^(-1)(y)$ has at most $k$ elements, then $X$ has at most $k m$ elements; essentially, $n <= k m$.
+
+#figure(
+    diagram(
+      node-fill: none,
+      node-stroke: 1.4pt,
+      edge-stroke: 1.5pt,
+      node((-3.5, -1), text(fill: blue, [*Pigeons*]), stroke: 0pt),
+      node((-3.5, -0.5), text(fill: blue, [$X$]), stroke: 0pt),
+      edge((0.5, -0.5), "-|>", $f$, bend: 20deg, layer: 100),
+
+      node((-3.5, 0), [$1$], fill: blue.lighten(65%), stroke: blue),
+      edge((0.5, 0.6), "-|>", bend: 20deg),
+
+      node((-3.5, 0.6), [$2$], fill: blue.lighten(65%), stroke: blue),
+      edge((0.5, 0.6), "-|>"),
+
+      node((-3.5, 1.2), text[$3$], fill: blue.lighten(65%), stroke: blue),
+      edge((0.5, 1.8), "-|>", bend: 10deg),
+
+      node((-3.5, 1.8), text[$4$], fill: blue.lighten(65%), stroke: blue),
+      edge((0.5, 0.6), "-|>", bend: -20deg),
+
+      node((-3.5, 2.4), text[$5$], fill: blue.lighten(65%), stroke: blue),
+      edge((0.5, 1.8), "-|>"),
+      
+      node((0.5, -1), text(fill: red, [*Pigeonholes*]), stroke: 0pt),
+      node((0.5, -0.5), text(fill: red, [$Y$]), stroke: 0pt),
+
+      node((0.5, 0.6), [$1$], fill: red.lighten(65%), stroke: red),
+
+      node((0.5, 1.8), [$2$], fill: red.lighten(65%), stroke: red),
+
+
+    ),
+    supplement: [Diagram],
+    caption: [
+      _Given $5$ pigeons and $2$ pigeon holes, at least one pigeonhole should have $3$ pigeons by the generalization of the pigeonhole principle._]
+  )
+  
 
 
 
@@ -429,7 +521,165 @@ $
 
 
 
-==
+#pagebreak()
+== Counting Subsets of a Set: Combinations 
+#definition([
+  Let $n$ and $r$ be nonnegative integers such that $r <= n$. An *$r$-combination* of a set of $n$ elements is a subset of $r$ of the $n$ elements.
+])
+- Additionally, recall the notation $n$ choose $r$, the number of subsets of size $r$ or $r$-combinations that can be formed from a set with $n$ elements, denoted as
+$
+  binom(n,r) = C(n,r) = n! / (r!(n-r)!)
+$
+- Consequently, there are two distinct methods to select $r$ objects from a set of $n$ elements.
+  - In an *ordered selection*, both the elements chosen and their order matters. Thus, two ordered selections are the same if they contain the same elements in the same order.
+  - In an *unordered selection*, only the identity of the elements chosen matter. Thus, two unordered selections are the same if they consist of the same elements.
+- Notice how ordered selections are akin to *$r$-permutations* while the latter is akin to *$r$-combinations*.
+
+#example([Relation between $n$ Choose $r$ and $r$-Permutations], [
+  $n$ choose $r$ and $r$-permutations have very similar formulas and only differ by their consideration of order. To illustrate the methodology behind their formulas, we may start by finding the number of $2$-permutations of ${6,7,8,9}$.
+  - Using the $r$-permutations formula, there are:
+  $
+    4! / (4-2)! = 4! / 2! = 24 / 2 = 12 "2-permutations"
+  $
+  - Thinking about how $n$ choose $r$ is an unordered selection and how $r$-permutations is an ordered selection, we can split the process of finding the $r$-Permutations into two steps:
+    + Find the $r$-combinations.
+    + Find the permutations of those $r$-combinations.
+  - Logically, it follows that there are $r!$ permutations for each $r$-combination.
+  - Thus, by the multiplication rule, there are $r!$ times as many $r$-permutations as there are $r$-combinations.
+  - In this case, there are $12 / 2! = 12 / 2 = 6$ $r$-combinations.
+  - Using a possibility tree, this is even easier to outline.
+  #continue_example
+])
+
+#example([_Relation between $n$ Choose $r$ and $r$-Permutations continued_], [
+  #figure(
+    diagram(
+      node-fill: none,
+      node-stroke: 1.4pt,
+      edge-stroke: 1.5pt,
+      node((-0.5,0), [Start], stroke: none),
+      node((0,0), radius: 0.75em),
+      edge((1,-2.5), bend: 30deg),
+      edge((1,-1.5)),
+      edge((1,-0.5)),
+      edge((1,0.5)),
+      edge((1,1.5)),
+      edge((1,2.5), bend: -30deg),
+
+      node((1,-3.5), [*$r$-combinations*], stroke: none),
+      node((1,-2.9), ${6,7}$, stroke: none),
+      node((1,-2.5), radius: 0.75em),
+      edge((5, -2.75)),
+      edge((5, -2.25)),
+
+      node((1,-1.9), ${6,8}$, stroke: none),
+      node((1,-1.5), radius: 0.75em),
+      edge((5, -1.75)),
+      edge((5, -1.25)),
+
+      node((1,-0.9), ${6,9}$, stroke: none),
+      node((1,-0.5), radius: 0.75em),
+      edge((5, -0.75)),
+      edge((5, -0.25)),
+
+      node((1,0.1), ${7,8}$, stroke: none),
+      node((1,0.5), radius: 0.75em),
+      edge((5, 0.25)),
+      edge((5, 0.75)),
+
+      node((1,1.1), ${7,9}$, stroke: none),
+      node((1,1.5), radius: 0.75em),
+      edge((5, 1.25)),
+      edge((5, 1.75)),
+
+      node((1,2.1), ${8,9}$, stroke: none),
+      node((1,2.5), radius: 0.75em),
+      edge((5, 2.25)),
+      edge((5, 2.75)),
+
+
+      node((5,-3.5), [*$r$-permutations*], stroke: none),
+      node((5.5,-2.75), $67$, stroke: none),
+      node((5,-2.75), radius: 0.75em),
+      node((5.5,-2.25), $76$, stroke: none),
+      node((5,-2.25), radius: 0.75em),
+
+      node((5.5,-1.75), $68$, stroke: none),
+      node((5,-1.75), radius: 0.75em),
+      node((5.5,-1.25), $86$, stroke: none),
+      node((5,-1.25), radius: 0.75em),
+
+      node((5.5,-0.75), $69$, stroke: none),
+      node((5,-0.75), radius: 0.75em),
+      node((5.5,-0.25), $96$, stroke: none),
+      node((5,-0.25), radius: 0.75em),
+
+      node((5.5,0.25), $78$, stroke: none),
+      node((5,0.25), radius: 0.75em),
+      node((5.5,0.75), $87$, stroke: none),
+      node((5,0.75), radius: 0.75em),
+
+      node((5.5,1.25), $79$, stroke: none),
+      node((5,1.25), radius: 0.75em),
+      node((5.5,1.75), $97$, stroke: none),
+      node((5,1.75), radius: 0.75em),
+
+      node((5.5,2.25), $89$, stroke: none),
+      node((5,2.25), radius: 0.75em),
+      node((5.5,2.75), $98$, stroke: none),
+      node((5,2.75), radius: 0.75em),
+    ),
+    supplement: [Diagram],
+    caption: [_The possibility tree for the $r$-combinations and $r$-permutations of ${6,7,8,9}$. Notice how the $r$-permutations branch off of the $r$-combinations as the order varies._]
+  )
+])
+
+#theorem([9.5.1], [
+  The number of subsets of size $r$ or $r$-combinations that can be chosen from a set of $n$ elements, $binom(n,r)$, is given by
+  $
+    binom(n,r) &= P(n,r) / r! \
+    &"or" \
+    binom(n,r) &= n! / (r! (n-r)!)
+  $
+])
+
+#example([Calculating the Number of Teams] ,[
+  Suppose there is a need to create a five person team from a pool of twelve people. How many distinct five person teams can be created?
+  - In terms of sets, we are looking for the number of distinct subsets of length $5$ of a set of length $12$.
+  - Thus, the number of distinct teams can be calculated using $12$ choose $5$:
+  $
+    binom(12,5) &= 12! / (5!(12-5)!) \
+    &= 12! / (5!(7!)) \
+    &= (12 dot 11 dot 10 dot 9 dot 8 dot 7!) / (5 dot 4 dot 3 dot 2 dot 1 dot 7!) "by recursive definition of" !\
+    &= (12 dot 11 dot 10 dot 9 dot 8) / (5 dot 4 dot 3 dot 2) "by canceling" 7!\
+    &= (12 dot 11 dot 10 dot 9) / (5 dot 3) "by canceling" 4 dot 2 "and" 8\
+    &= 12 dot 11 dot 2 dot 3 "by simplifying" 10 / 5 "and" 9 / 3 \
+    &= 792 "distinct teams"
+  $
+])
+- However, $n$ choose $r$ may be involved in finding the $r$-permutations if _some_ elements in the ordered selection do not consider order.
+
+#theorem([9.5.2], [
+  Suppose a collection consists of $n$ objects with $n_k$ objects for each $k$th type, and that each type is distinct, but also indistinguishable from other objects of the same type. Additionally, suppose that $n_1 + n_2 + dots.c + n_k = n$. \
+  Then, the number of distinguishable permutations of the $n$ objects is given by
+  $
+    binom(n,n_1) binom(n-n_1, n_2) binom(n-n_1-n_2, n_3) dots.c binom(n-n_1-n_2-dots.c-n_(k-1), n_k) \
+    = n! / (n_1 ! n_2 ! dots.c n_k !)
+  $
+])
+
+
+
+
+
+=== Double Counting
+- As displayed in the inclusion/exclusion rule for addition, there has to be consideration for overlapping elements.
+- Suppose we are attempting to create a team of five containing at least one man from a pool of five men and seven women.
+  - You might be tempted to choose a subset of one man from the group of five men, and then choose a subset of four people from the remaining eleven people. Then, by the multiplication rule:
+  $
+    binom(5,1) dot binom(11,4) = 1650 "five person teams"
+  $
+  - The problem with this logic is that the separation of two unordered selection means that teams of the same people may be counted multiple times for each person pulled from the $5$ choose $1$ instead of the $11$ choose $4$.
 
 
 
@@ -439,17 +689,24 @@ $
 
 
 
+#pagebreak()
+== $r$-Combinations with Repetition Allowed
+- Previously, the formula we used did not account for combinations where elements from the set of length $n$ were chosen multiple times.
+- To understand the logic behind the formula, 
+
+#theorem([9.6.1], [
+  The number of $r$-combinations with repetition allowed that can be selected from a set of $n$ elements is
+  $
+    binom(r+n-1, r)
+  $
+])
 
 
-==
 
 
 
 
 
 
-
-
-
-
-==
+#pagebreak()
+== Pascal's Formula and the Binomial Theorem
