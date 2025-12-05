@@ -318,7 +318,7 @@ $
       [#table(
         columns: 2,
         fill: (x, y) => if y == 0 {red},
-        table.header([*$x$*], [*$y$*]),
+        table.header([$x$], [$y$]),
         [$0$], [$0$], 
         [$1$], [$2$], 
         [$-1$], [$2$], 

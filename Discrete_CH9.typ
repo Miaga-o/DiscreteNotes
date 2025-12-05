@@ -451,7 +451,7 @@ $
 #pagebreak()
 == The Pigeonhole Principle
 - According to the *pigeonhole principle*, given $m < n$, if $n$ pigeons fly into $m$ holes, then at least one hole will contain more than one pigeon.
-- In terms of functions, a function from one finite set to a smaller finite set cannot be one-to-one. That is, there must be at least two elements in the domain that have the same image in the co-domain.
+- In terms of functions, a function from one finite set to a smaller finite set *cannot be one-to-one*. That is, there must be at least two elements in the domain that have the same image in the co-domain.
 
 #example([Applications of the Pigeonhole Principle], [
   In a group of six people, must there be at least two people who were born in the same month?
@@ -674,12 +674,24 @@ $
 
 === Double Counting
 - As displayed in the inclusion/exclusion rule for addition, there has to be consideration for overlapping elements.
-- Suppose we are attempting to create a team of five containing at least one man from a pool of five men and seven women.
+- Suppose we are attempting to create a team of five containing at least one man from a pool of five men and seven women. Now, using $r$-combinations, how many possible teams following this restriction are there?
   - You might be tempted to choose a subset of one man from the group of five men, and then choose a subset of four people from the remaining eleven people. Then, by the multiplication rule:
   $
-    binom(5,1) dot binom(11,4) = 1650 "five person teams"
+    binom(5,1) dot binom(11,4) = 1650 "five person teams with at least one man"
   $
   - The problem with this logic is that the separation of two unordered selection means that teams of the same people may be counted multiple times for each person pulled from the $5$ choose $1$ instead of the $11$ choose $4$.
+  - The correct solution involves identifying the number of teams that contain no men at all.
+  - Because it is a "complement" of the the subset of teams we are looking for, we can just subtract it from the total number of teams to get the answer.
+  - Hence, by the difference rule:
+  $
+    binom(12,5) - binom(7, 5) &= 12! / (5! (12-5)!) - 7! / (5! (7-5)!) \
+    &= (12 dot 11 dot 10 dot 9 dot 8 dot 7!) / (5! 7!) - (7 dot 6 dot 5!) / (5! 2!) "by recursive definition of" !\
+    &= (12 dot 11 dot 10 dot 9 dot 8) / 5! - (7 dot 6) / 2! "by canceling" \
+    &= (12 dot 11 dot 10 dot 9 dot 8) / 120 - (7 dot 6) / 2 "by simplifying !" \
+    &= 11 dot 9 dot 8 - 7 dot 3 \
+    &= 792 - 21 \
+    &= 771 "five person teams with at least one man"
+  $
 
 
 
@@ -692,7 +704,40 @@ $
 #pagebreak()
 == $r$-Combinations with Repetition Allowed
 - Previously, the formula we used did not account for combinations where elements from the set of length $n$ were chosen multiple times.
-- To understand the logic behind the formula, 
+- To understand the logic behind the formula, we can first think of finding all the $3$-combinations of ${6,7,41, 67}$ with repetition allowed:
+$
+  &{6,6,6}, {6,6,7}, {6,6,41}, {6,6,67} \
+  &{6,7,7}, {6,7,41}, {6,7,67} \
+  &{6,41,41}, {6,41,67} \
+  &{6,67,67} \
+  &{7,7,7},{7,7,41},{7,7,67} \
+  &{7,41,41}, {7,41,67} \
+  &{7,67,67} \
+  &{41,41,41}, {41,41,67} \
+  &{41,67,67} \
+  &{67,67,67}\
+$
+- Here, there are twenty total $3$-combinations with repetition allowed from a set of $4$ elements.
+- Now, we can represent this visually by marking all of the possible subsets, but differentiating the subsets with only *distinct elements* from the others.
+- Because repeats are allowed, we can view each element as its own category to be selected from. We can mark these selections with $crossmark$.
+- For instance, here is what the first selection would look like:
+$
+  mat(
+    delim: #none,
+    6,, 7,, 41,, 67;
+    crossmark crossmark crossmark, |, , |, ,|
+  )
+$
+- Because the line separators denote which element the $crossmark$s represent, the number of different locations the three $crossmark$s could occupy in the 6 character string is equal to the number of $3$-combinations with repetition allowed.
+- This would be $6$ choose $3$, as the line separators naturally fall into the remaining indices of the string after the location of the $crossmark$s are decided.
+$
+  binom(6, 3) &= 6! / (3! (6 - 3)!) \
+  &= 6! / (3!3!) \
+  &= (6 dot 5 dot 4 dot 3!) / (3! 3!) \
+  &= (6 dot 5 dot 4) / (3!) \
+  &= 120 / 6 = 20 "with repetition allowed"
+$
+- Notice how there are $n-1$ line separators and $r$ $crossmark$s in every string.
 
 #theorem([9.6.1], [
   The number of $r$-combinations with repetition allowed that can be selected from a set of $n$ elements is
@@ -701,6 +746,38 @@ $
   $
 ])
 
+#example([Number of Solutions], [
+  How many solutions are there to the equation $x_1 +x_2 +x_3 +x_4 = 10$, given that $x_1$, $x_2$, $x_3$, and $x_4$ are nonnegative integers?
+  - Because $x_1$, $x_2$, $x_3$, and $x_4$ are all nonnegative integers, we can interpret the different solutions as ten $1$s being split across $x_1$, $x_2$, $x_3$, and $x_4$.
+- Thus, $x_1$, $x_2$, $x_3$, and $x_4$ can be seen as the four categories.
+  - For instance, $crossmark crossmark | crossmark crossmark | crossmark crossmark | crossmark crossmark crossmark crossmark$ would represent the solution $x_1 = x_2 = x_3 = 2$ and $x_4 = 4$.
+- As a result, $n=4$ and $r=10$.
+- Thus,
+$
+  binom(10 + 4 - 1,10) &= binom(13,10) \
+  &= 13! / (10! (13-10)!) \
+  &= 13! / (10! 3!) \
+  &= (13 dot 12 dot 11 dot 10!) / (10! 3!) \
+  &= (13 dot 12 dot 11) / 3! \
+  &= (13 dot 12 dot 11) / 6 \
+  &= 13 dot 2 dot 11 = 286 "solutions"
+$
+])
+
+
+
+
+
+=== $r$-Selection Variations
+#table(
+  columns: (1fr, 3fr, 3fr),
+  inset: 8pt,
+  align: (left, center, center),
+  fill: (x, y) => if x == 0 or y == 0 {gray.lighten(75%)},
+  [], [*Ordered*], [*Unordered*],
+  [*Repetition*], [$ n_r $], [$ binom(r+n-1, r) $],
+  [*Distinct*], [$ P(n,r) $], [$ binom(n, r) $]
+)
 
 
 
@@ -710,3 +787,9 @@ $
 
 #pagebreak()
 == Pascal's Formula and the Binomial Theorem
+#theorem([9.7.1], [
+  Let $n$ and $r$ be positive integers for $r <= n$. Then
+$
+  binom(n+1, r) = binom(n, r-1) + binom(n,r)
+$
+])
