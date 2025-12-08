@@ -151,7 +151,7 @@ $
   - By *Theorem 9.1.1.*, there are $999-100+1 = 900$ total three-digit integers.
   - Using the previous answer, we can now calculate the probability:
   $
-    180 / 900 &= 1 / 5 "by algebra"
+    180 / 900 &= bold(1 / 5) "by algebra" 
   $
 ])
 
@@ -263,7 +263,7 @@ $
   - Thus, the probability is as follows: 
   $
     4 / 10 &= 1 / 5 "by algebra" \ 
-    &= 40% "by converting to percent"
+    &= space bold(40%) " by converting to percent"
   $
 ])
 
@@ -289,7 +289,7 @@ $
   ```
   - The outer loop has four iterations.
   - For each iteration in the outer loop, the inner loop has three iterations.
-  - By the multiplication rule, the nested loop has $4 dot 3 = 12$ iterations.
+  - By the multiplication rule, the nested loop has $4 dot 3 =$ *12 iterations*.
 ])
 
 
@@ -314,19 +314,19 @@ $
   - This problem can be split into two parts.
     - There are $26$ letters in the Latin alphabet, thus there are $26^3 = 17576$ possible letter combinations.
     - There are $10$ Arabic numerals, so there are $10^4 = 10000$.
-  - Hence, there are $17576 dot 10000 = 175,760,000$ possible license plates.
+  - Hence, there are $17576 dot 10000 = $ *175760000 possible license plates*.
 
   How many possible license plates start with an A and end with a $0$?
-  - Because there is only 1 possible option for the first and last character of the license plate, there are only $1 dot 26^2 dot 10^3 dot 1 = 676,000$ possible combinations.
+  - Because there is only 1 possible option for the first and last character of the license plate, there are only $1 dot 26^2 dot 10^3 dot 1 =$ *676000 possible combinations*.
   #continue_example
 ])
 
 #example([_Possible License Plates continued_], [
   How many possible license plates have distinct letters and digits?
   - Again, this problem can be split into two parts.
-    - For each successive letter, there is one less option because they are distinct. Thus, there are $26 dot 25 dot 24 = 15600$ possible letter combinations.
+    - For each successive letter, there is one less option because they are distinct. Thus, there are $26 dot 25 dot 24 =$ 15600 possible letter combinations.
     - Likewise, there is one less option for each successive digit. Thus, there are \ $10 dot 9 dot 8 dot 7 = 5040$ possible digit combinations.
-  - Hence, there are $15600 dot 5040 = 78,624,000$ possible combinations.
+  - Hence, there are $15600 dot 5040 =$ *78624000 possible combinations*.
 ])
 
 
@@ -384,7 +384,7 @@ $
 
   How many passwords are possible?
   - There are $26 dot 2 + 10 + 14 = 76$ valid symbols and three valid lengths, $3$, $4$, and $5$.
-  - Thus, there are $76^8 + 76^9 +76^10 = 6,514,592,610,973,974,528$ possible passwords.
+  - Thus, there are $76^8 + 76^9 +76^10 =$ *6514592610973974528 possible passwords*.
 ])
 
 
@@ -413,11 +413,11 @@ $
 #example([Possible Passwords with Repeated Characters], [
 Following the same restrictions as the previous example, how many passwords have at least one repeated symbol?
 - First, we must calculate the number of passwords without repeated characters.
-- Because the amount of possible characters decreases for each character, there are \ $76 dot 75 dot 74 dots.c 69 + 76 dot 75 dot 74 dots.c 68 + 76 dot 75 dot 74 dots.c 67= 3,516,245,169,066,000,000$ total combinations.
+- Because the amount of possible characters decreases for each character, there are \ $76 dot 75 dot 74 dots.c 69 + 76 dot 75 dot 74 dots.c 68 + 76 dot 75 dot 74 dots.c 67=$ 3516245169066000000 total combinations.
 - Because this event is a subset of the total number of passwords, we can subtract it to find the possible passwords with at least one repeated symbol:
 $
-  &6,514,592,610,973,974,528 - 3,516,245,169,066,000,000 \
-  &= 2,998,347,441,907,974,528 "passwords with repeated characters"
+  &6514592610973974528 - 3516245169066000000 \
+  &= bold(2998347441907974528 "passwords with repeated characters") 
 $
 ])
 
@@ -539,14 +539,14 @@ $
   $n$ choose $r$ and $r$-permutations have very similar formulas and only differ by their consideration of order. To illustrate the methodology behind their formulas, we may start by finding the number of $2$-permutations of ${6,7,8,9}$.
   - Using the $r$-permutations formula, there are:
   $
-    4! / (4-2)! = 4! / 2! = 24 / 2 = 12 "2-permutations"
+    4! / (4-2)! = 4! / 2! = 24 / 2 = bold(12 space r"-permutations")
   $
   - Thinking about how $n$ choose $r$ is an unordered selection and how $r$-permutations is an ordered selection, we can split the process of finding the $r$-Permutations into two steps:
     + Find the $r$-combinations.
     + Find the permutations of those $r$-combinations.
   - Logically, it follows that there are $r!$ permutations for each $r$-combination.
   - Thus, by the multiplication rule, there are $r!$ times as many $r$-permutations as there are $r$-combinations.
-  - In this case, there are $12 / 2! = 12 / 2 = 6$ $r$-combinations.
+  - In this case, there are $12 / 2! = 12 / 2 =$ *6 $bold(r)$-combinations*.
   - Using a possibility tree, this is even easier to outline.
   #continue_example
 ])
@@ -644,17 +644,40 @@ $
 ])
 
 #example([Calculating the Number of Teams] ,[
-  Suppose there is a need to create a five person team from a pool of twelve people. How many distinct five person teams can be created?
-  - In terms of sets, we are looking for the number of distinct subsets of length $5$ of a set of length $12$.
-  - Thus, the number of distinct teams can be calculated using $12$ choose $5$:
+  Suppose there is a team of seventeen people comprised of eight men and nine women.
+
+  How many ways can a group of nine be chosen to work on a project?
+  - In terms of sets, we are looking for the number of distinct subsets of length $9$ of a set of length $17$.
+  - Thus, the number of distinct teams can be calculated using $17$ choose $9$:
   $
-    binom(12,5) &= 12! / (5!(12-5)!) \
+    binom(17,9) &= 17! / (9!(17-8)!) \
     &= 12! / (5!(7!)) \
-    &= (12 dot 11 dot 10 dot 9 dot 8 dot 7!) / (5 dot 4 dot 3 dot 2 dot 1 dot 7!) "by recursive definition of" !\
-    &= (12 dot 11 dot 10 dot 9 dot 8) / (5 dot 4 dot 3 dot 2) "by canceling" 7!\
-    &= (12 dot 11 dot 10 dot 9) / (5 dot 3) "by canceling" 4 dot 2 "and" 8\
-    &= 12 dot 11 dot 2 dot 3 "by simplifying" 10 / 5 "and" 9 / 3 \
-    &= 792 "distinct teams"
+    
+    &= bold(24310 "distinct teams")
+  $
+
+  How many groups of nine can be created with five women and four men?
+  - We can view this as a two-step process. That is, choosing five out of the total women and four out of the total men.
+  - Thus, by the multiplication rule,
+  $
+    binom(9, 5) dot binom(8,4) &= 9! / (5! (9-5)!) dot 8! / (4! (8-4)!) \
+    &= 126 dot 70 \
+    &= bold(8820 "distinct teams")
+  $
+
+  How many groups of nine can be created with at least one man?
+  - Intuitively, because there are nine women, only one possible group won't have at least one man.
+  - Thus, there are $24310 - 1 =$ *24309 distinct teams*.
+
+  How many groups of nine can be created with at most three women?
+  - There are three cases that fit this restriction: a team with one woman, two women, or three women. 
+    A team with no women is not possible because there are only eight men.
+  - Hence, by the multiplication rule and addition rule,
+  $
+    &binom(9,1) dot binom(8,8) + binom(9,2) dot binom(8,7) + binom(9,3) dot binom(8,6) \
+    &= 9 dot 1 + 9! / (2! (9-2)!) dot 8! / (7!(8-7)!) + 9! / (3! (9-3)!) dot 8! / (6!(8-6)!) \
+    &= 9 + 36 dot 8 + 84 dot 28 \
+    &= bold(2649 "distinct teams")
   $
 ])
 - However, $n$ choose $r$ may be involved in finding the $r$-permutations if _some_ elements in the ordered selection do not consider order.
@@ -665,6 +688,18 @@ $
   $
     binom(n,n_1) binom(n-n_1, n_2) binom(n-n_1-n_2, n_3) dots.c binom(n-n_1-n_2-dots.c-n_(k-1), n_k) \
     = n! / (n_1 ! n_2 ! dots.c n_k !)
+  $
+])
+
+#example([Drug Tests with Mice], [
+  Suppose a drug test is being tested on a group of 60 mice. Given that each mouse can only be assigned one treatment, 
+  drug $A$ and drug $B$ will be administered to 21 mice each, and the remaining 18 mice will be used as controls.
+  
+  How many ways can the treatments be administered to the mice?
+  - Instead of making continuous unordered selections, we can simply utilize the formula
+    given by *Theorem 9.5.2.*
+  $
+    bold( 60! / (21! 21! 18 !) "distinct ways")
   $
 ])
 
@@ -690,7 +725,7 @@ $
     &= (12 dot 11 dot 10 dot 9 dot 8) / 120 - (7 dot 6) / 2 "by simplifying !" \
     &= 11 dot 9 dot 8 - 7 dot 3 \
     &= 792 - 21 \
-    &= 771 "five person teams with at least one man"
+    &= bold(771 "five person teams with at least one man")
   $
 
 
@@ -735,14 +770,15 @@ $
   &= 6! / (3!3!) \
   &= (6 dot 5 dot 4 dot 3!) / (3! 3!) \
   &= (6 dot 5 dot 4) / (3!) \
-  &= 120 / 6 = 20 "with repetition allowed"
+  &= 120 / 6 \
+  &= bold(20 space r"-combinations with repetition allowed")
 $
 - Notice how there are $n-1$ line separators and $r$ $crossmark$s in every string.
 
 #theorem([9.6.1], [
   The number of $r$-combinations with repetition allowed that can be selected from a set of $n$ elements is
   $
-    binom(r+n-1, r)
+    binom(r+n-1, r) = (r+n-1)! / (r! (n-1)!)
   $
 ])
 
@@ -760,8 +796,55 @@ $
   &= (13 dot 12 dot 11 dot 10!) / (10! 3!) \
   &= (13 dot 12 dot 11) / 3! \
   &= (13 dot 12 dot 11) / 6 \
-  &= 13 dot 2 dot 11 = 286 "solutions"
+  &= 13 dot 2 dot 11 \
+  &= bold(286 "solutions")
 $
+])
+
+#example([Stocking Types of Items], [
+  Suppose there is a camera shop that stocks eight different types of batteries who only has room
+  to stock 29 batteries at any given time. Assume they have at least 29 batteries of each type in storage.
+
+  How many ways can their sale of 29 batteries be distributed amongst the eight types?
+  - There are eight types of batteries, and 29 possible slots at a time.
+  - Thus,
+  $
+    binom(29+8-1,29) &= 36! / (29! 7!) \
+    &= bold(8347680 "ways")
+  $
+  #continue_example
+])
+
+#example([_Stocking Types of Items continued_], [
+  How about with at most three A76 batteries?
+  - There are four cases with this restriction: no A76 batteries, one A76 battery, two A76 batteries, and three A76 batteries.
+  - As a result, for each case, we are choosing from the seven remaining types to place on sale.
+  - Hence, by the addition rule,
+  $
+    &binom(29 + 7 - 1, 29) + binom(29 + 7 - 1, 28) + binom(29 + 7 - 1, 27) + binom(29 + 7 - 1, 26) \
+    &= 35! / (29! 6!) + 34! / (28! 6!) + 33! / (27! 6!) + 32! / (26! 6!) \
+    &= 1623160+1344904+1107568+906192 \
+    &= bold(4981824 "ways")
+  $
+
+  How about with at least four A76 batteries?
+  - While we could solve this using the methodology as the previous question, you may also
+    notice that this subset is the complement of the previous one.
+  - Thus, there are $8347680 - 4981824 =$ *3365856 ways*.
+])
+
+#example([Counting Triples], [
+  Given any positive integer $n$, how many triples of positive integers $(i,j,k)$ can be formed such that 
+  $1 <=i <= j <= k <= n$?
+  - Here, there are $n$ distinct integers, and three categories: $i$, $j$, and $k$.
+  - For instance, given $n=3$, the string $crossmark crossmark | | crossmark$ would represent the triple $(1,1,3)$.
+  - Thus,
+  $
+    binom(3 + n - 1, 3) &= (n + 2)! / (3! (n-1)!) \
+    &= ((n+2)(n+1)(n)(n-1)!) / (6(n-1)!) \
+    &= bold((n(n+2)(n+1)) / 6 "triples")
+  $
+  This example also has applications in counting the iterations of triple-nested loops.
 ])
 
 
@@ -792,4 +875,37 @@ $
 $
   binom(n+1, r) = binom(n, r-1) + binom(n,r)
 $
+])
+
+
+
+
+
+=== The Binomial Theorem
+- When expanding binomials to an $n$th power, there are many factors to consider.
+- There are $2^n$ terms, however many are *like terms* that may be combined.
+- Thus, expansions to large values of infinity can be very difficult to simplify.
+- The *binomial theorem* provides an easy way to express binomials to an $n$th power.
+- It hinges on a few facts about combinations and binomial expansions:
+$
+  binom(n, 0) = 1 \
+  binom(n,n) = 1\
+  "For" (a+b)^(n+k), "there are" binom(n+k, k) "like terms for" a^n b^k
+$
+#theorem([9.7.2], [
+  Given any real numbers $a$ and $b$ and any nonnegative integer $n$,
+  $
+    (a+b)^n &= sum_(k=0)^(n) binom(n,k)a^(n-k)b^k \
+    &= a^n + binom(n, 1)a^(n-1)b + binom(n, 2)a^(n-2)b^2 + dots.c + binom(n,n-1)a b^(n-1) + b^n
+  $
+])
+
+#example([Applying the Binomial Theorem], [
+  Expand $(u-3v)^4$ using the binomial theorem.
+  $
+    (u-3v)^4 &= sum_(k=0)^(4) binom(4, k) u^(4-k) (-3v)^k \
+    &= u^4 + binom(4, 1) u^3 (-3v) + binom(4,2) u^2 (-3v)^2 + binom(4,3) u (-3v)^3 + (-3v)^4 \
+    &= u^4 + (4)(-3)u^3v + (6)(9)u^2 v^2 + (4)(-27)u v^3 + (81)v \
+    &= bold(u^4 - 12u^3 v + 54u^2 v^2 - 108 u v^3 + 81v^4)
+  $
 ])
