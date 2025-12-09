@@ -436,7 +436,10 @@ $
   $
     N(A union B) = N(A) + N(B) - N(A inter B) \
     "and" \
-    N(A union B union C) = N(A) + N(B) + N(C) - N(A inter B) - N(A inter C) - N(B inter C) + N(A inter B inter C)
+    N(A union B union C) = N(A) + N(B) + N(C) - N(A inter B) - N(A inter C) - N(B inter C) + N(A inter B inter C) \
+    "or, more compactly," \
+    abs(union.big_(i=1)^n A_i) =  sum_(emptyset eq.not J subset.eq {1,2,dots,n})(-1)^(abs(J)-1) abs(inter.big_(j in J) A_j)
+    
   $
 ])
 
@@ -856,10 +859,10 @@ $
   columns: (1fr, 3fr, 3fr),
   inset: 8pt,
   align: (left, center, center),
-  fill: (x, y) => if x == 0 or y == 0 {gray.lighten(75%)},
+  fill: (col, row) => if col == 0 or row == 0 {gray.lighten(75%)},
   [], [*Ordered*], [*Unordered*],
-  [*Repetition*], [$ n_r $], [$ binom(r+n-1, r) $],
-  [*Distinct*], [$ P(n,r) $], [$ binom(n, r) $]
+  [*Repetition*], [$ n^r $], [$ binom(r+n-1, r) = (r+n-1)! / (r! (n-1)!) $],
+  [*Distinct*], [$ P(n,r) = n! / (n-r)! $], [$ binom(n, r) = n! / (r! (n-r)!) $]
 )
 
 
@@ -870,13 +873,38 @@ $
 
 #pagebreak()
 == Pascal's Formula and the Binomial Theorem
+- There are two main methods of proof for Pascal's formula and the binomial theorem: algebraic and combinatorial.
+- Combinatorial proofs use counting logic to prove things.
+
+
+
+
+
+=== Pascal's Formula
+- Pascal's formula makes it easier to calculate larger combinations by splitting them into the addition of smaller combinations.
 #theorem([9.7.1], [
   Let $n$ and $r$ be positive integers for $r <= n$. Then
 $
   binom(n+1, r) = binom(n, r-1) + binom(n,r)
 $
 ])
-
+- Pascal's formula may also be represented geometrically in a sequence known as *Pascal's triangle* _(or the *arithmetic triangle*)_.
+#table(
+  columns: (1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr),
+  stroke: white,
+  align: center,
+  fill: (col, row) => if col == 0 or row == 0 {blue.lighten(35%)},
+  [], [0], [1], [2], [], [3], [$dots.c$], [$r-1$], [], [$r$],
+  [0], [1], [], [], [], [], [], [$dots.v$], [], [],
+  [1], [1], [1], [], [], [], [], [$dots.v$], [], [],
+  [2], [1], [2], [1], [], [], [], [$dots.v$], [], [],
+  [3], [1], [3], [3], [], [1], [], [$dots.v$], [], [],
+  [4], [1], [4], [#text([*6*],fill: blue)], [#text($+$, fill: blue)], [#text([*4*],fill: blue)], [$dots.c$], [$dots.v$], [], [],
+  [5], [1], [5], [10], [#text([$=$],fill: blue)], [#text([*10*],fill: blue)], [$dots.c$], [$dots.v$], [], [],
+  [$dots.v$], [$dots.v$], [], [], [], [], [$dots.down$], [$dots.v$], [], [],
+  [$n$], [$ binom(n,0) $], [$ binom(n,1) $], [$ binom(n,2) $], [], [$ binom(n,3) $], [$dots.c$], [#text(fill: blue, [$ bold(binom(n,r-1)) $])], [#text(fill: blue, [$+$])], [#text(fill: blue, [$ bold(binom(n,r)) $])],
+  [$n+1$], [$ binom(n+1, 0) $], [$ binom(n+1, 1) $], [$ binom(n+1, 2) $], [], [$ binom(n+1, 3) $], [$dots$], [], [#text(fill: blue, [$=$])], [#text(fill: blue, [$ bold(binom(n+1,r)) $])],
+)
 
 
 
@@ -888,8 +916,7 @@ $
 - The *binomial theorem* provides an easy way to express binomials to an $n$th power.
 - It hinges on a few facts about combinations and binomial expansions:
 $
-  binom(n, 0) = 1 \
-  binom(n,n) = 1\
+  binom(n, 0) = binom(n,n) = 1\
   "For" (a+b)^(n+k), "there are" binom(n+k, k) "like terms for" a^n b^k
 $
 #theorem([9.7.2], [
@@ -901,11 +928,32 @@ $
 ])
 
 #example([Applying the Binomial Theorem], [
+  Expand $(a+b)^5$ using the binomial theorem.
+  $
+    (a+b)^5 &= sum_(k=0)^(5)binom(5,k)a^(5-k) b^k \
+    &= a^5 + binom(5,1) a^4 b + binom(5,2) a^3 b^2 + binom(5,3) a^2 b^3 + binom(5,4) a b^4 + b^5 \
+    &= bold(a^5 + 5a^4 b + 10a^3 b^2 + 10a^2 b^3 + 5a b^4 + b^5)
+  $
+
   Expand $(u-3v)^4$ using the binomial theorem.
   $
     (u-3v)^4 &= sum_(k=0)^(4) binom(4, k) u^(4-k) (-3v)^k \
     &= u^4 + binom(4, 1) u^3 (-3v) + binom(4,2) u^2 (-3v)^2 + binom(4,3) u (-3v)^3 + (-3v)^4 \
     &= u^4 + (4)(-3)u^3v + (6)(9)u^2 v^2 + (4)(-27)u v^3 + (81)v \
     &= bold(u^4 - 12u^3 v + 54u^2 v^2 - 108 u v^3 + 81v^4)
+  $
+
+  Express the following summation as a binomial to an $n$th power using the binomial theorem:
+  $
+    sum_(k=0)^(n)binom(n, k) 66^k
+  $
+  - Notice how this matches everything in the binomial theorem except for the $a^(n-k)$ value.
+  - We can express $a$ as 1, and by extension, $1^(n-k)$, because 1 raised to any power is still 1.
+  - This allows us to convert the summation to $(a+b)^n$ form using the binomial theorem.
+  $
+    sum_(k=0)^(n)binom(n, k) 66^k &= sum_(k=0)^(n)binom(n, k)1 dot 66^k \
+    &= sum_(k=0)^(n)binom(n, k)1^(n-k) dot 66^k \
+    &= (1+66)^n \
+    &= bold(67^n)
   $
 ])
