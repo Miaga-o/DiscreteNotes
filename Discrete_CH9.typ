@@ -509,7 +509,7 @@ $
   supplement: [Diagram],
   caption: [
     _Given $5$ pigeons and $2$ pigeon holes, at least one pigeonhole should have $3$ pigeons by the generalization of the pigeonhole principle._]
-  )
+)
   
 
 
