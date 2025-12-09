@@ -476,41 +476,39 @@ $
 - Or, in the contrapositive form, for any function $f$ from a finite set $X$ with $n$ elements to a finite set $Y$ with $m$ elements, and for any positive integer $k$, if for each $y in Y$, $f^(-1)(y)$ has at most $k$ elements, then $X$ has at most $k m$ elements; essentially, $n <= k m$.
 
 #figure(
-    diagram(
-      node-fill: none,
-      node-stroke: 1.4pt,
-      edge-stroke: 1.5pt,
-      node((-3.5, -1), text(fill: blue, [*Pigeons*]), stroke: 0pt),
-      node((-3.5, -0.5), text(fill: blue, [$X$]), stroke: 0pt),
-      edge((0.5, -0.5), "-|>", $f$, bend: 20deg, layer: 100),
+  diagram(
+    node-fill: none,
+    node-stroke: 1.4pt,
+    edge-stroke: 1.5pt,
+    node((-3.5, -1), text(fill: blue, [*Pigeons*]), stroke: 0pt),
+    node((-3.5, -0.5), text(fill: blue, [$X$]), stroke: 0pt),
+    edge((0.5, -0.5), "-|>", $f$, bend: 20deg, layer: 100),
 
-      node((-3.5, 0), [$1$], fill: blue.lighten(65%), stroke: blue),
-      edge((0.5, 0.6), "-|>", bend: 20deg),
+    node((-3.5, 0), [$1$], fill: blue.lighten(65%), stroke: blue),
+    edge((0.5, 0.6), "-|>", bend: 20deg),
 
-      node((-3.5, 0.6), [$2$], fill: blue.lighten(65%), stroke: blue),
-      edge((0.5, 0.6), "-|>"),
+    node((-3.5, 0.6), [$2$], fill: blue.lighten(65%), stroke: blue),
+    edge((0.5, 0.6), "-|>"),
 
-      node((-3.5, 1.2), text[$3$], fill: blue.lighten(65%), stroke: blue),
-      edge((0.5, 1.8), "-|>", bend: 10deg),
+    node((-3.5, 1.2), text[$3$], fill: blue.lighten(65%), stroke: blue),
+    edge((0.5, 1.8), "-|>", bend: 10deg),
 
-      node((-3.5, 1.8), text[$4$], fill: blue.lighten(65%), stroke: blue),
-      edge((0.5, 0.6), "-|>", bend: -20deg),
+    node((-3.5, 1.8), text[$4$], fill: blue.lighten(65%), stroke: blue),
+    edge((0.5, 0.6), "-|>", bend: -20deg),
 
-      node((-3.5, 2.4), text[$5$], fill: blue.lighten(65%), stroke: blue),
-      edge((0.5, 1.8), "-|>"),
-      
-      node((0.5, -1), text(fill: red, [*Pigeonholes*]), stroke: 0pt),
-      node((0.5, -0.5), text(fill: red, [$Y$]), stroke: 0pt),
+    node((-3.5, 2.4), text[$5$], fill: blue.lighten(65%), stroke: blue),
+    edge((0.5, 1.8), "-|>"),
+    
+    node((0.5, -1), text(fill: red, [*Pigeonholes*]), stroke: 0pt),
+    node((0.5, -0.5), text(fill: red, [$Y$]), stroke: 0pt),
 
-      node((0.5, 0.6), [$1$], fill: red.lighten(65%), stroke: red),
+    node((0.5, 0.6), [$1$], fill: red.lighten(65%), stroke: red),
 
-      node((0.5, 1.8), [$2$], fill: red.lighten(65%), stroke: red),
-
-
-    ),
-    supplement: [Diagram],
-    caption: [
-      _Given $5$ pigeons and $2$ pigeon holes, at least one pigeonhole should have $3$ pigeons by the generalization of the pigeonhole principle._]
+    node((0.5, 1.8), [$2$], fill: red.lighten(65%), stroke: red),
+  ),
+  supplement: [Diagram],
+  caption: [
+    _Given $5$ pigeons and $2$ pigeon holes, at least one pigeonhole should have $3$ pigeons by the generalization of the pigeonhole principle._]
   )
   
 
