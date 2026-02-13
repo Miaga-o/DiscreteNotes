@@ -114,10 +114,10 @@
 #example([Less-than Relation], [
   A relation $L$ from $RR$ to $RR$ is defined as follows: \
 
-  #set align(center)
-  _For all real numbers $x$ and $y$,_
-  $ x op(L) y <=> x < y $  
-  #set align(left)
+  #align(center, [
+    _For all real numbers $x$ and $y$,_
+    $ x op(L) y <=> x < y $
+  ])
 
   - $53 op(L) 67$?
     - True, $ 53  < 67$.
@@ -156,12 +156,12 @@
 #example([Congruence Modulo $2$ Relation],[
   A relation $E$ from $ZZ$ to $ZZ$ is defined as follows: \
   
-  #set align(center)
-  _For every $(m, n) in ZZ times ZZ$,_
-  $
-    m op(E) n <=> m-n "is even"
-  $
-  #set align(left)
+  #align(center, [
+    _For every $(m, n) in ZZ times ZZ$,_
+    $
+      m op(E) n <=> m-n "is even"
+    $
+  ])
 
   Prove that if $n$ is any odd integer, then $n op(E) 1$.
   #continue_example
@@ -185,12 +185,13 @@
 This may also apply to modulo relations other than 2. For example, 
 if $T$ is defined from $ZZ$ to $ZZ$ as follows:
 
-#set align(center)
-_For all integers $m$ and $n$,_
-$
-  m op(T) n <=> 3 divides (m-n)
-$
-#set align(left)
+#align(center, [
+  _For all integers $m$ and $n$,_
+  $
+    m op(T) n <=> 3 divides (m-n)
+  $
+])
+
 then $m$ and $n$ are *congruent modulo 3* by the relation $T$.
 
 
@@ -213,12 +214,13 @@ $
 #example([Finite Relation Inverse],[
   Given $A={2,3,4}$ and $B={2,6,8}$, let $R$ be the _divides_ relation from $A$ to $B$ defined as follows:
 
-  #set align(center)
-  _For every ordered pair $(x,y) in A times B$,_
-  $
-    x op(R) y <=> x divides y
-  $
-  #set align(left)
+  #align(center, [
+    _For every ordered pair $(x,y) in A times B$,_
+    $
+      x op(R) y <=> x divides y
+    $
+  ])
+  
   What are the ordered pairs of $R$ and $R^(-1)$?
   #continue_example
 ])
@@ -272,12 +274,12 @@ $
 #example([Infinite Relation Inverse],[
   Let $R$ be a relation from $RR$ to $RR$ defined as follows:
 
-  #set align(center)
-  _For every ordered pair $(x,y) in RR times RR$,_
-  $
-    x op(R) y <=> y = 2|x|
-  $
-  #set align(left)
+  #align(center, [
+    _For every ordered pair $(x,y) in RR times RR$,_
+    $
+      x op(R) y <=> y = 2|x|
+    $
+  ])
 
   If the graph of $R^(-1)$ are drawn on the Cartesian plane, will it be a function?
   - Using $R$'s definition, $R^(-1)$ may be expressed as a function of $y$.
@@ -311,32 +313,33 @@ $
     caption: [_$R$ and $R^(-1)$ on the cartesian plane._]
   )
     - Given this, the following tables may be procured:
-    #set align(center)
-    #grid(
-      columns: 2,
-      column-gutter: 100pt,
-      [#table(
+    #align(center, [
+      #grid(
         columns: 2,
-        fill: (x, y) => if y == 0 {red},
-        table.header([$x$], [$y$]),
-        [$0$], [$0$], 
-        [$1$], [$2$], 
-        [$-1$], [$2$], 
-        [$2$], [$4$], 
-        [$-2$], [$4$]
-      )],
-      [#table(
-        columns: 2,
-        fill: (x, y) => if y == 0 {blue},
-        table.header([*$y$*], [*$x$*]),
-        [$0$], [$0$], 
-        [$2$], [$1$], 
-        [$2$], [$-1$], 
-        [$4$], [$2$], 
-        [$4$], [$-2$]
-      )]
-    )
-    #set align(left)
+        column-gutter: 100pt,
+        [#table(
+          columns: 2,
+          fill: (x, y) => if y == 0 {red},
+          table.header([$x$], [$y$]),
+          [$0$], [$0$], 
+          [$1$], [$2$], 
+          [$-1$], [$2$], 
+          [$2$], [$4$], 
+          [$-2$], [$4$]
+        )],
+        [#table(
+          columns: 2,
+          fill: (x, y) => if y == 0 {blue},
+          table.header([*$y$*], [*$x$*]),
+          [$0$], [$0$], 
+          [$2$], [$1$], 
+          [$2$], [$-1$], 
+          [$4$], [$2$], 
+          [$4$], [$-2$]
+        )]
+      )
+    ])
+
     - From the table above, it can be seen that $R^(-1)$ has two $x$-values for each $y > 0$. For instance, both $(2,1)$ and $(2,-1)$ are in $R^(-1)$, so it is not a function.
 ])
 - While arrow diagrams can be a useful tool for finding inverse relations, their layouts do not clearly show arrow diagram properties, especially on one set.
@@ -355,12 +358,12 @@ $
   Let set $A= {3,4,5,6,7,8}$\
   Let a relation $R$ be defined on set $A$ as follows:
 
-  #set align(center)
-  _For every $x, y in A$,_
-  $
-    x op(R) y <=> 2 divides (x-y)
-  $
-  #set align(left)
+  #align(center, [
+    _For every $x, y in A$,_
+    $
+      x op(R) y <=> 2 divides (x-y)
+    $
+  ])
 
   - A directed graph can be created as follows: 
   #figure(
@@ -562,12 +565,12 @@ $
 #example([Equality Relation], [
   Let $R$ be a relation defined on $RR$ as follows:
   
-  #set align(center)
-  _For all real numbers $x$ and $y$,_
-  $
-    x op(R) y <=> x=y
-  $
-  #set align(left)
+  #align(center, [
+    _For all real numbers $x$ and $y$,_
+    $
+      x op(R) y <=> x=y
+    $
+  ])
 
   Is $R$ reflexive?
   - Yes. $x$ is equal to itself, meaning that $x op(R) x$.
@@ -581,12 +584,12 @@ $
 #example([Properties of Congruence Modulo $2$], [
   Let a relation $T$ be defined on $ZZ$ as follows:
 
-  #set align(center)
-  _For all integers $m$ and $n$,_
-  $
-    m op(T) n <=> 3 divides (m-n)
-  $
-  #set align(left)
+  #align(center, [
+    _For all integers $m$ and $n$,_
+    $
+      m op(T) n <=> 3 divides (m-n)
+    $
+  ])
 
   Is $T$ reflexive?
   - *Proof:* \
@@ -736,12 +739,14 @@ $
   Given a partition of set $A$, the *relation induced by the partition*, $R$, 
   is defined on $A$ as follows:
 
-  #set align(center)
-  _For every $x,y in A$,_
-  $
-    x op(R) y <=> "There is a subset" A_i "of the partition such that both" x "and" y "are in" A_i.
-  $
+  #align(center, [
+    _For every $x,y in A$,_
+    $
+      x op(R) y <=> "There is a subset" A_i "of the partition such that both" x "and" y "are in" A_i.
+    $
+  ])
 ])
+
 #example([Relation Induced by the Partition],[
   Let $A={0,1,2,3,4}$. A partition of $A$ is as follows:
   $
@@ -794,12 +799,12 @@ $
   $
   Define a relation $R$ on $X$ as follows:
 
-  #set align(center)
-  _For every $A$ and $B$ in $X$,_
-  $
-    A op(R) B <=> "The least element in" A "equals the least element in" B.
-  $
-#set align(left)
+  #align(center, [
+    _For every $A$ and $B$ in $X$,_
+    $
+      A op(R) B <=> "The least element in" A "equals the least element in" B.
+    $
+  ])
 
   _Prove that $R$ has all three properties._
   *Prove that $R$ is reflexive:*
@@ -890,12 +895,12 @@ $
 #example([Equivalent Classes of the Identity Relation], [
   Let $A$ be any set and define a relation $R$ on $A$ as follows:
 
-  #set align(center)
-  _For every $x,y in A$,_
-  $
-    x op(R) y <=> x=y
-  $
-  #set align(left)
+  #align(center, [
+    _For every $x,y in A$,_
+    $
+      x op(R) y <=> x=y
+    $
+  ])
 
   What are the distinct equivalence classes of $R$?
   $
@@ -1013,12 +1018,12 @@ $
   $
   Additionally, let $R$ be a relation on $A$ as follows:
 
-  #set align(center)
-  _For all pairs $(a,b)$ and $(c,d) in A$,_
-  $
-    (a,b) op(R) (c,d) <=> a d = b c
-  $
-  #set align(left)
+  #align(center, [
+    _For all pairs $(a,b)$ and $(c,d) in A$,_
+    $
+      (a,b) op(R) (c,d) <=> a d = b c
+    $
+  ])
   #continue_example
 ])
 
@@ -1449,9 +1454,7 @@ $],
    &= 14
  $]
 )
-#set align(center)
-#box(stroke: black, inset: 3pt, [$17$ $14$])
-#set align(left)
+#align(center, [*17 14*])
 
 To create a *private/decryption key*, we need an additional integer that is the positive inverse to $e mod (p-1)(q-1)$.
 We can refer to this integer as $d$, and is the last part of the private key:
@@ -1567,20 +1570,20 @@ $
 ])
 
 - The first fundamental partial order relation is the *less than or equal to* relation on $RR$.
-#set align(center)
-_For all integers $a$ and $b$_,
-$
-  a op(R) b <=> a <= b
-$
-#set align(left)
+#align(center, [
+  _For all integers $a$ and $b$_,
+  $
+    a op(R) b <=> a <= b
+  $
+])
 
 - The second fundamental partial order relation is the *subset* relation on a set of sets.
-#set align(center)
-_For any sets $A$ and $B in C$_,
-$
-  A op(R) B <=> A subset.eq B
-$
-#set align(left)
+#align(center, [
+  _For any sets $A$ and $B in C$_,
+  $
+    A op(R) B <=> A subset.eq B
+  $
+])
 
 - Due to the commonality of the _less than or equal to_ relation, the symbol $prec.eq$ is used to denote it as a general partial order relation.
   - Consequently, $x prec.eq y$ may be read as the same as "$x <= y$."
@@ -1588,12 +1591,12 @@ $
 #example([Divides Relation], [
   Let $divides$ be the divides relation on set of positive integers $A$. It is defined as follows:\
   
-  #set align(center)
-  _For all positive integers $a$ and $b in A$_
-  $
-    a divides b <=> b = k a "for some integer" k
-  $
-  #set align(left)
+  #align(center, [
+    _For all positive integers $a$ and $b in A$_
+    $
+      a divides b <=> b = k a "for some integer" k
+    $
+  ])
   
   Prove that $divides$ is a partial order relation on $A$.
 
@@ -1641,11 +1644,11 @@ $
   Let $A$ be a set with a partial order relation $R$, and let $S$ be a set of strings over $A$.
   Define a relation $prec.eq$ on $S$ as follows:
 
-  #set align(center)
-  _For any strings $s$ and $t$ of positive integer lengths $m$ and $n$, respectively, 
-  let $s_m$ and $t_m$ be the characters at the $m$th position of $s$ and $t$, respectively. 
-  Thus, the following conditions hold:_ 
-  #set align(left)
+  #align(center, [
+    _For any strings $s$ and $t$ of positive integer lengths $m$ and $n$, respectively, 
+    let $s_m$ and $t_m$ be the characters at the $m$th position of $s$ and $t$, respectively. 
+    Thus, the following conditions hold:_ 
+  ])
 
   + If $m <= n$ and the first $m$ characters are the same between $s$ and $t$, then $s prec.eq t$.
   + If the first $m-1$ characters are the same between $s$ and $t$, $s_m op(R) t_m$, and $s_m eq.not t_m$, \ then $s prec.eq t$.
@@ -1676,12 +1679,13 @@ If no strings are related by $prec.eq$ other than the aforementioned conditions,
 - Loops, transitive-implied edges, and direction indicators are all omitted.
 
 - Suppose we let set $A = {1,2,3,9,18}$, and define the following _divides_ relation on $A$:
-#set align(center)
-_For all $a$ and $b in A$,_
-$
-  a divides b <=> b = k a "for some integer" k
-$
-#set align(left)
+#align(center, [
+  _For all $a$ and $b in A$,_
+  $
+    a divides b <=> b = k a "for some integer" k
+  $
+])
+
 #pagebreak()
 - This results in the following directed graph:
 #figure(
@@ -1875,9 +1879,7 @@ $
     - Define $a prec.eq' b$.
     - Set $A' colon.eq A' - {b}$ and $a colon.eq b$.
 
-#example([Topological Sorting Steps], [
 
-])
 
 
 
