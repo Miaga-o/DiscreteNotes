@@ -1,4 +1,5 @@
 #import "@preview/cetz:0.4.2"
+#import "@preview/cetz-plot:0.1.3"
 #import "@preview/fletcher:0.5.8" as fletcher: diagram, node, edge, shapes
 #import "@preview/i-figured:0.2.4"
 
@@ -10,7 +11,7 @@
 #show heading.where(level: 1): set text(size: 20pt)
 #show heading.where(level: 2): set text(size: 18pt)
 #show heading.where(level: 3): set text(size: 16pt)
-#show math.equation: set text(font: "New Computer Modern Sans Math")
+#show math.equation: set text(font: "New Computer Modern Math")
 #show sym.emptyset: set text(font: "Fira Sans")
 
 //Functions and variables
@@ -130,26 +131,42 @@
     #figure(
       cetz.canvas({
         import cetz.draw: *
+        import cetz-plot: *
+
+        let func = x => x
+        let domain = (-10, 10)
 
         set-style(
-          content: (padding: 1pt)
+
+          legend: (stroke: none, orientation: ttb, scale: 120%)
         )
 
-        line((0,0), (0,-2), mark: (end: "stealth"))
-        line((0,0), (0,2), mark: (end: "stealth"))
-        content((), $y$, anchor: "west", padding: 4pt)
+        plot.plot(
+          size: (6,6),
+          x-tick-step: none,
+          y-tick-step: none,
+          x-equal: "y",
+          axis-style: "school-book",
+          legend: "inner-north-west",
+          {
+            plot.add(
+              domain: domain, func, 
+              style: (stroke: (dash: "dashed", paint: rgb("#3749e6")))
+            )
 
-        line((0,0), (-2,0), mark: (end: "stealth"))
-        line((0,0), (2,0), mark: (end: "stealth"))
-        content((), $x$, anchor: "west", padding: 2pt)
-      
+            plot.add-fill-between(
+              domain: domain, func, x => 10, 
+              style: (stroke: none, fill: rgb("#adbce0"))
+            )
 
-        line((-2,-2), (2,2), stroke: (paint: blue, dash: "dashed"), fill: black)
-
-        content((-1,1), [#text(fill:blue, $x<y$)])
+            plot.add-legend([$L$], preview: () => {
+              line((0,0), (1,1), stroke: (dash: "dashed", paint: rgb("#3749e6")))
+            })
+          }
+        )
       }),
       supplement: [Graph],
-      caption: [_Anything ordered pair above the dotted line satisfy $L$._]
+      caption: [_Any ordered pair above the dotted line satisfies $L$._]
     )
 ])
 
@@ -293,21 +310,74 @@ $
   #figure(
     cetz.canvas({
       import cetz.draw: *
-      line((0,0), (0,-2), mark: (end: "stealth"))
-      line((0,0), (0,2), mark: (end: "stealth"))
-      content((), $y$, anchor: "west", padding: 4pt)
+        import cetz-plot: *
 
-      line((0,0), (-2,0), mark: (end: "stealth"))
-      line((0,0), (2,0), mark: (end: "stealth"))
-      content((), $x$, anchor: "west", padding: 2pt)
+        let func1a = x => -2*x
+        let domain1a = (-2, 0)
+        let func1b = x => 2*x
+        let domain1b = (0, 2)
 
-      line((0,0), (1,2), stroke: red)
-      line((0,0), (-1,2), stroke: red)
-      content((-1.5,1.3), [#text(fill:red, $y=2|x|$)])
+        let func2a = x => 0.5*x
+        let func2b = x => -0.5*x
+        let domain2 = (0, 4)
 
-      line((0,0), (2,1), stroke: blue)
-      line((0,0), (2,-1), stroke: blue)
-      content((1.7,0.3), [#text(fill:blue, $x=2|y|$)])
+        set-style(
+          legend: (stroke: none, orientation: ttb, scale: 120%)
+        )
+
+        plot.plot(
+          size: (6,6),
+          x-min: -2, x-max: 2,
+          y-min: -4, y-max: 4,
+          x-tick-step: 2,
+          y-tick-step: 1,
+          x-equal: "y",
+          axis-style: "school-book",
+          legend: "inner-south-west",
+          {
+            plot.add(
+              domain: domain1a, func1a, 
+              style: (stroke: (dash: "dashed", paint: red))
+            )
+            plot.add(
+              domain: domain1b, func1b, 
+              style: (stroke: (dash: "dashed", paint: red))
+            )
+            plot.add-fill-between(
+              domain: domain1a, func1a, x => 4, 
+              style: (stroke: none, fill: rgb("#e0adad"))
+            )
+            plot.add-fill-between(
+              domain: domain1b, func1b, x => 4, 
+              style: (stroke: none, fill: rgb("#e0adad"))
+            )
+
+
+            plot.add(
+              domain: domain2, func2a, 
+              style: (stroke: (dash: "dashed", paint: rgb("#3749e6")))
+            )
+            plot.add(
+              domain: domain2, func2b, 
+              style: (stroke: (dash: "dashed", paint: rgb("#3749e6")))
+            )
+            plot.add-fill-between(
+              domain: domain2, func2a, func2b, 
+              style: (stroke: none, fill: rgb("#adbce0"))
+            )
+
+
+            plot.add-legend(
+              [$R$], preview: () => {
+              line((0,0), (1,1), stroke: (dash: "dashed", paint: red))
+            })
+
+            plot.add-legend(
+              [$R^(-1)$], preview: () => {
+              line((0,0), (1,1), stroke: (dash: "dashed", paint: rgb("#3749e6")))
+            })
+          }
+        )
     }),
     supplement: [Graph],
     caption: [_$R$ and $R^(-1)$ on the cartesian plane._]
