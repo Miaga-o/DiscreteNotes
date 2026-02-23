@@ -357,12 +357,12 @@ $
 
             plot.add-legend(
               [$R$], preview: () => {
-              line((0,0), (1,1), stroke: (dash: "dashed", paint: red))
+              line((0,0), (1,1), stroke: (paint: red))
             })
 
             plot.add-legend(
               [$R^(-1)$], preview: () => {
-              line((0,0), (1,1), stroke: (dash: "dashed", paint: rgb("#3749e6")))
+              line((0,0), (1,1), stroke: (paint: rgb("#3749e6")))
             })
           }
         )
