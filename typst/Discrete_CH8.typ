@@ -160,7 +160,7 @@
             )
 
             plot.add-legend([$L$], preview: () => {
-              line((0,0), (1,1), stroke: (dash: "dashed", paint: rgb("#3749e6")))
+              rect((0,0), (1,1), stroke: none, fill: rgb("#adbce0"))
             })
           }
         )
