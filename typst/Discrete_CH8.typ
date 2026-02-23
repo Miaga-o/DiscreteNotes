@@ -337,33 +337,21 @@ $
           {
             plot.add(
               domain: domain1a, func1a, 
-              style: (stroke: (dash: "dashed", paint: red))
+              style: (stroke: (paint: red))
             )
             plot.add(
               domain: domain1b, func1b, 
-              style: (stroke: (dash: "dashed", paint: red))
-            )
-            plot.add-fill-between(
-              domain: domain1a, func1a, x => 4, 
-              style: (stroke: none, fill: rgb("#e0adad"))
-            )
-            plot.add-fill-between(
-              domain: domain1b, func1b, x => 4, 
-              style: (stroke: none, fill: rgb("#e0adad"))
+              style: (stroke: (paint: red))
             )
 
 
             plot.add(
               domain: domain2, func2a, 
-              style: (stroke: (dash: "dashed", paint: rgb("#3749e6")))
+              style: (stroke: (paint: rgb("#3749e6")))
             )
             plot.add(
               domain: domain2, func2b, 
-              style: (stroke: (dash: "dashed", paint: rgb("#3749e6")))
-            )
-            plot.add-fill-between(
-              domain: domain2, func2a, func2b, 
-              style: (stroke: none, fill: rgb("#adbce0"))
+              style: (stroke: (paint: rgb("#3749e6")))
             )
 
 
