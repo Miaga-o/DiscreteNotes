@@ -1,6 +1,6 @@
 #set page("a4", numbering: "1 of 1")
 #set text(font: "New Computer Modern Sans")
-#show math.equation: set text(font: "New Computer Modern Sans Math")
+#show math.equation: set text(font: "New Computer Modern Math")
 #show title: set text(size: 24pt)
 #show heading.where(level: 1): set text(size: 20pt)
 #show heading.where(level: 2): set text(size: 18pt)

@@ -329,7 +329,7 @@ $
           size: (6,6),
           x-min: -2, x-max: 2,
           y-min: -4, y-max: 4,
-          x-tick-step: 2,
+          x-tick-step: 1,
           y-tick-step: 1,
           x-equal: "y",
           axis-style: "school-book",

@@ -7,7 +7,7 @@
 #show heading.where(level: 1): set text(size: 20pt)
 #show heading.where(level: 2): set text(size: 18pt)
 #show heading.where(level: 3): set text(size: 16pt)
-#show math.equation: set text(font: "New Computer Modern Sans Math")
+#show math.equation: set text(font: "New Computer Modern Math")
 #show sym.emptyset: set text(font: "Fira Sans")
 
 #let author = text(size: 16pt, [Miagao])
